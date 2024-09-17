@@ -1,0 +1,46 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+body{ 
+  margin:0;
+   padding:0;
+    height:100%;
+    width:100%;
+   }
+
+.mainframe{
+  
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw; 
+  height: 100vh; 
+  overflow: hidden;
+  display: flex;
+  background: #1c1f2b;
+}
+/* IMAGESIDE------------------------------------------------- */
+.imageside{
+  display: flex;
+  align-items: start;
+  width: 75vw; 
+}
+.imageside img{
+  margin-top: 25vh;
+  height: 25vh;
+  width: 60%;
+}
+/* -----------------------------------------------------------*/
+
+.boxside{
+  border: solid #F5F5F5;
+  width: 100%;
+}
+
+.inputbox{
+  display: flex;
+  flex-direction: column;
+}
