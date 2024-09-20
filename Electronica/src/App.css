@@ -3,6 +3,7 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  color: #F5F5F5;
 }
 body{ 
   margin:0;
@@ -30,14 +31,50 @@ body{
 }
 .imageside img{
   margin-top: 25vh;
-  height: 25vh;
-  width: 60%;
+  height: 30vh;
+  width: 65%;
 }
 /* -----------------------------------------------------------*/
+h1{
+  margin-bottom: 15%;
+}
 
 .boxside{
-  border: solid #F5F5F5;
-  width: 100%;
+  border: solid 1PX #F5F5F5;
+  width: 35%;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+
+  
+}
+
+.boxside input{
+  background-color: #1c1f2b;
+  border-color: black;
+  margin-left: 11%;
+  width: 75%;
+  height: 30px;
+}
+.boxside label{
+  margin-top: 10%;
+  margin-left: 11%;
+  text-align: left;
+}
+
+.boxside a{
+  margin-left: 11%;
+  text-align: left;
+}
+.boxside button{
+  margin-left: 11%;
+  background-color: black;
+  color: #F5F5F5;
+  height: 50px;
+  width: 75%;
+  margin-top: 10%;
+  margin-bottom: 11%;
+
 }
 
 .inputbox{

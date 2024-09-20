@@ -24,7 +24,7 @@ function Login() {
 
 
         <div className='inputbox'>
-        <button>Ingresar</button>
+        <button>INGRESAR</button>
         <a>has olvidado la Contraseña</a>
         </div>
 
