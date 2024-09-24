@@ -2,10 +2,11 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-import Login from './pages/login'
+import Login from './pages/Login'
 
-import Inicio from './pages/Home'
+import Home from './pages/Home'
 import './pages/Home.css'
+import Register from './pages/Register'
 
 
 
@@ -14,9 +15,10 @@ function App() {
 
   return (
     <>
-  <Register/>
+  <Register/> 
   
     </>
+    
   )
 }
 
