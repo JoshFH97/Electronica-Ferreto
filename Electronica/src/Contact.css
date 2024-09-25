@@ -1,0 +1,44 @@
+/* archivo: src/CSS/customStyles.css */
+
+/* Estilos para el Navbar */
+.navbar-custom {
+    background-color: #3498db; /* Cambia el color del fondo del navbar */
+  }
+  
+  .navbar-custom .nav-link {
+    color: white; /* Cambia el color del texto del navbar */
+  }
+  
+  /* Estilos para la sección de contacto */
+  .Material-contact-section {
+    background-color: #f4f4f4; /* Fondo claro */
+    padding: 60px 0;
+  }
+  
+  .section-title {
+    color: #34495e; /* Título de color gris oscuro */
+    font-size: 32px;
+    margin-bottom: 20px;
+  }
+  
+  /* Estilos del texto */
+  p, a {
+    color: #2c3e50; /* Color del texto general */
+  }
+  
+  /* Estilos del formulario */
+  .form-control {
+    border-color: #ccc;
+    background-color: #fff;
+    color: #2c3e50;
+  }
+  
+  .btn-common {
+    background-color: #e74c3c; /* Rojo para el botón de enviar */
+    color: white; /* Texto blanco */
+  }
+  
+  .btn-common:hover {
+    background-color: #c0392b; /* Rojo oscuro al hacer hover */
+  }
+  

@@ -1,18 +1,3 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0;
-  
-  text-align: center;
-  color: #F5F5F5;
-}
-body{ 
-  margin:0;
-   padding:0;
-    height:100%;
-    width:100%;
-   }
-
 .mainframe{
   
   position: fixed;
@@ -36,9 +21,6 @@ body{
   width: 65%;
 }
 /* -----------------------------------------------------------*/
-h1{
-  margin-bottom: 15%;
-}
 
 .boxside{
   border: solid 1PX #F5F5F5;
@@ -81,40 +63,4 @@ h1{
 .inputbox{
   display: flex;
   flex-direction: column;
-}
-*{
-  box-sizing: border-box;
-}
-.nav{
-  background-color: gray;
-  color: black;
-  display: flex;
-
-  align-items: center;
-  gap:2rem;
-  padding: 0 1rem;
-  width: 150%;
-  margin-left: -10%;
-}
-.nav ul{
-  padding: 0;
-  margin: 0;
-  list-style:none;
-  display: flex;
-  gap:1rem;
-}
-
-.nav a{
-  color: inherit;
-  text-decoration: none;
-  align-items: center;
-  padding: .25rem;
-}
-
-.nav li.active{
-  background-color: red;
-}
-.nav li :hover{
-  background-color: blue;
-  border-radius: 30px;
 }
