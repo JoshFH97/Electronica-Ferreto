@@ -1,12 +1,12 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 import Login from './pages/Login'
-
 import Home from './pages/Home'
 import './pages/Home.css'
 import Register from './pages/Register'
+import ContactSection from './pages/Contact'
+import AboutSection from './pages/About'
+import ProductSection from './pages/Products'
 
 
 
@@ -15,8 +15,12 @@ function App() {
 
   return (
     <>
-  <Register/> 
-  
+  {/* <ContactSection/> */}
+  <Home/> 
+  {/* <AboutSection/> */}
+  {/* <ProductSection/> */}
+  {/* <Login/> */}
+  {/* <Register/> */}
     </>
     
   )

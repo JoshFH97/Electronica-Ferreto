@@ -2,6 +2,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';  // Para manejar el contenido del <head> en React
 import 'bootstrap/dist/css/bootstrap.min.css';  // Importación de los estilos de Bootstrap
+import Navbar from '../Components/Navbar';
 
 // Definición del componente principal de la aplicación
 const App = () => (
@@ -37,68 +38,9 @@ const App = () => (
       <link href="./Home.css" rel="stylesheet" />
     </Helmet>
 
-    {/* Inicio del Navbar o barra de navegación */}
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <div className="container px-4 px-lg-5">
-        {/* Logo o nombre de la marca */}
-        <a className="navbar-brand" href="#!">Start Bootstrap</a>
-        
-        {/* Botón para alternar el menú en dispositivos móviles */}
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon" />
-        </button>
-        
-        {/* Contenedor colapsable del menú */}
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-            {/* Enlaces de navegación */}
-            <li className="nav-item">
-              <a className="nav-link active" aria-current="page" href="#!">Home</a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#!">About</a>
-            </li>
-            
-            {/* Menú desplegable (dropdown) para la tienda */}
-            <li className="nav-item dropdown">
-              <a
-                className="nav-link dropdown-toggle"
-                id="navbarDropdown"
-                href="#"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Shop
-              </a>
-              <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a className="dropdown-item" href="#!">All Products</a></li>
-                <li><hr className="dropdown-divider" /></li>
-                <li><a className="dropdown-item" href="#!">Popular Items</a></li>
-                <li><a className="dropdown-item" href="#!">New Arrivals</a></li>
-              </ul>
-            </li>
-          </ul>
-          
-          {/* Formulario del carrito de compras con icono y contador */}
-          <form className="d-flex">
-            <button className="btn btn-outline-dark" type="submit">
-              <i className="bi-cart-fill me-1" />  {/* Icono del carrito */}
-              Cart
-              <span className="badge bg-dark text-white ms-1 rounded-pill">0</span>  {/* Contador del carrito */}
-            </button>
-          </form>
-        </div>
-      </div>
-    </nav>
+    <Navbar/>
+
+   
 
     {/* Inicio del encabezado */}
     <header className="bg-dark py-5">
