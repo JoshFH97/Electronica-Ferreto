@@ -7,8 +7,8 @@ class Usuario(models.Model):
         ('Cliente', 'Cliente')
     ]
     
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    telefono = models.CharField(max_length=18)
+    user = models.OneToOneField(User, unique=True, on_delete=models.CASCADE)
+    email = models.EmailField(max_length=254, unique=True)
     rol = models.CharField(max_length=7, choices=ROLES, default='Cliente')  # Enum
 
     def __str__(self):

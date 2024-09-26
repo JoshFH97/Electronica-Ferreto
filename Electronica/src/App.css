@@ -28,9 +28,11 @@
   display: flex;
   flex-direction: column;
   align-content: center;
+  color: white
 
   
 }
+
 
 .boxside input{
   background-color: #1c1f2b;

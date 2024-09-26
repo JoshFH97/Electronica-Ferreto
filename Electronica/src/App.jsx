@@ -16,7 +16,7 @@ function App() {
   return (
     <>
   {/* <ContactSection/> */}
-  <Home/> 
+  <Register/> 
   {/* <AboutSection/> */}
   {/* <ProductSection/> */}
   {/* <Login/> */}

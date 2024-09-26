@@ -1,10 +1,38 @@
 import React, { useState } from 'react'
+import usingFetch from '../hooks/usingFetch.js';
+
 
 function Login() {
   //inputs
 const [nombre,setNombre]=useState('')
 const [clave,setClave]=useState('')
 //-------------------------------------------
+const endpoint='api/login/'
+//-------------------------------------------
+const Verificacion=async()=>{
+const user={
+  username: nombre,
+  password: clave
+}
+console.log('esto es lo que llega a user '+JSON.stringify(user));
+
+
+const respuesta=await usingFetch.post(endpoint, user);
+
+
+
+
+if (respuesta.success=='200') {
+  console.log(respuesta.success);
+  
+  alert('exito')
+} else {
+  console.log(respuesta);
+   alert('eo')
+}
+
+
+}
 
 
   return (
@@ -30,7 +58,7 @@ const [clave,setClave]=useState('')
 
 
         <div className='inputbox'>
-        <button>INGRESAR</button>
+        <button onClick={Verificacion}>INGRESAR</button>
         <a>no tienes cuenta?</a>
         </div>
 

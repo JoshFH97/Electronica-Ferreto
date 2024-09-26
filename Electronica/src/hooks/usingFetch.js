@@ -20,9 +20,9 @@ const get = async (endpoint, id = "") => {//se utiliza el url ya guardado se lla
 };
 
 //POST METHOD
-const post = async (url, body) => {  //post para subir datos
+const post = async (endpoint, body) => {  //post para subir datos
     try {
-      const response = await fetch(url, {
+      const response = await fetch(url+endpoint, {
         method: "POST",
         mode: "cors",
         credentials: "same-origin",
@@ -82,4 +82,4 @@ async function deleteMethod(endpoint,id) {//METHOD DELETE
     }
   }
 
-  export { get, post, put, deleteMethod };
+  export default { get, post, put, deleteMethod };

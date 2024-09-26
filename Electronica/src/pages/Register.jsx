@@ -1,5 +1,28 @@
+import { useState } from "react";
+import post from '../hooks/usingFetch.js';
 function Register() {
-    
+const endpoint='api/registro';
+const [nombre,setNombre]=useState('');
+const [email,setEmail]=useState('');
+const [contrasena,setContrasena]=useState('');
+const [confirma,setConfirma]=useState('');
+
+
+const objectCreation=(roll='client')=>{
+    const user={
+        rol:roll,
+        username:nombre,
+        password:contrasena
+    }
+    return user
+}
+
+const Registro =(user)=>{
+
+post(endpoint,user)
+}
+
+
     return(<>
 
 <div className='mainframe'>
