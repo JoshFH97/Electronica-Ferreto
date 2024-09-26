@@ -1,5 +1,5 @@
 import { useState } from "react";
-import post from '../hooks/usingFetch.js';
+import usingFetch from '../hooks/usingFetch.js';
 function Register() {
 const endpoint='api/registro';
 const [nombre,setNombre]=useState('');
@@ -8,21 +8,25 @@ const [contrasena,setContrasena]=useState('');
 const [confirma,setConfirma]=useState('');
 
 
-const objectCreation=(roll='client')=>{
+const Verificacion=async()=>{
     const user={
-        rol:roll,
-        username:nombre,
-        password:contrasena
+      username: nombre,
+      email:email,
+      password: contrasena
     }
-    return user
-}
-
-const Registro =(user)=>{
-
-post(endpoint,user)
-}
-
-
+    console.log('esto es lo que llega a user '+JSON.stringify(user));
+    
+    
+    const respuesta=await usingFetch.post(endpoint, user);
+    
+    console.log(respuesta.success);
+    
+    if (respuesta.success!=201||respuesta.success==null){
+        alert('hubo un error intente mas tarde')
+    }else{
+        alert("usuario creado")
+    }
+}    
     return(<>
 
 <div className='mainframe'>
@@ -37,27 +41,27 @@ post(endpoint,user)
 
         <div className='inputbox'>
         <label htmlFor="nombre">Nombre</label>
-        <input type="text" id="nombre" />
+        <input type="text" id="nombre" onChange={(e)=>setNombre(e.target.value)}/>
         </div>
 
 
         <div className='inputbox'>
-        <label htmlFor="email">Correo</label>
-        <input type="text" id="email"/>
+        <label htmlFor="email" >Correo</label>
+        <input type="text" id="email" onChange={(e)=>setEmail(e.target.value)}/>
         </div>
 
         <div className='inputbox'>
         <label htmlFor="contra">Contraseña</label>
-        <input type="text" id="contra" />
+        <input type="text" id="contra" onChange={(e)=>setContrasena(e.target.value)}/>
         </div>
 
         <div className='inputbox'>
-        <label htmlFor="contra">Introduzca nuevamente la contraseña</label>
+        <label htmlFor="contra" onChange={(e)=>setConfirma(e.target.value)}>Introduzca nuevamente la contraseña</label>
         <input type="text" id="contra"/>
         </div>
 
         <div className='inputbox'>
-        <button>Registrar</button>
+        <button onClick={Verificacion}>Registrar</button>
         <a>Ya tienes cuenta?</a>
         </div>
 

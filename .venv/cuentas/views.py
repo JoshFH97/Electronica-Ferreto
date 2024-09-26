@@ -13,21 +13,17 @@ class RegistroView(APIView):
         
         username=request.data.get('username')
         password=request.data.get('password')
-        email = request.data.get('telefono')
-        rol = request.data.get('rol')
+        email = request.data.get('email')
+       
         
         if User.objects.filter(username=username).exists():
             return Response({'error':'Usuario ya existia'}, status=status.HTTP_400_BAD_REQUEST)
         
-        nuevo_usuario = User.objects.create_user(username=username,password=password)
+        nuevo_usuario = User.objects.create_user(username=username,email=email,password=password)
         
-        Usuario.objects.create(
-            user = nuevo_usuario,
-            email = email,
-            rol = rol
-        )
+   
         
-        return Response({'error':'Usuario encontrado'}, status=status.HTTP_201_CREATED)    
+        return Response({'success':status.HTTP_201_CREATED}, status=status.HTTP_201_CREATED)      
     
 class LoginView(APIView):
     def post(self,request):
@@ -42,3 +38,19 @@ class LoginView(APIView):
         else:
             return Response({'error':f'{status.HTTP_404_NOT_FOUND}'}, status=status.HTTP_404_NOT_FOUND)
         
+class RegistroViewAdmin(APIView):
+    def post(self,request):
+        
+        username=request.data.get('username')
+        password=request.data.get('password')
+        email = request.data.get('email')
+       
+        
+        if User.objects.filter(username=username).exists():
+            return Response({'error':'Usuario ya existia'}, status=status.HTTP_400_BAD_REQUEST)
+        
+        nuevo_usuario = User.objects.create_superuser(username=username,email=email,password=password)
+        
+   
+        
+        return Response({'success':'Usuario creado'}, status=status.HTTP_201_CREATED)    
