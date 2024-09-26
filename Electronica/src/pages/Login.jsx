@@ -1,9 +1,7 @@
-import React, { useState } from 'react'
 
 function Login() {
   //inputs
-const [nombre,setNombre]=useState('')
-const [clave,setClave]=useState('')
+
 //-------------------------------------------
 
 
@@ -19,12 +17,12 @@ const [clave,setClave]=useState('')
      <h1>Bienvenido</h1>
         <div className='inputbox'>
         <label htmlFor="nombre">Nombre</label>
-        <input type="text" id="nombre" onChange={(e)=>setNombre(e.target.value)}/>
+        <input type="text" id="nombre" />
         </div>
 
         <div className='inputbox'>
         <label htmlFor="contra">Contraseña</label>
-        <input type="text" id="contra" onChange={(e)=>setClave(e.target.value)}/>
+        <input type="text" id="contra" />
         <a>has olvidado la Contraseña</a>
         </div>
 
