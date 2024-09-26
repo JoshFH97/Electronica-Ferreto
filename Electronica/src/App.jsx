@@ -19,6 +19,8 @@ function App() {
   <Home/> 
   {/* <AboutSection/> */}
   {/* <ProductSection/> */}
+  {/* <Login/> */}
+  {/* <Register/> */}
     </>
     
   )
