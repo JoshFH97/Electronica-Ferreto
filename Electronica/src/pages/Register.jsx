@@ -1,5 +1,6 @@
 import { useState } from "react";
 import usingFetch from '../hooks/usingFetch.js';
+import verification from '../hooks/verification.js';
 function Register() {
 const endpoint='api/registro';
 const [nombre,setNombre]=useState('');
@@ -9,23 +10,38 @@ const [confirma,setConfirma]=useState('');
 
 
 const Verificacion=async()=>{
-    const user={
-      username: nombre,
-      email:email,
-      password: contrasena
-    }
-    console.log('esto es lo que llega a user '+JSON.stringify(user));
-    
-    
-    const respuesta=await usingFetch.post(endpoint, user);
-    
-    console.log(respuesta.success);
-    
-    if (respuesta.success!=201||respuesta.success==null){
-        alert('hubo un error intente mas tarde')
+    const coinciden = verification.coinciden(contrasena, confirma);
+    const esValidaContrasena = verification.masDeOcho(contrasena);
+    const esValidoCorreo = verification.correo(email);
+
+    // Si alguna de las validaciones falla, mostrar error y salir
+    if (!coinciden || !esValidaContrasena || !esValidoCorreo) {
+        alert('Por favor, revisa los campos ingresados.');
+        return;
     }else{
-        alert("usuario creado")
+       
+        
+        const user={
+          username: nombre,
+          email:email,
+          password: contrasena
+        }
+        console.log('esto es lo que llega a user '+JSON.stringify(user));
+        
+        
+        const respuesta=await usingFetch.post(endpoint, user);
+       
+        
+        if (respuesta.success!=201||respuesta.success==null){
+            alert('hubo un error intente mas tarde')
+        }else{
+            alert("usuario creado")
+        }
+
+
     }
+
+
 }    
     return(<>
 
@@ -56,8 +72,8 @@ const Verificacion=async()=>{
         </div>
 
         <div className='inputbox'>
-        <label htmlFor="contra" onChange={(e)=>setConfirma(e.target.value)}>Introduzca nuevamente la contraseña</label>
-        <input type="text" id="contra"/>
+        <label htmlFor="contra" >Introduzca nuevamente la contraseña</label>
+        <input type="text" id="contra" onChange={(e)=>setConfirma(e.target.value)}/>
         </div>
 
         <div className='inputbox'>
