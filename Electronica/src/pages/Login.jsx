@@ -4,6 +4,8 @@ import usingFetch from '../hooks/usingFetch.js';
 
 function Login() {
   //inputs
+  const [nombre, setNombre] = useState("");
+  const [clave, setClave] = useState("");
 
 //-------------------------------------------
 const endpoint='api/login/'
