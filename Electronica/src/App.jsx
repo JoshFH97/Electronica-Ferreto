@@ -37,19 +37,7 @@ function App() {
   
 
   return (
-<<<<<<< HEAD
-    <>
-   
-  {/* <ContactSection/> */}
-  {/* <Register/>  */}
-  {/* <AboutSection/> */}
-  {/* <ProductSection/> */}
-  <Login/>
-  {/* <Register/> */}
-    </>
-=======
     <RouterProvider router={router} />
->>>>>>> d690d80e3ba766e6b64053e5fc1970aaa0233241
     
   )
 }
