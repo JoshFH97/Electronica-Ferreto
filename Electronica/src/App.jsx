@@ -18,6 +18,21 @@ const router = createBrowserRouter([
     path: "/",
     element: <Home/>,
   },
+  {
+    path: "/About",
+    element: <AboutSection/>,
+  },
+  {
+    path: "/Contact",
+    element: <ContactSection/>,
+  },{
+    path: "/Shop/All_Products",
+    element: <ProductSection/>,
+  },
+  // {
+  //   path: "Cart",
+  //   element: <CartSection/>,
+  // },
 ]);
 
 function App() {
@@ -35,6 +50,7 @@ function App() {
   
 
   return (
+    
     <RouterProvider router={router} />
     
   )
