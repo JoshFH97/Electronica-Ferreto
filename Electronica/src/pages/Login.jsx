@@ -1,9 +1,6 @@
-<<<<<<< HEAD
 import React, { useState } from 'react'
 import usingFetch from '../hooks/usingFetch.js';
 
-=======
->>>>>>> d690d80e3ba766e6b64053e5fc1970aaa0233241
 
 function Login() {
   //inputs
