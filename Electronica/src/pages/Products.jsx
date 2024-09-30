@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 // import { fetchPut, fetchPost, fetchDelete, fetchGet } from '../../Fetch/Api';
 import Navbar from '../Components/Navbar';
@@ -29,12 +29,12 @@ const ProductSection = () => {
 
     const fetchProducts = async () => {
       try {
-        const fetchedProducts = await fetchGet('http://localhost:3000/products');//Muestra el producto en la interfaz del API
+        const fetchedProducts = await fetch('http://localhost:3000/products');//Muestra el producto en la interfaz del API
         setProducts(fetchedProducts);
         setFilteredProducts(fetchedProducts);
 
         if (idUser) {
-          const user = await fetchGet(`http://localhost:3000/users/${idUser}`);//Dar acceso al administrador
+          const user = await fetch(`http://localhost:3000/users/${idUser}`);//Dar acceso al administrador
           if (user.administrador) {
             setAdmin(true);
           }
@@ -54,7 +54,7 @@ const ProductSection = () => {
   const handleAddProduct = async (newProduct) => {
     console.log(newProduct)
     try {
-      const createdProduct = await fetchPost(newProduct, 'http://localhost:3000/products');//Agregar los productos al API
+      const createdProduct = await fetch(newProduct, 'http://localhost:3000/products');//Agregar los productos al API
       setProducts([...products, createdProduct]);
       setFilteredProducts([...filteredProducts, createdProduct]);
       setShowAddProductModal(false); // Close modal after adding product
@@ -70,7 +70,7 @@ const ProductSection = () => {
 
   const handleConfirmDelete = async () => {
     try {
-      await fetchDelete(`http://localhost:3000/products/${productIdToDelete}`);//Elimina los productos de API
+      await fetch(`http://localhost:3000/products/${productIdToDelete}`);//Elimina los productos de API
       const updatedProducts = products.filter(product => product.id !== productIdToDelete);
       setProducts(updatedProducts);
       setFilteredProducts(updatedProducts);
@@ -83,7 +83,7 @@ const ProductSection = () => {
 const handleEditProduct = async (productId, updatedProductDetails) => {//Para editar el pruducto
   try {
     const updatedProduct = { ...products.find(p => p.id === productId), ...updatedProductDetails, image: editedImage || products.find(p => p.id === productId).image };
-    await fetchPut(updatedProduct, `http://localhost:3000/products/${productId}`);//Actualiza pruductos en el API
+    await fetch(updatedProduct, `http://localhost:3000/products/${productId}`);//Actualiza pruductos en el API
     const updatedProducts = products.map(product =>
       product.id === productId ? updatedProduct : product
     );

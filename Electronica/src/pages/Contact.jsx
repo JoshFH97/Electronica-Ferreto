@@ -1,4 +1,3 @@
-import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Importa Bootstrap
 import Navbar from '../Components/Navbar';
 import 'bootstrap/dist/css/bootstrap.min.css';  // Importación de los estilos de Bootstrap

@@ -1,11 +1,13 @@
+<<<<<<< HEAD
 import React, { useState } from 'react'
 import usingFetch from '../hooks/usingFetch.js';
 
+=======
+>>>>>>> d690d80e3ba766e6b64053e5fc1970aaa0233241
 
 function Login() {
   //inputs
-const [nombre,setNombre]=useState('')
-const [clave,setClave]=useState('')
+
 //-------------------------------------------
 const endpoint='api/login/'
 //-------------------------------------------
@@ -47,12 +49,12 @@ if (respuesta.success=='200') {
      <h1>Bienvenido</h1>
         <div className='inputbox'>
         <label htmlFor="nombre">Nombre</label>
-        <input type="text" id="nombre" onChange={(e)=>setNombre(e.target.value)}/>
+        <input type="text" id="nombre" />
         </div>
 
         <div className='inputbox'>
         <label htmlFor="contra">Contraseña</label>
-        <input type="text" id="contra" onChange={(e)=>setClave(e.target.value)}/>
+        <input type="text" id="contra" />
         <a>has olvidado la Contraseña</a>
         </div>
 

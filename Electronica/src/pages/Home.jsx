@@ -1,11 +1,10 @@
 // Importación de React y otros módulos necesarios
-import React from 'react';
 import { Helmet } from 'react-helmet';  // Para manejar el contenido del <head> en React
 import 'bootstrap/dist/css/bootstrap.min.css';  // Importación de los estilos de Bootstrap
 import Navbar from '../Components/Navbar';
 
 // Definición del componente principal de la aplicación
-const App = () => (
+const Home = () => (
   <>
     {/* Helmet es utilizado para manejar el contenido del <head> de manera dinámica en React */}
     <Helmet>
@@ -98,4 +97,4 @@ const App = () => (
 );
 
 // Exportación del componente App para que pueda ser utilizado en otros archivos
-export default App;
+export default Home;
