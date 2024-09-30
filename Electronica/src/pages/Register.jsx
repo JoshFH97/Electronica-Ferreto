@@ -1,5 +1,6 @@
 import { useState } from "react";
 import usingFetch from '../hooks/usingFetch.js';
+import { showToast } from '../hooks/alertas.js'; 
 import verification from '../hooks/verification.js';
 function Register() {
 const endpoint='api/registro';
@@ -16,7 +17,9 @@ const Verificacion=async()=>{
 
     // Si alguna de las validaciones falla, mostrar error y salir
     if (!coinciden || !esValidaContrasena || !esValidoCorreo) {
+        
         alert('Por favor, revisa los campos ingresados.');
+        showToast("This is a success message!", "success");
         return;
     }else{
        
