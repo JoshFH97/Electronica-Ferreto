@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'cuentas',
+    "productos",
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders'
@@ -86,7 +87,7 @@ WSGI_APPLICATION = 'Electronica.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME':'login',
+        'NAME':'electronica_db',
         'USER':'root',
         'PASSWORD':'root',
         'HOST':'localhost',
