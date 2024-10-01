@@ -13,6 +13,7 @@ class Producto(models.Model):
     stock=models.IntegerField()
     activo=models.BooleanField(default=True)
     id_categoria = models.ForeignKey("Categoria",on_delete=models.CASCADE)
+    imagen=models.TextField(blank=True, null=True)
 
 
 class Orden(models.Model):
