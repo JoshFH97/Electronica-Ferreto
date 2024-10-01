@@ -20,24 +20,29 @@ const router = createBrowserRouter([
     path: "/",
     element: <Home/>,
   },
+  {
+    path: "/About",
+    element: <AboutSection/>,
+  },
+  {
+    path: "/Contact",
+    element: <ContactSection/>,
+  },
+  {
+    path: "/Shop/All_Products",
+    element: <ProductSection/>,
+  },
 ]);
 
 function App() {
   
-{/* <ContactSection/> */}
-{/* <Home/>  */}
-{/* <AboutSection/> */}
-{/* <ProductSection/> */}
-{/* <Login/> */}
-{/* <Register/> */}
 
 
-
- 
-  
 
   return (
-    <RouterProvider router={router} />
+    <>
+    <RouterProvider router={router}/>
+    </>
     
   )
 }
