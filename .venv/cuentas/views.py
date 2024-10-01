@@ -34,9 +34,9 @@ class LoginView(APIView):
         
         if user is not None:
             token,created = Token.objects.get_or_create(user=user)
-            return Response({'success':f'{status.HTTP_200_OK}'}, status=status.HTTP_200_OK)
+            return Response({'success':f'AAAAA {status.HTTP_200_OK}'}, status=status.HTTP_200_OK)
         else:
-            return Response({'error':f'{status.HTTP_404_NOT_FOUND}'}, status=status.HTTP_404_NOT_FOUND)
+            return Response({'error':f'Usuario invalido  {status.HTTP_404_NOT_FOUND}'}, status=status.HTTP_404_NOT_FOUND)
         
 class RegistroViewAdmin(APIView):
     def post(self,request):

@@ -31,12 +31,16 @@ const post = async (endpoint, body) => {  //post para subir datos
         },
         body: JSON.stringify(body)
       });
-      
       const data = await response.json();
-      return data;
+      if(response.ok){
+        console.log(data.success);
+        return response
+      }else{
+        console.log(data.error);
+        return response
+      }
     } catch (e) {
       console.error(e);
-    
       return null;
     } 
   
