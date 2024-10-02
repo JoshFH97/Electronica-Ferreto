@@ -6,5 +6,5 @@ from productos.serializers import Producto_Serializer
 
 # Create your views here.
 class get_Producto_View(generics.ListCreateAPIView):
-    queryset = Producto.objects.all()
+    queryset = Producto.objects.filter(activo=True)
     serializer_class=Producto_Serializer

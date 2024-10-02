@@ -6,6 +6,9 @@ function Navbar() {
   const navigate = useNavigate();
   const location = useLocation(); // Para saber la URL actual
   const [activeLink, setActiveLink] = useState(location.pathname);
+  const [admin, setAdmin]=useState(321)
+  
+  const contra=321
 
   // Actualiza el estado `activeLink` cuando la URL cambia
   useEffect(() => {
@@ -60,6 +63,16 @@ function Navbar() {
                   Contact
                 </a>
               </li>
+              {admin === contra ? (
+              <li className="nav-item">
+                <a
+                  className={`nav-link ${activeLink === '/Contact' ? 'active' : ''}`}
+                  onClick={() => changeActiveLink('/Contact')}
+                >
+                  Agregar
+
+                </a>
+              </li>):<></>}
 
               {/* Menú desplegable (dropdown) para la tienda */}
               <li className="nav-item dropdown">
@@ -96,6 +109,13 @@ function Navbar() {
                 {/* Icono del carrito */}
                 Cart
                 <span className="badge bg-light text-black ms-1 rounded-pill">0</span>  
+                {/* Contador del carrito */}
+              </button>
+              <button className="btn btn-outline-dark text-white" type="submit">
+              <i className="bi bi-box-arrow-in-left"></i>
+                {/* Icono del carrito */}
+                logout
+                  
                 {/* Contador del carrito */}
               </button>
             </form>
