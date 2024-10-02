@@ -98,6 +98,13 @@ function Navbar() {
                 <span className="badge bg-light text-black ms-1 rounded-pill">0</span>  
                 {/* Contador del carrito */}
               </button>
+              <button className="btn btn-outline-dark text-white" type="submit">
+              <i className="bi bi-box-arrow-in-left"></i>
+                {/* Icono del carrito */}
+                log out
+                  
+                {/* Contador del carrito */}
+              </button>
             </form>
           </div>
         </div>
