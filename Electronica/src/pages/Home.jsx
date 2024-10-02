@@ -10,6 +10,8 @@ import usingFetch from '../hooks/usingFetch.js';
 const Home = () => {
   const endpoint="/api/productos"
   const [listaProductos,setListaProductos]=useState([])
+  const [admin, setAdmin]=useState(321)
+  const contra=321
  
 
 
@@ -105,7 +107,15 @@ useEffect(()=>{
               {/* Acciones de la tarjeta del producto */}
               <div className="card-footer p-4 pt-0 border-top-0 bg-transparent">
                 <div className="text-center">
-                  <a className="btn btn-outline-dark mt-auto" href="#">Agregar a Carrito</a>  {/* Botón para ver más detalles */}
+                {admin === contra ? (
+  <>
+    <a className="btn btn-outline-dark mt-auto" href="#">editar</a>
+    <a style={{ marginLeft: '5px' }} className="btn btn-outline-dark mt-auto" href="#">eliminar</a>
+  </>
+) : (
+  <a className="btn btn-outline-dark mt-auto" href="#">Agregar a Carrito</a>
+)}
+
                 </div>
               </div>
             </div>
