@@ -105,7 +105,7 @@ useEffect(()=>{
               {/* Acciones de la tarjeta del producto */}
               <div className="card-footer p-4 pt-0 border-top-0 bg-transparent">
                 <div className="text-center">
-                  <a className="btn btn-outline-dark mt-auto" href="#">View options</a>  {/* Botón para ver más detalles */}
+                  <a className="btn btn-outline-dark mt-auto" href="#">Agregar a Carrito</a>  {/* Botón para ver más detalles */}
                 </div>
               </div>
             </div>
@@ -126,7 +126,7 @@ useEffect(()=>{
     {/* Inicio del pie de página */}
     <footer className="py-5 bg-dark">
       <div className="container">
-        <p className="m-0 text-center text-white">Copyright © Your Website 2023</p>  {/* Copyright */}
+        <p className="m-0 text-center text-white">Copyright © Electronica Ferreto FWD 2024</p>  {/* Copyright */}
       </div>
     </footer>
   </>
