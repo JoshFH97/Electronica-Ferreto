@@ -39,7 +39,7 @@ const router = createBrowserRouter([
     element: <Login/>,
   },
   {
-    path: "/Agregar",
+    path: "/agregar",
     element: <Agregar/>,
   },
 ]);

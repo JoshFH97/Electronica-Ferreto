@@ -145,3 +145,19 @@ iframe {
     text-align: center;
   }
 }
+
+.inputfile{
+  display: none;
+  margin-top: 15px;
+}
+
+.lableinputfile{
+  margin-top: 15px;
+  display: inline-block;
+  text-transform: uppercase;
+  color: black;
+  background-color: #eae1e1;
+  border-radius: 15px;
+  text-align: center;
+  padding: 15px 40px;
+}
