@@ -1,3 +1,9 @@
+import '../Contact.css';// Importa el css para el diseno
+import React, { useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css'; // Importa Bootstrap
+import Navbar from '../Components/Navbar';//Navbar
+import emailjs from 'emailjs-com'; // Importa EmailJS
+
 const Agregar =()=>{
 
     return(<>
@@ -130,7 +136,7 @@ const Agregar =()=>{
           </div>
         </div>
       </section>
-    </>
+    
 
     
     </>)

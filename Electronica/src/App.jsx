@@ -13,6 +13,7 @@ import AboutSection from './pages/About'
 import ProductSection from './pages/Products'
 import { ToastContainer } from 'react-toastify';
 import { showToast } from './hooks/alertas.js'; 
+import Agregar from "./pages/Agregar.jsx";
 
 
 const router = createBrowserRouter([
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login/>,
+  },
+  {
+    path: "/Agregar",
+    element: <Agregar/>,
   },
 ]);
 
