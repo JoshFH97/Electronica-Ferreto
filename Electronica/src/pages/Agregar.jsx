@@ -2,61 +2,7 @@ const Agregar =()=>{
 
     return(<>
     
-    import '../Contact.css';// Importa el css para el diseno
-import React, { useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css'; // Importa Bootstrap
-import Navbar from '../Components/Navbar';//Navbar
-import emailjs from 'emailjs-com'; // Importa EmailJS
 
-const ContactSection = () => {
-  // Estado para manejar los datos del formulario
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: '',
-  });
-
-  // Manejar cambios en los campos del formulario
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  // Manejar el envío del formulario
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    // Configura los parámetros para EmailJS
-    const serviceID = 'service_w2kih0s'; // Mi Service ID de EmailJS
-    const templateID = 'template_3b13tdj'; //se encuentra en Templates
-    const userID = 'NidbRonY9X-UQ5-0w'; // Se usa Public Key en EmailJS
-
-    emailjs
-      .send(serviceID, templateID, formData, userID)
-      .then(
-        (response) => {
-          console.log('Correo enviado exitosamente!', response.status, response.text);
-          alert('¡Correo enviado correctamente!');
-          // Reiniciar el formulario
-          setFormData({
-            name: '',
-            email: '',
-            subject: '',
-            message: '',
-          });
-        },
-        (error) => {
-          console.log('Error al enviar el correo...', error);
-          alert('Error al enviar el correo. Por favor, intenta nuevamente.');
-        }
-      );
-  };
-
-  return (
-    <>
       <Navbar bg='light' text='light' />
       {/* Contact Us Section */}
       <section className="Material-contact-section section-padding section-dark">
@@ -185,10 +131,6 @@ const ContactSection = () => {
         </div>
       </section>
     </>
-  );
-};
-
-export default ContactSection;
 
     
     </>)
