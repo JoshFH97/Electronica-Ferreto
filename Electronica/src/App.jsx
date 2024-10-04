@@ -11,6 +11,7 @@ import Register from './pages/Register'
 import ContactSection from './pages/Contact'
 import AboutSection from './pages/About'
 import ProductSection from './pages/Products'
+import Destacados from "./pages/Destacados.jsx";
 import { ToastContainer } from 'react-toastify';
 import { showToast } from './hooks/alertas.js'; 
 import Agregar from "./pages/Agregar.jsx";
@@ -32,6 +33,11 @@ const router = createBrowserRouter([
   {
     
     path: "/Shop/All_Products",
+    element: <ProductSection/>,
+  },
+  {
+    
+    path: "/Shop/Popular_Items",
     element: <ProductSection/>,
   },
   {

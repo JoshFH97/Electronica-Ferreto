@@ -66,8 +66,8 @@ function Navbar() {
               {admin === contra ? (
               <li className="nav-item">
                 <a
-                  className={`nav-link ${activeLink === '/Contact' ? 'active' : ''}`}
-                  onClick={() => changeActiveLink('/Contact')}
+                  className={`nav-link ${activeLink === '/agregar' ? 'active' : ''}`}
+                  onClick={() => changeActiveLink('/agregar')}
                 >
                   Agregar
 
@@ -96,7 +96,8 @@ function Navbar() {
                     </a>
                   </li>
                   <li><hr className="dropdown-divider" /></li>
-                  <li><a className="dropdown-item" href="#!">Popular Items</a></li>
+                  <li><a className={`dropdown-item ${activeLink === '/Shop/Popular_Items' ? 'active' : ''}`}
+                      onClick={() => changeActiveLink('/Shop/Popular_Items')}>Popular Items</a></li>
                   <li><a className="dropdown-item" href="#!">New Arrivals</a></li>
                 </ul>
               </li>
