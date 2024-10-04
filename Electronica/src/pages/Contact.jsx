@@ -131,7 +131,7 @@ const ContactSection = () => {
                 {/* Campo de Nombre */}
                 <div className="form-group label-floating">
                   <label className="control-label" htmlFor="name">
-                    Name
+                    Full Name
                   </label>
                   <input
                     className="form-control" // Clase de Bootstrap para estilos
