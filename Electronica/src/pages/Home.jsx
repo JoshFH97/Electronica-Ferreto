@@ -10,6 +10,9 @@ import usingFetch from '../hooks/usingFetch.js';
 const Home = () => {
   const endpoint="/api/productos"
   const [listaProductos,setListaProductos]=useState([])
+  const [editando,setEditando]=useState(0)
+  const [nombre,setNombre]=useState('')
+  const [precio,setPrecio]=useState(0)
   const [admin, setAdmin]=useState(321)
   const contra=321
  
@@ -18,7 +21,7 @@ const Home = () => {
 useEffect(()=>{
 
   getProducto()
-},[])
+},[listaProductos])
 
   const getProducto = async()=>{
     const dataProductos=await usingFetch.get(endpoint)
@@ -27,6 +30,38 @@ useEffect(()=>{
     console.log(listaProductos[1].imagen);
 }
 
+const pseudoDelete = async (id) => {
+  const endpoint = `http://127.0.0.1:8000/api/productos/${id}/delete/`; 
+  
+  
+ 
+    const response = await usingFetch.put(endpoint, {}); 
+    console.log('Response data:', response);
+
+};
+
+const Edit = async (producto) => {
+const endpoint = `http://127.0.0.1:8000/api/productos/${producto.id_producto}/update/`;
+
+const objeto={
+ 
+    nombre: nombre,
+    descripcion: producto.descripcion ,
+    precio: precio,
+    stock: producto.stock,
+    imagen: producto.imagen,
+    id_categoria:producto.id_categoria
+
+}
+console.log(objeto);
+
+
+const response=await usingFetch.put(endpoint, objeto); 
+console.log('Response data:', response);
+setEditando(0)
+
+
+}
 
 
 
@@ -96,12 +131,13 @@ useEffect(()=>{
                 className="card-img-top"
                 src={producto.imagen}
                 alt="..."
+                style={{ maxWidth: '450px', maxHeight: '300px' }}
               />
               {/* Detalles del producto */}
               <div className="card-body p-4">
                 <div className="text-center">
-                  <h5 className="fw-bolder">{producto.nombre}</h5>  {/* Nombre del producto */}
-                  ${producto.precio}  {/* Precio del producto */}
+                  {producto.id_producto===editando? <input type="text" defaultValue={producto.nombre} onChange={(e)=>setNombre(e.target.value)} required data-error="Please enter the name" />:<h5 className="fw-bolder">{producto.nombre}</h5>}  {/* Nombre del producto */}
+                  {producto.id_producto===editando? <input type="number" defaultValue={producto.precio}  onChange={(e)=>setPrecio(e.target.value)} required data-error="Please enter the price"/>:(<span>${producto.precio}</span>)}  {/* Precio del producto */}
                 </div>
               </div>
               {/* Acciones de la tarjeta del producto */}
@@ -109,8 +145,8 @@ useEffect(()=>{
                 <div className="text-center">
                 {admin === contra ? (
   <>
-    <a className="btn btn-outline-dark mt-auto" href="#">editar</a>
-    <a style={{ marginLeft: '5px' }} className="btn btn-outline-dark mt-auto" href="#">eliminar</a>
+   {producto.id_producto===editando? <a className="btn btn-outline-dark mt-auto" onClick={()=>Edit(producto)}>Submit</a>: <a className="btn btn-outline-dark mt-auto" onClick={()=>setEditando(producto.id_producto)}>editar</a>}
+   {producto.id_producto===editando? <a onClick={()=>setEditando(0)} style={{ marginLeft: '5px' }} className="btn btn-outline-dark mt-auto" href="#">cancel</a>:<a onClick={()=>pseudoDelete(producto.id_producto)} style={{ marginLeft: '5px' }} className="btn btn-outline-dark mt-auto" href="#">eliminar</a>}
   </>
 ) : (
   <a className="btn btn-outline-dark mt-auto" href="#">Agregar a Carrito</a>
