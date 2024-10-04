@@ -39,7 +39,7 @@ function Navbar() {
             aria-expanded="false"
             aria-label="Toggle navigation"
           >
-            <span className="navbar-toggler-icon" />
+            <span className="navbar-toggler-icon"><i className="fa-solid fa-bars"></i></span>
           </button>
 
           {/* Contenedor colapsable del menú */}
@@ -98,14 +98,14 @@ function Navbar() {
                   <li><hr className="dropdown-divider" /></li>
                   <li><a className={`dropdown-item ${activeLink === '/Shop/Popular_Items' ? 'active' : ''}`}
                       onClick={() => changeActiveLink('/Shop/Popular_Items')}>Popular Items</a></li>
-                  <li><a className="dropdown-item" href="#!">New Arrivals</a></li>
                 </ul>
               </li>
             </ul>
 
             {/* Formulario del carrito de compras con icono y contador */}
             <form className="d-flex">
-              <button className="btn btn-outline-dark text-white" type="submit">
+              <button className = "btn btn-outline-dark text-white" type="submit" onClick={() => changeActiveLink('/Cart')}>
+
                 <i className="fa-solid fa-cart-shopping bg-dark text-white"></i>
                 {/* Icono del carrito */}
                 Cart

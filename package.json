@@ -3,7 +3,8 @@
     "animate.css": "^3.7.2",
     "bootstrap": "^5.3.3",
     "emailjs-com": "^3.2.0",
-    "framer-motion": "^11.9.0",
+    "framer-motion": "^11.11.1",
+    "mdb-react-ui-kit": "^9.0.0",
     "react-toastify": "^10.0.5",
     "wowjs": "^1.1.3"
   }

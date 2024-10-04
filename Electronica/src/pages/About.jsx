@@ -11,12 +11,12 @@ const AboutSection = () => {
 
 
       <main>
-        {/* Carousel Section */}
+        {/* Carousel Section (Las imagenes se espera que sean 1200x500*/}
         <div id="aboutCarousel" className="carousel slide" data-bs-ride="carousel">
           <div className="carousel-inner">
             <div className="carousel-item active">
-              <img
-                src="https://via.placeholder.com/1200x500"
+              <img style={{width:800, height:500}}
+                src="src/assets/Mision.JPG"
                 className="d-block w-100"
                 alt="About Us"
               />
@@ -26,8 +26,8 @@ const AboutSection = () => {
               </div>
             </div>
             <div className="carousel-item">
-              <img
-                src="https://via.placeholder.com/1200x500"
+              <img style={{width:800, height:500}}
+                src="src/assets/Vision.JPG"
                 className="d-block w-100"
                 alt="Our Vision"
               />
@@ -37,8 +37,8 @@ const AboutSection = () => {
               </div>
             </div>
             <div className="carousel-item">
-              <img
-                src="https://via.placeholder.com/1200x500"
+              <img style={{width:800, height:500}}
+                src="src/assets/logo.png"
                 className="d-block w-100"
                 alt="Our Values"
               />
@@ -68,46 +68,47 @@ const AboutSection = () => {
           </button>
         </div>
 
-        {/* About Us Section */}
+        {/* About Us Section (Las fotos se espera que sean 140)*/}
         <div className="container my-5">
           <h2 className="text-center mb-4">Who We Are</h2>
           <div className="row text-center">
             <div className="col-lg-4 mb-4">
-              <img
-                src="https://via.placeholder.com/140"
+              <img style={{width:140, height:140}}
+                src="src/assets/Foto Joshua.jpg"
                 className="rounded-circle mb-3"
                 alt="CEO"
               />
-              <h4>Jane Doe</h4>
+              <h4>Isaac Ferreto</h4>
               <p>CEO & Founder</p>
               <p>
-                Jane leads the company with a focus on innovation and customer-driven services.
+                Isaac leads the company with a focus on innovation and customer-driven services.
               </p>
             </div>
             <div className="col-lg-4 mb-4">
               <img
-                src="https://via.placeholder.com/140"
+                src="src/assets/Foto joshua 2.jpg"
                 className="rounded-circle mb-3"
                 alt="CTO"
               />
-              <h4>John Smith</h4>
-              <p>Chief Technology Officer</p>
+              <h4>Joshua Ferreto</h4>
+              <p>CEO & Founder</p>
               <p>
-                John oversees all technical aspects, ensuring cutting-edge solutions for our clients.
+                Joshua oversees all technical aspects, ensuring cutting-edge solutions for our clients.
               </p>
             </div>
             <div className="col-lg-4 mb-4">
               <img
-                src="https://via.placeholder.com/140"
+                src="src/assets/Foto joshua 2.jpg"
                 className="rounded-circle mb-3"
-                alt="CFO"
+                alt="CTO"
               />
-              <h4>Maria Garcia</h4>
-              <p>Chief Financial Officer</p>
+              <h4>Joshua Ferreto</h4>
+              <p>CEO & Founder</p>
               <p>
-                Maria manages financial operations with precision and a strategic approach.
+                Joshua oversees all technical aspects, ensuring cutting-edge solutions for our clients.
               </p>
             </div>
+            
           </div>
         </div>
 

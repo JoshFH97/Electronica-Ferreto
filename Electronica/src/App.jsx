@@ -7,14 +7,15 @@ import {
 import Home from './pages/Home'
 import './pages/Home.css'
 import Login from './pages/Login'
-import Register from './pages/Register'
 import ContactSection from './pages/Contact'
 import AboutSection from './pages/About'
 import ProductSection from './pages/Products'
 import Destacados from "./pages/Destacados.jsx";
+import Agregar from "./pages/Agregar.jsx";
+import ShoppingCart from "./pages/ShoppingCart.jsx";
+import Register from './pages/Register'
 import { ToastContainer } from 'react-toastify';
 import { showToast } from './hooks/alertas.js'; 
-import Agregar from "./pages/Agregar.jsx";
 
 
 const router = createBrowserRouter([
@@ -38,7 +39,7 @@ const router = createBrowserRouter([
   {
     
     path: "/Shop/Popular_Items",
-    element: <ProductSection/>,
+    element: <Destacados/>,
   },
   {
     path: "/login",
@@ -47,6 +48,9 @@ const router = createBrowserRouter([
   {
     path: "/agregar",
     element: <Agregar/>,
+  },
+  { path: "/Cart",
+    element: <ShoppingCart/>,
   },
 ]);
 
