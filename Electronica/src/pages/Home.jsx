@@ -12,17 +12,17 @@ const Home = () => {
   const [listaProductos,setListaProductos]=useState([])
   const [editando,setEditando]=useState(0)
   const [nombre,setNombre]=useState('')
-  const [precio,setPrecio]=useState(0)
+  const [precio,setPrecio]=useState()
   const [logedIn,setLogIn]=useState(false)
   const [admin, setAdmin]=useState(321)
   const contra=321
  
-
+  const [reload,setReload] = useState(false)
 
 useEffect(()=>{
-
+  console.log(reload);
   getProducto()
-},[listaProductos])
+},[reload])
 
   const getProducto = async()=>{
     const dataProductos=await usingFetch.get(endpoint)
@@ -33,11 +33,9 @@ useEffect(()=>{
 
 const pseudoDelete = async (id) => {
   const endpoint = `http://127.0.0.1:8000/api/productos/${id}/delete/`; 
-  
-  
- 
     const response = await usingFetch.put(endpoint, {}); 
     console.log('Response data:', response);
+    setReload(!reload)
 
 };
 
@@ -56,10 +54,10 @@ const objeto={
 }
 console.log(objeto);
 
-
 const response=await usingFetch.put(endpoint, objeto); 
 console.log('Response data:', response);
 setEditando(0)
+setReload(!reload)
 
 
 }
