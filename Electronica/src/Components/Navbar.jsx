@@ -40,7 +40,8 @@ function Navbar(LogedIn) {
             aria-expanded="false"
             aria-label="Toggle navigation"
           >
-            <span className="navbar-toggler-icon"><i className="fa-solid fa-bars"></i></span>
+            {/* incono del toggle */}
+            <span className="navbar-toggler-icon"></span> 
           </button>
 
           {/* Contenedor colapsable del menú */}
@@ -70,7 +71,7 @@ function Navbar(LogedIn) {
                   className={`nav-link ${activeLink === '/agregar' ? 'active' : ''}`}
                   onClick={() => changeActiveLink('/agregar')}
                 >
-                  Agregar
+                  Add
 
                 </a>
               </li>):<></>}

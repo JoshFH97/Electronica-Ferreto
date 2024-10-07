@@ -6,7 +6,7 @@ import defaulimage from '../assets/defaulimage.png';
 import usingFetch from '../hooks/usingFetch.js';
 
 const Agregar =()=>{
-const endpoint='/api/productos/'
+const endpoint='api/productos/'
 
 const [modelo,setModelo]=useState('')
 const [descripcion,setDescripcion]=useState('')
@@ -74,7 +74,7 @@ const handleFileChange = (event) => {
           <div className="row">
             {/* Section Info */}
             <div className="col-md-6 mt-3 contact-widget-section2">
-                <p>CATEGORIAS</p>
+                <p>CATEGORIES</p>
         <select  onChange={(e)=>setCategoria(e.target.value)}  name="Category" className='form-control' style={{ width: '150px' } }>
             <option value="1">Celulares</option>
             <option value="2" >Perifericos</option>
@@ -141,7 +141,7 @@ const handleFileChange = (event) => {
                 {/* Cantidad */}
                 <div className="form-group label-floating">
                   <label className="control-label" htmlFor="msg_subject">
-                    Cantidad
+                    Quantity
                   </label>
                   <input
                     className="form-control"
