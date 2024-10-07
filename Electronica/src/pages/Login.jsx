@@ -19,7 +19,7 @@ const user={
 console.log('esto es lo que llega a user '+JSON.stringify(user));
 const respuesta = await usingFetch.post(endpoint, user);
 if(respuesta.ok){
-  navigate('/Shop/All_Products')
+  navigate('/')
 }
 
 
@@ -51,7 +51,7 @@ if(respuesta.ok){
 
         <div className='inputbox'>
         <button onClick={Verificacion}>INGRESAR</button>
-        <a>no tienes cuenta?</a>
+        <a onClick={navigate('/register')}>no tienes cuenta?</a>
         </div>
 
 

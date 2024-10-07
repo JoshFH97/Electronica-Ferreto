@@ -13,6 +13,7 @@ const Home = () => {
   const [editando,setEditando]=useState(0)
   const [nombre,setNombre]=useState('')
   const [precio,setPrecio]=useState(0)
+  const [logedIn,setLogIn]=useState(false)
   const [admin, setAdmin]=useState(321)
   const contra=321
  
@@ -98,7 +99,7 @@ setEditando(0)
       <link href="./Home.css" rel="stylesheet" />
     </Helmet>
 
-    <Navbar/>
+    <Navbar logedIn={logedIn}/>
 
    
 
