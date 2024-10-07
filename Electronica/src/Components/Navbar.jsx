@@ -1,8 +1,9 @@
 import { useNavigate, useLocation } from "react-router-dom";  
 import 'bootstrap/dist/css/bootstrap.min.css'; // Importación de los estilos de Bootstrap
 import { useState, useEffect } from "react";
+import { button } from "framer-motion/client";
 
-function Navbar() {
+function Navbar(LogedIn) {
   const navigate = useNavigate();
   const location = useLocation(); // Para saber la URL actual
   const [activeLink, setActiveLink] = useState(location.pathname);
@@ -112,13 +113,15 @@ function Navbar() {
                 <span className="badge bg-light text-black ms-1 rounded-pill">0</span>  
                 {/* Contador del carrito */}
               </button>
-              <button className="btn btn-outline-dark text-white" type="submit">
+              {LogedIn?<button className="btn btn-outline-dark text-white" onClick={() => changeActiveLink('/LOGIN')} >Log In</button>:(<button className="btn btn-outline-dark text-white" type="submit">
               <i className="bi bi-box-arrow-in-left"></i>
                 {/* Icono del carrito */}
                 logout
                   
                 {/* Contador del carrito */}
-              </button>
+
+              
+              </button>)}
             </form>
           </div>
         </div>
