@@ -33,8 +33,10 @@ class LoginView(APIView):
         user = authenticate(request,username=username,password=password)
         
         if user is not None:
-            token,created = Token.objects.get_or_create(user=user)
-            return Response({'success':f'AAAAA {status.HTTP_200_OK}'}, status=status.HTTP_200_OK)
+                token,created = Token.objects.get_or_create(user=user)
+                return Response({'success':f'status {status.HTTP_200_OK}','superUser':user.is_superuser}, status=status.HTTP_200_OK)
+            
+            
         else:
             return Response({'error':f'Usuario invalido  {status.HTTP_404_NOT_FOUND}'}, status=status.HTTP_404_NOT_FOUND)
         
