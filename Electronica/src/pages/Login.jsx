@@ -1,37 +1,27 @@
-<<<<<<< HEAD
 import React, { useState } from 'react'
 import usingFetch from '../hooks/usingFetch.js';
-
-=======
->>>>>>> d690d80e3ba766e6b64053e5fc1970aaa0233241
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   //inputs
-
+const [nombre,setNombre]=useState('')
+const [clave,setclave]=useState('')
 //-------------------------------------------
 const endpoint='api/login/'
+const navigate = useNavigate()
 //-------------------------------------------
+
 const Verificacion=async()=>{
 const user={
   username: nombre,
   password: clave
 }
 console.log('esto es lo que llega a user '+JSON.stringify(user));
-
-
-const respuesta=await usingFetch.post(endpoint, user);
-
-
-
-
-if (respuesta.success=='200') {
-  console.log(respuesta.success);
-  
-  alert('exito')
-} else {
-  console.log(respuesta);
-   alert('eo')
+const respuesta = await usingFetch.post(endpoint, user);
+if(respuesta.ok){
+  navigate('/')
 }
+
 
 
 }
@@ -49,19 +39,19 @@ if (respuesta.success=='200') {
      <h1>Bienvenido</h1>
         <div className='inputbox'>
         <label htmlFor="nombre">Nombre</label>
-        <input type="text" id="nombre" />
+        <input type="text" id="nombre" onChange={(e)=>setNombre(e.target.value)}/>
         </div>
 
         <div className='inputbox'>
         <label htmlFor="contra">Contraseña</label>
-        <input type="text" id="contra" />
+        <input type="text" id="contra" onChange={(e)=>setclave(e.target.value)}/>
         <a>has olvidado la Contraseña</a>
         </div>
 
 
         <div className='inputbox'>
         <button onClick={Verificacion}>INGRESAR</button>
-        <a>no tienes cuenta?</a>
+        <a onClick={navigate('/register')}>no tienes cuenta?</a>
         </div>
 
 

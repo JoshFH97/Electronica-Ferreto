@@ -31,12 +31,16 @@ const post = async (endpoint, body) => {  //post para subir datos
         },
         body: JSON.stringify(body)
       });
-      
       const data = await response.json();
-      return data;
+      if(response.ok){
+        console.log(data.success);
+        return response
+      }else{
+        console.log(data.error);
+        return response
+      }
     } catch (e) {
       console.error(e);
-    
       return null;
     } 
   
@@ -45,7 +49,7 @@ const post = async (endpoint, body) => {  //post para subir datos
 
 
 //PUT METHOD
-const put = async (url, body) => {//metodo put para esperar cambios
+const put = async (url, body = {}) => {//metodo put para esperar cambios
 
     try {
       const response = await fetch(url, {
@@ -67,6 +71,14 @@ const put = async (url, body) => {//metodo put para esperar cambios
     } 
  
 }
+
+
+
+
+
+
+
+
 async function deleteMethod(endpoint,id) {//METHOD DELETE
 
     console.log("LLEGA a funcion para borrar");
