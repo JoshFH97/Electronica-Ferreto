@@ -132,7 +132,7 @@ console.log(LogedIn);
                      </button>
                     ) : (
                    <button className="btn btn-outline-dark text-white" onClick={() => changeActiveLink('/LOGIN')}>
-                   Log In
+                           Log In
                    </button>
                    )}
 
