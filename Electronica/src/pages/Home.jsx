@@ -4,11 +4,12 @@ import Navbar from '../Components/Navbar';
 import { Helmet } from 'react-helmet';
 import { useState } from 'react';
 import Cards from '../Components/Cards';
+
 const Home =()=>{
   const [logedIn,setLogIn]=useState(false)
 
 
-
+  
   return(
   <>
     {/* Helmet es utilizado para manejar el contenido del <head> de manera dinámica en React */}
@@ -72,6 +73,9 @@ const Home =()=>{
 
 
           {/* Repite las tarjetas de productos según sea necesario */}
+        </div>
+        <div>
+           
         </div>
       </div>
     </section>

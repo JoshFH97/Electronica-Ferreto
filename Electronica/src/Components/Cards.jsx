@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';  // Importación de los estilos d
 import { useState } from 'react';
 import { useEffect } from 'react';
 import usingFetch from '../hooks/usingFetch.js';
+import Cookies from 'js-cookie';
 
 // Definición del componente principal de la aplicación
 const Cards = () => {
@@ -12,8 +13,8 @@ const Cards = () => {
   const [editando,setEditando]=useState(0)
   const [nombre,setNombre]=useState('')
   const [precio,setPrecio]=useState()
-  const [admin, setAdmin]=useState(0) 
-  const contra=321
+  const admin=Cookies.get('superUser')==='true'
+  console.log("checking super user sfrom cards: ", admin);
  
   const [reload,setReload] = useState(false)
 
@@ -83,7 +84,7 @@ return (<>
            {/* Acciones de la tarjeta del producto */}
            <div className="card-footer p-4 pt-0 border-top-0 bg-transparent">
              <div className="text-center">
-             {admin === contra ? (
+             {admin ? (
 <>
 {producto.id_producto===editando? <a className="btn btn-outline-dark mt-auto" onClick={()=>Edit(producto)}>Submit</a>: <a className="btn btn-outline-dark mt-auto" onClick={()=>setEditando(producto.id_producto)}>editar</a>}
 {producto.id_producto===editando? <a onClick={()=>setEditando(0)} style={{ marginLeft: '5px' }} className="btn btn-outline-dark mt-auto" href="#">cancel</a>:<a onClick={()=>pseudoDelete(producto.id_producto)} style={{ marginLeft: '5px' }} className="btn btn-outline-dark mt-auto" href="#">eliminar</a>}

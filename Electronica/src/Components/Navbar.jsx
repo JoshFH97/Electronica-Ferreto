@@ -2,14 +2,17 @@ import { useNavigate, useLocation } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css'; // Importación de los estilos de Bootstrap
 import { useState, useEffect } from "react";
 import { button } from "framer-motion/client";
+import Cookies from 'js-cookie';
 
 function Navbar(LogedIn) {
   const navigate = useNavigate();
   const location = useLocation(); // Para saber la URL actual
   const [activeLink, setActiveLink] = useState(location.pathname);
-  const [admin, setAdmin]=useState(321)
+  const admin=Cookies.get('superUser')==='true'
   
-  const contra=321
+  console.log("checking super user sfrom navbar: ", admin);
+  
+  
 
   // Actualiza el estado `activeLink` cuando la URL cambia
   useEffect(() => {
@@ -65,7 +68,7 @@ function Navbar(LogedIn) {
                   Contact
                 </a>
               </li>
-              {admin === contra ? (
+              {admin ? (
               <li className="nav-item">
                 <a
                   className={`nav-link ${activeLink === '/agregar' ? 'active' : ''}`}
