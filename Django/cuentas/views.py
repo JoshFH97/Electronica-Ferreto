@@ -26,19 +26,31 @@ class RegistroView(APIView):
         return Response({'success':status.HTTP_201_CREATED}, status=status.HTTP_201_CREATED)      
     
 class LoginView(APIView):
-    def post(self,request):
-        username=request.data.get('username')
-        password=request.data.get('password')
-    
-        user = authenticate(request,username=username,password=password)
+    def post(self, request):
+        username = request.data.get('username')
+        password = request.data.get('password')
         
+        # Authenticate user
+        user = authenticate(request, username=username, password=password)
+
+        # Check if the user is valid
         if user is not None:
-                token,created = Token.objects.get_or_create(user=user)
-                return Response({'success':f'status {status.HTTP_200_OK}','superUser':user.is_superuser}, status=status.HTTP_200_OK)
+            # Create or get token for the user
+            token, created = Token.objects.get_or_create(user=user)
             
-            
+            # Return response with token
+            return Response({
+                'success': f'Status {status.HTTP_200_OK}',
+                'superUser': user.is_superuser,
+                'token': token.key
+            }, status=status.HTTP_200_OK)
+        
         else:
-            return Response({'error':f'Usuario invalido  {status.HTTP_404_NOT_FOUND}'}, status=status.HTTP_404_NOT_FOUND)
+            # If authentication fails
+            return Response({
+                'error': 'Usuario inválido',
+                'status': status.HTTP_404_NOT_FOUND
+            }, status=status.HTTP_404_NOT_FOUND)
         
 class RegistroViewAdmin(APIView):
     def post(self,request):

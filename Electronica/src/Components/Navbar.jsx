@@ -4,11 +4,12 @@ import { useState, useEffect } from "react";
 import { button } from "framer-motion/client";
 import Cookies from 'js-cookie';
 
-function Navbar(LogedIn) {
+function Navbar() {
   const navigate = useNavigate();
   const location = useLocation(); // Para saber la URL actual
   const [activeLink, setActiveLink] = useState(location.pathname);
   const admin=Cookies.get('superUser')==='true'
+  const LogedIn = Cookies.get('token') != null && Cookies.get('token') !== '';
   
   console.log("checking super user sfrom navbar: ", admin);
   
@@ -22,6 +23,13 @@ function Navbar(LogedIn) {
   const changeActiveLink = (url) => {
     navigate(url);
   };
+const logout=()=>{
+  Cookies.remove('token'); // Elimina la cookie del token
+  Cookies.remove('superUser'); // Elimina la cookie de superUser
+  changeActiveLink('/')
+  window.location.reload()
+}
+console.log(LogedIn);
 
   return (
     <> 
@@ -117,15 +125,17 @@ function Navbar(LogedIn) {
                 <span className="badge bg-light text-black ms-1 rounded-pill">0</span>  
                 {/* Contador del carrito */}
               </button>
-              {LogedIn?<button className="btn btn-outline-dark text-white" onClick={() => changeActiveLink('/LOGIN')} >Log In</button>:(<button className="btn btn-outline-dark text-white" type="submit">
-              <i className="bi bi-box-arrow-in-left"></i>
-                {/* Icono del carrito */}
-                logout
-                  
-                {/* Contador del carrito */}
+              {LogedIn ? (
+                    <button className="btn btn-outline-dark text-white" onClick={logout}>
+                    <i className="bi bi-box-arrow-in-left"></i>
+                            Logout
+                     </button>
+                    ) : (
+                   <button className="btn btn-outline-dark text-white" onClick={() => changeActiveLink('/LOGIN')}>
+                   Log In
+                   </button>
+                   )}
 
-              
-              </button>)}
             </form>
           </div>
         </div>
