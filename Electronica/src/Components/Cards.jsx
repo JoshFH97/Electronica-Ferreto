@@ -13,15 +13,19 @@ const Cards = () => {
   const [editando,setEditando]=useState(0)
   const [nombre,setNombre]=useState('')
   const [precio,setPrecio]=useState()
+  const [carrito,setCarrito]=useState([])
   const admin=Cookies.get('superUser')==='true'
-  console.log("checking super user sfrom cards: ", admin);
- 
+  let cart = Cookies.get('cart');
+  cart=JSON.stringify(cart)
   const [reload,setReload] = useState(false)
-
-useEffect(()=>{
+  
+  useEffect(()=>{
   console.log(reload);
   getProducto()
 },[reload])
+
+
+
 
   const getProducto = async()=>{
     const dataProductos=await usingFetch.get(endpoint)
