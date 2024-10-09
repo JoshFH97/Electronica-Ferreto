@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from '../Components/Navbar';
+import Cards from '../Components/Cards';
 
 const ProductSection = () => {
   const [filter, setFilter] = useState({
@@ -137,6 +138,10 @@ const ProductSection = () => {
         </div>
         {/* Fin de la Sección de Filtros */}
       </div>
+
+      <Cards/>
+
+
     </section>
   );
 };
