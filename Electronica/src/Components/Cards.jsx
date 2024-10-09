@@ -14,16 +14,21 @@ const Cards = ({ endpoint }) => {
   const [nombre,setNombre]=useState('')
   const [precio,setPrecio]=useState()
   const [carrito,setCarrito]=useState([])
-  const admin=Cookies.get('superUser')==='true'
-  let cart = Cookies.get('cart');
-  cart=JSON.stringify(cart)
   const [reload,setReload] = useState(false)
+  const admin=Cookies.get('superUser')==='true'
+
+
   
   useEffect(()=>{
-  console.log(reload);
-  getProducto()
-},[reload,endpoint])
-
+    console.log(reload);
+    getProducto()
+  },[reload,endpoint])
+  
+  let cart = Cookies.get('cart');
+  if (!cart) {
+    return [];
+  }
+  cart=JSON.stringify(cart)
 
 
 
