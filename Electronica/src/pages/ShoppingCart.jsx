@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../ShoppingCart.css";
 import Navbar from "../Components/Navbar";
+import usingFetch from '../hooks/usingFetch.js';
+import Cookies from 'js-cookie';
 
 const ShoppingCart = () => {
   const [products, setProducts] = useState([
@@ -8,6 +10,33 @@ const ShoppingCart = () => {
     { id: 2, name: "Headphones Bose 35 II", color: "red", price: 239, quantity: 1, image: "https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/6.webp" },
     { id: 3, name: "iPad 9.7 6-gen WiFi 32GB", color: "rose pink", price: 659, quantity: 2, image: "https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/1.webp" },
   ]);
+
+  const [maping,setMaping]=useState([]);
+  
+  useEffect(()=>{
+getCart()
+
+console.log(JSON.parse(Cookies.get('cart') ));
+
+  },[])
+
+
+
+  const getCart=async()=>{
+  
+
+  const ids = JSON.parse(Cookies.get('cart') || '[]').map(Number);
+  const dataProductos = await usingFetch.get(`api/productos`);
+  const transitoria = dataProductos.filter(item => ids.includes(item.id_producto));
+  setMaping(transitoria);
+  console.log(transitoria);
+  console.log(dataProductos);
+  
+
+}
+
+
+
 
   const handleQuantityChange = (id, delta) => {
     setProducts(products.map(product =>
@@ -38,16 +67,16 @@ const ShoppingCart = () => {
                 <div className="row">
                   <div className="col-lg-6 px-5 py-4">
                     <h3 className="mb-5 pt-2 text-center fw-bold text-uppercase">Your products</h3>
-                    {products.map((product) => (
-                      <div className="d-flex align-items-center mb-5" key={product.id}>
+                    {maping.map((product) => (
+                      <div className="d-flex align-items-center mb-5" key={product.id_producto}>
                         <div className="flex-shrink-0">
-                          <img src={product.image} className="img-fluid" style={{ width: 150 }} alt={product.name} />
+                          <img src={product.imagen} className="img-fluid" style={{ width: 150 }} alt={product.nombre} />
                         </div>
                         <div className="flex-grow-1 ms-3">
                           <a href="#!" className="float-end" onClick={() => handleRemove(product.id)}>
                             <i className="fas fa-times" />
                           </a>
-                          <h5 className="text-primary">{product.name}</h5>
+                          <h5 className="text-primary">{product.nombre}</h5>
                           <h6 style={{ color: "#9e9e9e" }}>Color: {product.color}</h6>
                           <div className="d-flex align-items-center">
                             <p className="fw-bold mb-0 me-5 pe-3">{product.price}$</p>
