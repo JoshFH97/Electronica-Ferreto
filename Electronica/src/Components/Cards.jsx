@@ -26,9 +26,39 @@ const Cards = ({ endpoint }) => {
   
   let cart = Cookies.get('cart');
   if (!cart) {
-    return [];
+    cart=[]
   }
   cart=JSON.stringify(cart)
+
+
+
+  const AddCart = (id) => {
+    // Recuperar el carrito desde las cookies, si no existe, inicializarlo como un array vacío
+    let cart = Cookies.get('cart') ? JSON.parse(Cookies.get('cart')) : [];
+  
+    // Verificar si el producto ya está en el carrito
+    if (!cart.includes(id)) {
+      // Agregar el ID del producto al carrito
+      cart = [...cart, id];
+  
+      // Actualizar el estado del carrito
+      setCarrito(cart);
+  
+      // Guardar el carrito actualizado en las cookies
+      Cookies.set('cart', JSON.stringify(cart), { expires: 7 }); // Guardar por 7 días 
+  
+      console.log('Carrito actualizado:', cart);
+    } else {
+      console.log('El producto ya está en el carrito');
+    }
+  
+    // Mostrar el carrito actualizado en la consola
+    console.log('Contenido actual de las cookies:', Cookies.get('cart'));
+  };
+  
+
+
+
 
 
 
@@ -99,7 +129,7 @@ return (<>
 {producto.id_producto===editando? <a onClick={()=>setEditando(0)} style={{ marginLeft: '5px' }} className="btn btn-outline-dark mt-auto" href="#">cancel</a>:<a onClick={()=>pseudoDelete(producto.id_producto)} style={{ marginLeft: '5px' }} className="btn btn-outline-dark mt-auto" href="#">eliminar</a>}
 </>
 ) : (
-<a className="btn btn-outline-dark mt-auto" href="#">Agregar a Carrito</a>
+<a className="btn btn-outline-dark mt-auto"onClick={()=>AddCart(producto.id_producto)} >Agregar a Carrito</a>
 )}
 
              </div>

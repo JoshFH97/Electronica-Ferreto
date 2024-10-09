@@ -69,7 +69,7 @@ const Home =()=>{
           {/* Tarjeta de producto */}
         
 
-          <Cards/>
+          <Cards endpoint={''}/>
 
 
           {/* Repite las tarjetas de productos según sea necesario */}
