@@ -6,13 +6,13 @@ import { useEffect } from 'react';
 import usingFetch from '../hooks/usingFetch.js';
 
 // Definición del componente principal de la aplicación
-const Cards = () => {
-  const endpoint="/api/productos"
+const Cards = ({ endpoint }) => {
+  //  endpoint="/api/productos/celulares"
   const [listaProductos,setListaProductos]=useState([])
   const [editando,setEditando]=useState(0)
   const [nombre,setNombre]=useState('')
   const [precio,setPrecio]=useState()
-  const [admin, setAdmin]=useState(0) 
+  const [admin, setAdmin]=useState(321) 
   const contra=321
  
   const [reload,setReload] = useState(false)
@@ -20,10 +20,10 @@ const Cards = () => {
 useEffect(()=>{
   console.log(reload);
   getProducto()
-},[reload])
+},[reload,endpoint])
 
   const getProducto = async()=>{
-    const dataProductos=await usingFetch.get(endpoint)
+    const dataProductos=await usingFetch.get(`api/productos${endpoint}`)
     
     setListaProductos(dataProductos)
    
