@@ -7,8 +7,8 @@ import usingFetch from '../hooks/usingFetch.js';
 import Cookies from 'js-cookie';
 
 // Definición del componente principal de la aplicación
-const Cards = () => {
-  const endpoint="/api/productos"
+const Cards = ({ endpoint }) => {
+  //  endpoint="/api/productos/celulares"
   const [listaProductos,setListaProductos]=useState([])
   const [editando,setEditando]=useState(0)
   const [nombre,setNombre]=useState('')
@@ -22,13 +22,13 @@ const Cards = () => {
   useEffect(()=>{
   console.log(reload);
   getProducto()
-},[reload])
+},[reload,endpoint])
 
 
 
 
   const getProducto = async()=>{
-    const dataProductos=await usingFetch.get(endpoint)
+    const dataProductos=await usingFetch.get(`api/productos${endpoint}`)
     
     setListaProductos(dataProductos)
    

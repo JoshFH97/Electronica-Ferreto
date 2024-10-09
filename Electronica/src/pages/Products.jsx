@@ -5,16 +5,16 @@ import Cards from '../Components/Cards';
 
 const ProductSection = () => {
   const [filter, setFilter] = useState({
-    title: '',
-    minPrice: '',
-    maxPrice: '',
-    display: '',
-    cameras: '',
-    zoom: '',
-    capacities: ''
+    Name: '', 
+    Price: '', 
+    Category: '' 
   });
+const[categoria,setCategoria]=useState('')  
 
-  // Maneja los cambios en los campos de filtro
+
+
+
+  // Handle filter field changes
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
     setFilter(prevFilter => ({
@@ -23,125 +23,85 @@ const ProductSection = () => {
     }));
   };
 
-  // Maneja la aplicación de los filtros (puedes personalizar esta función según tus necesidades)
+  // Handle applying the filters
   const applyFilters = () => {
-    console.log('Filtros aplicados:', filter);
-    // Aquí puedes agregar la lógica para filtrar datos según los valores de `filter`
+    console.log('Filters applied:', filter);
+    // Add logic here to filter the data based on the `filter` values
   };
 
   return (
-    <section style={{ backgroundColor: "#eee" }}>
+    <section className="product-section">
       <Navbar />
       <div className="container py-5">
-        {/* Sección de Filtros */}
+        {/* Filter Section */}
         <div className="row mb-4">
           <div className="col-12">
-            <div className="card">
+            <div className="card shadow-sm">
               <div className="card-body">
-                <h5 className="card-title">Filtrar Productos</h5>
+                <h5 className="card-title mb-4">Filter Products</h5>
                 <form className="row g-3">
+                  {/* Product Name */}
                   <div className="col-md-4">
-                    <label htmlFor="filterTitle" className="form-label">Título</label>
+                    <label htmlFor="filterName" className="form-label">Name</label>
                     <input
                       type="text"
                       className="form-control"
-                      id="filterTitle"
-                      name="title"
-                      value={filter.title}
+                      id="filterName"
+                      name="Name"
+                      value={filter.Name}
                       onChange={handleFilterChange}
-                      placeholder="Buscar por título"
+                      placeholder="Product Name"
                     />
                   </div>
-                  <div className="col-md-2">
-                    <label htmlFor="filterMinPrice" className="form-label">Precio Mínimo</label>
-                    <input
-                      type="number"
-                      className="form-control"
-                      id="filterMinPrice"
-                      name="minPrice"
-                      value={filter.minPrice}
-                      onChange={handleFilterChange}
-                      placeholder="0"
-                      min="0"
-                    />
-                  </div>
-                  <div className="col-md-2">
-                    <label htmlFor="filterMaxPrice" className="form-label">Precio Máximo</label>
-                    <input
-                      type="number"
-                      className="form-control"
-                      id="filterMaxPrice"
-                      name="maxPrice"
-                      value={filter.maxPrice}
-                      onChange={handleFilterChange}
-                      placeholder="0"
-                      min="0"
-                    />
-                  </div>
+                  {/* Price */}
                   <div className="col-md-4">
-                    <label htmlFor="filterDisplay" className="form-label">Pantalla</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="filterDisplay"
-                      name="display"
-                      value={filter.display}
+                    <label htmlFor="filterPrice" className="form-label">Price</label>
+                    <select
+                      className="form-select"
+                      id="filterPrice"
+                      name="Price"
+                      value={filter.Price}
                       onChange={handleFilterChange}
-                      placeholder="Tipo de pantalla"
-                    />
+                    >
+                      <option value="">Select a price range</option>
+                      <option value="asc">Price: Low to High</option>
+                      <option value="desc">Price: High to Low</option>
+                    </select>
                   </div>
+                  {/* Category */}
                   <div className="col-md-4">
-                    <label htmlFor="filterCameras" className="form-label">Cámaras</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="filterCameras"
-                      name="cameras"
-                      value={filter.cameras}
-                      onChange={handleFilterChange}
-                      placeholder="Número de cámaras"
-                    />
-                  </div>
-                  <div className="col-md-4">
-                    <label htmlFor="filterZoom" className="form-label">Zoom</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="filterZoom"
-                      name="zoom"
-                      value={filter.zoom}
-                      onChange={handleFilterChange}
-                      placeholder="Nivel de zoom"
-                    />
-                  </div>
-                  <div className="col-md-4">
-                    <label htmlFor="filterCapacities" className="form-label">Capacidades</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="filterCapacities"
-                      name="capacities"
-                      value={filter.capacities}
-                      onChange={handleFilterChange}
-                      placeholder="Capacidades del dispositivo"
-                    />
+                    <label htmlFor="filterCategory" className="form-label">Category</label>
+                    <select
+                      className="form-select"
+                      id="filterCategory"
+                      name="Category"
+                      value={categoria}
+                      onChange={(e) => setCategoria(e.target.value)}
+                    >
+                      <option value="" >Select a category</option>
+                      <option value="/celulares">Cellphones</option>
+                      <option value="/computadoras">Computers</option>
+                      <option value="/accesorios" >Accessories</option>
+                      <option value="/software" >Software</option>
+                    </select>
                   </div>
                 </form>
-                <div className="text-end mt-3">
-                  <button type="button" className="btn btn-primary" onClick={applyFilters}>
-                    Aplicar Filtros
+                <div className="text-end mt-4">
+                  <button type="button" className="btn btn-primary btn-lg" onClick={applyFilters}>
+                    Apply Filters
                   </button>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        {/* Fin de la Sección de Filtros */}
+        {/* End of Filter Section */}
+
+        {/* Here you can add the section to display the filtered products */}
+        <div className="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+        <Cards endpoint={categoria} />
+        </div>
       </div>
-
-      <Cards/>
-
-
     </section>
   );
 };

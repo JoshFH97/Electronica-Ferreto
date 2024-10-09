@@ -77,8 +77,9 @@ const handleFileChange = (event) => {
                 <p>CATEGORIES</p>
         <select  onChange={(e)=>setCategoria(e.target.value)}  name="Category" className='form-control' style={{ width: '150px' } }>
             <option value="1">Celulares</option>
-            <option value="2" >Perifericos</option>
-            <option value="3">Servicios</option>
+            <option value="2" >Computadoras</option>
+            <option value="3">Accesorios</option>
+            <option value="4">Software</option>
             <option selected></option>
          </select>
               <div className="find-widget">
