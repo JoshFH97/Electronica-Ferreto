@@ -1,36 +1,55 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState,} from "react";
 import "../ShoppingCart.css";
 import Navbar from "../Components/Navbar";
 import usingFetch from '../hooks/usingFetch.js';
 import Cookies from 'js-cookie';
 
-const ShoppingCart = () => {
-  const [products, setProducts] = useState([
-    { id: 1, name: "Samsung Galaxy M11 64GB", color: "white", price: 799, quantity: 1, image: "https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/13.webp" },
-    { id: 2, name: "Headphones Bose 35 II", color: "red", price: 239, quantity: 1, image: "https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/6.webp" },
-    { id: 3, name: "iPad 9.7 6-gen WiFi 32GB", color: "rose pink", price: 659, quantity: 2, image: "https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/1.webp" },
-  ]);
 
+const ShoppingCart = () => {
+
+  const [reload,setReload]=useState(false)
   const [maping,setMaping]=useState([]);
+  const [newArray,setNewArray]=useState([])
+  const [count,setCount]=useState(0)
+  const ids = JSON.parse(Cookies.get('cart') || '[]').map(Number);
   
   useEffect(()=>{
-getCart()
+    
+    
+      console.log('cookies despues de subir: ', Cookies.get('cart'));
+    
+      getCart()
+    },[reload])
 
-console.log(JSON.parse(Cookies.get('cart') ));
-
-  },[])
-
-
+    
+    useEffect(() => {
+      // Set cookies after newArray is updated
+    console.log('llega');
+    
+   
+      
+      if (count>0) {
+        
+     
+        Cookies.set('cart', JSON.stringify(newArray), { expires: 7 });
+        console.log('Cookies updated:', Cookies.get('cart'));
+        getCart()
+        setCount(0)
+      }
+      
+   
+    
+  }, [newArray]);
 
   const getCart=async()=>{
-  
-
-  const ids = JSON.parse(Cookies.get('cart') || '[]').map(Number);
-  const dataProductos = await usingFetch.get(`api/productos`);
-  const transitoria = dataProductos.filter(item => ids.includes(item.id_producto));
-  setMaping(transitoria);
-  console.log(transitoria);
-  console.log(dataProductos);
+    
+    const ids = JSON.parse(Cookies.get('cart') || '[]').map(Number);
+    
+    const dataProductos = await usingFetch.get(`api/productos`);
+    const transitoria = dataProductos.filter(item => ids.includes(item.id_producto));
+    setMaping(transitoria);
+  console.log('Transitoria: ',transitoria);
+  console.log('lo que viene del get: ',dataProductos);
   
 
 }
@@ -39,20 +58,31 @@ console.log(JSON.parse(Cookies.get('cart') ));
 
 
   const handleQuantityChange = (id, delta) => {
-    setProducts(products.map(product =>
-      product.id === id
-        ? { ...product, quantity: Math.max(0, product.quantity + delta) }
-        : product
-    ));
+    // setProducts(products.map(product =>
+    //   product.id === id
+    //     ? { ...product, quantity: Math.max(0, product.quantity + delta) }
+    //     : product
+    // ));
   };
 
   const handleRemove = (id) => {
-    setProducts(products.filter(product => product.id !== id));
+
+    const updatedArray = ids.filter(productId => productId !== id);
+    setNewArray(updatedArray);
+    console.log('esto es update maping: ',updatedArray);
+    console.log('esto es newArray: ',newArray);
+    console.log('que trae id: ',id);
+    setReload(!reload)
+    setCount(count+1)
+
+    
   };
 
-  const total = products.reduce((acc, product) => acc + product.price * product.quantity, 0);
+  // const total = products.reduce((acc, product) => acc + product.price * product.quantity, 0);
+  const total = 0;
   const discount = 95;
-  const finalTotal = total - discount;
+  // const finalTotal = total - discount;
+  const finalTotal =0
 
   return (
     <>
@@ -67,13 +97,13 @@ console.log(JSON.parse(Cookies.get('cart') ));
                 <div className="row">
                   <div className="col-lg-6 px-5 py-4">
                     <h3 className="mb-5 pt-2 text-center fw-bold text-uppercase">Your products</h3>
-                    {maping.map((product) => (
+                    {maping.length!=0? maping.map((product) => (
                       <div className="d-flex align-items-center mb-5" key={product.id_producto}>
                         <div className="flex-shrink-0">
                           <img src={product.imagen} className="img-fluid" style={{ width: 150 }} alt={product.nombre} />
                         </div>
                         <div className="flex-grow-1 ms-3">
-                          <a href="#!" className="float-end" onClick={() => handleRemove(product.id)}>
+                          <a href="#!" className="float-end" onClick={() => handleRemove(product.id_producto)}>
                             <i className="fas fa-times" />
                           </a>
                           <h5 className="text-primary">{product.nombre}</h5>
@@ -88,7 +118,7 @@ console.log(JSON.parse(Cookies.get('cart') ));
                           </div>
                         </div>
                       </div>
-                    ))}
+                    )):<></>}
                     <hr className="mb-4" style={{ height: 2, backgroundColor: "#1266f1", opacity: 1 }} />
                     <div className="d-flex justify-content-between px-x">
                       <p className="fw-bold">Discount:</p>

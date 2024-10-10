@@ -16,11 +16,12 @@ const Cards = ({ endpoint }) => {
   const [carrito,setCarrito]=useState([])
   const [reload,setReload] = useState(false)
   const admin=Cookies.get('superUser')==='true'
+  const LogedIn = Cookies.get('token') != null && Cookies.get('token') !== '';
 
 
   
   useEffect(()=>{
-    console.log(reload);
+    
     getProducto()
   },[reload,endpoint])
   
@@ -33,6 +34,9 @@ const Cards = ({ endpoint }) => {
 
 
   const AddCart = (id) => {
+
+if (LogedIn) {
+  
     // Recuperar el carrito desde las cookies, si no existe, inicializarlo como un array vacío
     let cart = Cookies.get('cart') ? JSON.parse(Cookies.get('cart')) : [];
   
@@ -54,6 +58,14 @@ const Cards = ({ endpoint }) => {
   
     // Mostrar el carrito actualizado en la consola
     console.log('Contenido actual de las cookies:', Cookies.get('cart'));
+
+}else{
+  alert('inicie sesion para agregar al carrito')
+}
+
+
+
+
   };
   
 
@@ -90,7 +102,7 @@ const objeto={
     id_categoria:producto.id_categoria
 
 }
-console.log(objeto);
+
 
 const response=await usingFetch.put(endpoint, objeto); 
 console.log('Response data:', response);

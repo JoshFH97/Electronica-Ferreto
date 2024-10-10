@@ -11,7 +11,7 @@ function Navbar() {
   const admin=Cookies.get('superUser')==='true'
   const LogedIn = Cookies.get('token') != null && Cookies.get('token') !== '';
   
-  console.log("checking super user sfrom navbar: ", admin);
+  
   
   
 
@@ -29,7 +29,7 @@ const logout=()=>{
   changeActiveLink('/')
   window.location.reload()
 }
-console.log(LogedIn);
+
 
   return (
     <> 
