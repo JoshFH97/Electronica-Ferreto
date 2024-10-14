@@ -39,11 +39,15 @@ if (LogedIn) {
   
     // Recuperar el carrito desde las cookies, si no existe, inicializarlo como un array vacío
     let cart = Cookies.get('cart') ? JSON.parse(Cookies.get('cart')) : [];
-  
+    const existeProducto = cart.some(producto => producto.id === id);
     // Verificar si el producto ya está en el carrito
-    if (!cart.includes(id)) {
+    if (!existeProducto) {
       // Agregar el ID del producto al carrito
-      cart = [...cart, id];
+      const objeto={id:id,
+        cantidad:0
+      }
+
+      cart = [...cart, objeto];
   
       // Actualizar el estado del carrito
       setCarrito(cart);
