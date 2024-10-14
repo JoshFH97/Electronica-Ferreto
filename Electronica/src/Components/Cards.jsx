@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';  // Importación de los estilos d
 import { useState } from 'react';
 import { useEffect } from 'react';
 import usingFetch from '../hooks/usingFetch.js';
+import Cookies from 'js-cookie';
 
 // Definición del componente principal de la aplicación
 const Cards = ({ endpoint }) => {
@@ -12,15 +13,70 @@ const Cards = ({ endpoint }) => {
   const [editando,setEditando]=useState(0)
   const [nombre,setNombre]=useState('')
   const [precio,setPrecio]=useState()
-  const [admin, setAdmin]=useState(321) 
-  const contra=321
- 
+  const [carrito,setCarrito]=useState([])
   const [reload,setReload] = useState(false)
+  const admin=Cookies.get('superUser')==='true'
+  const LogedIn = Cookies.get('token') != null && Cookies.get('token') !== '';
 
-useEffect(()=>{
-  console.log(reload);
-  getProducto()
-},[reload,endpoint])
+
+  
+  useEffect(()=>{
+    
+    getProducto()
+  },[reload,endpoint])
+  
+  let cart = Cookies.get('cart');
+  if (!cart) {
+    cart=[]
+  }
+  cart=JSON.stringify(cart)
+
+
+
+  const AddCart = (id) => {
+
+if (LogedIn) {
+  
+    // Recuperar el carrito desde las cookies, si no existe, inicializarlo como un array vacío
+    let cart = Cookies.get('cart') ? JSON.parse(Cookies.get('cart')) : [];
+    const existeProducto = cart.some(producto => producto.id === id);
+    // Verificar si el producto ya está en el carrito
+    if (!existeProducto) {
+      // Agregar el ID del producto al carrito
+      const objeto={id:id,
+        cantidad:0
+      }
+
+      cart = [...cart, objeto];
+  
+      // Actualizar el estado del carrito
+      setCarrito(cart);
+  
+      // Guardar el carrito actualizado en las cookies
+      Cookies.set('cart', JSON.stringify(cart), { expires: 7 }); // Guardar por 7 días 
+  
+      console.log('Carrito actualizado:', cart);
+    } else {
+      console.log('El producto ya está en el carrito');
+    }
+  
+    // Mostrar el carrito actualizado en la consola
+    console.log('Contenido actual de las cookies:', Cookies.get('cart'));
+
+}else{
+  alert('inicie sesion para agregar al carrito')
+}
+
+
+
+
+  };
+  
+
+
+
+
+
 
   const getProducto = async()=>{
     const dataProductos=await usingFetch.get(`api/productos${endpoint}`)
@@ -50,7 +106,7 @@ const objeto={
     id_categoria:producto.id_categoria
 
 }
-console.log(objeto);
+
 
 const response=await usingFetch.put(endpoint, objeto); 
 console.log('Response data:', response);
@@ -83,13 +139,13 @@ return (<>
            {/* Acciones de la tarjeta del producto */}
            <div className="card-footer p-4 pt-0 border-top-0 bg-transparent">
              <div className="text-center">
-             {admin === contra ? (
+             {admin ? (
 <>
 {producto.id_producto===editando? <a className="btn btn-outline-dark mt-auto" onClick={()=>Edit(producto)}>Submit</a>: <a className="btn btn-outline-dark mt-auto" onClick={()=>setEditando(producto.id_producto)}>editar</a>}
 {producto.id_producto===editando? <a onClick={()=>setEditando(0)} style={{ marginLeft: '5px' }} className="btn btn-outline-dark mt-auto" href="#">cancel</a>:<a onClick={()=>pseudoDelete(producto.id_producto)} style={{ marginLeft: '5px' }} className="btn btn-outline-dark mt-auto" href="#">eliminar</a>}
 </>
 ) : (
-<a className="btn btn-outline-dark mt-auto" href="#">Agregar a Carrito</a>
+<a className="btn btn-outline-dark mt-auto"onClick={()=>AddCart(producto.id_producto)} >Agregar a Carrito</a>
 )}
 
              </div>

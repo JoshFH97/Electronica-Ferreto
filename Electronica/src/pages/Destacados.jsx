@@ -11,6 +11,7 @@ import {
   MDBRipple,
 } from "mdb-react-ui-kit";
 import Navbar from "../Components/Navbar";
+import { useState } from "react"; 
 
 // Define el componente Destacados
 const Destacados = () => {
