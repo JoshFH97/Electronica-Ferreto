@@ -9,8 +9,8 @@ const ProductSection = () => {
     Price: '', 
     Category: '' 
   });
-const[categoria,setCategoria]=useState('')  
-filter(datos.titulo=barrabusqueda)
+const[categoria,setCategoria]=useState('')
+const[precio,setPrecio]=useState(0)
 
 
 
@@ -60,12 +60,12 @@ filter(datos.titulo=barrabusqueda)
                       className="form-select"
                       id="filterPrice"
                       name="Price"
-                      value={filter.Price}
-                      onChange={handleFilterChange}
+                      value={categoria}
+                      onChange={(e) => setCategoria(e.target.value)}
                     >
                       <option value="">Select a price range</option>
-                      <option value="asc">Price: Low to High</option>
-                      <option value="desc">Price: High to Low</option>
+                      <option value="/AscPrice">Price: Low to High</option>
+                      <option value="/DescPrice">Price: High to Low</option>
                     </select>
                   </div>
                   {/* Category */}
@@ -82,7 +82,7 @@ filter(datos.titulo=barrabusqueda)
                       <option value="/celulares">Cellphones</option>
                       <option value="/computadoras">Computers</option>
                       <option value="/accesorios" >Accessories</option>
-                      <option value="/services" >Software</option>
+                      <option value="/software" >Software</option>
                     </select>
                   </div>
                 </form>
