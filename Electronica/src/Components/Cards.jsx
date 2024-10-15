@@ -23,6 +23,8 @@ const Cards = ({ endpoint }) => {
   useEffect(()=>{
     
     getProducto()
+    console.log('esto es lo que sale de endpoint: ',endpoint);
+    
   },[reload,endpoint])
   
   let cart = Cookies.get('cart');
@@ -79,9 +81,28 @@ if (LogedIn) {
 
 
   const getProducto = async()=>{
-    const dataProductos=await usingFetch.get(`api/productos${endpoint}`)
-    
+
+let finalEndpoint = `api/productos`;
+
+
+
+if (endpoint.length>30) {
+  
+  console.log('entro al if: ', endpoint);
+  
+  finalEndpoint=endpoint;
+}
+if (!endpoint) {
+  finalEndpoint = `api/productos`;
+  console.log('vacio');
+  
+}
+console.log('despues del if: ', endpoint);
+console.log('antes de data producto ', finalEndpoint);
+
+    const dataProductos=await usingFetch.get(finalEndpoint)
     setListaProductos(dataProductos)
+    
    
 }
 
