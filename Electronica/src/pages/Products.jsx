@@ -10,7 +10,10 @@ const ProductSection = () => {
     Category: '' 
   });
 const[categoria,setCategoria]=useState('')
-const[precio,setPrecio]=useState(0)
+const[orden,setOrden]=useState('')
+const [endpoint, setEndpoint] = useState('');
+
+
 
 
 
@@ -27,6 +30,11 @@ const[precio,setPrecio]=useState(0)
   const applyFilters = () => {
     console.log('Filters applied:', filter);
     // Add logic here to filter the data based on the `filter` values
+    if (categoria && orden) {
+  
+      setEndpoint ( `api/productos/categoria/${categoria}/ordenar/precio/?order=${orden}`)
+      
+    }
   };
 
   return (
@@ -60,12 +68,13 @@ const[precio,setPrecio]=useState(0)
                       className="form-select"
                       id="filterPrice"
                       name="Price"
-                      value={categoria}
-                      onChange={(e) => setCategoria(e.target.value)}
+                      value={orden}
+                      onChange={(e) => setOrden(e.target.value)}
                     >
+
                       <option value="">Select a price range</option>
-                      <option value="/AscPrice">Price: Low to High</option>
-                      <option value="/DescPrice">Price: High to Low</option>
+                      <option value="asc">Price: Low to High</option>
+                      <option value="desc">Price: High to Low</option>
                     </select>
                   </div>
                   {/* Category */}
@@ -79,10 +88,10 @@ const[precio,setPrecio]=useState(0)
                       onChange={(e) => setCategoria(e.target.value)}
                     >
                       <option value="" >Select a category</option>
-                      <option value="/celulares">Cellphones</option>
-                      <option value="/computadoras">Computers</option>
-                      <option value="/accesorios" >Accessories</option>
-                      <option value="/software" >Software</option>
+                      <option value="1">Cellphones</option>
+                      <option value="2">Computers</option>
+                      <option value="3" >Accessories</option>
+                      <option value="4" >Software</option>
                     </select>
                   </div>
                 </form>
@@ -99,7 +108,7 @@ const[precio,setPrecio]=useState(0)
 
         {/* Here you can add the section to display the filtered products */}
         <div className="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-        <Cards endpoint={categoria} />
+        <Cards endpoint={endpoint} />
         </div>
       </div>
     </section>
