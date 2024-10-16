@@ -1,16 +1,17 @@
+import { showToast } from './alertas.js';
+
 function masDeOcho(contra) {
     const regex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z\d!@#$%^&*(),.?":{}|<>]{9,}$/;
   
     if (regex.test(contra)) {
-        console.log(contra.length)
+        
         
         
         return true
     } else {
 
-        console.log(contra.length)
         
-        alert("la contrasena debe tener al menos 8 caracteres un numero, un caracter especial y una mayuscula")
+        showToast('La contrasena debe tener al menos 8 caracteres un numero, un caracter especial y una mayuscula','error')
         return false
     }
     
@@ -28,9 +29,8 @@ function coinciden (contra,confirmacion) {
         
         return true
     } else {
-        console.log('EN FALSE contra dos '+confirmacion);
-        console.log("EN FALSE NO coinciden UNO "+contra);
-        alert("NO COINCIDEN")
+        showToast('Contraseñas no coinciden','error')
+        
         return false
     }
     
@@ -42,7 +42,9 @@ function correo(email) {
       
         return true
     } else {
-        alert('Formato invalido')
+
+        showToast('Formato de correo Invalido','error')
+       
          return false
     }
 

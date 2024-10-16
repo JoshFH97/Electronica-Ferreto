@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'; // Importación de los estilos de
 import { useState, useEffect } from "react";
 import { button } from "framer-motion/client";
 import Cookies from 'js-cookie';
+import { showToast } from '../hooks/alertas.js';
 
 function Navbar() {
   const navigate = useNavigate();
@@ -26,6 +27,7 @@ function Navbar() {
 const logout=()=>{
   Cookies.remove('token'); // Elimina la cookie del token
   Cookies.remove('superUser'); // Elimina la cookie de superUser
+  showToast('Sesion Terminada', 'info');
   changeActiveLink('/')
   window.location.reload()
 }

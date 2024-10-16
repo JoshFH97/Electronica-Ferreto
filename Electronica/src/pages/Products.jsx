@@ -28,7 +28,7 @@ const [endpoint, setEndpoint] = useState('');
 
   // Handle applying the filters
   const applyFilters = () => {
-    console.log('Filters applied:', filter);
+    
     // Add logic here to filter the data based on the `filter` values
     if (categoria && orden) {
   

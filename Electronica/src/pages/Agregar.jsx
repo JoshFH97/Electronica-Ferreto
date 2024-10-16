@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'; // Importa Bootstrap
 import Navbar from '../Components/Navbar';//Navbar
 import defaulimage from '../assets/defaulimage.png';
 import usingFetch from '../hooks/usingFetch.js';
+import { showToast } from '../hooks/alertas.js'; 
 
 const Agregar =()=>{
 const endpoint='api/productos/'
@@ -42,10 +43,11 @@ const handleFileChange = (event) => {
         
         try {
             await usingFetch.post(endpoint,objeto)
-            alert('exito, su articulo ha sido agregado')
+           
+            showToast('Su  Articulo ha sido agregado exxitosamente','success')
         } catch (error) {
             console.error(error)
-            alert('fhubo un problema intente nuevamente')
+            showToast('Hubo un problema, intente mas tarde','info')
             
         }
         setModelo('')

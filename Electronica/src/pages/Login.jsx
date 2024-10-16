@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import usingFetch from '../hooks/usingFetch.js';
 import { useNavigate } from "react-router-dom";
 import Cookies from 'js-cookie';
+import { showToast } from '../hooks/alertas.js';
 
 function Login() {
   //inputs
@@ -18,21 +19,19 @@ const user={
   password: clave
 }
 
-console.log('esto es lo que llega a user '+JSON.stringify(user));
+
 
 //response from fetch
 const respuesta = await usingFetch.post(endpoint, user);
 
 
-console.log('checkeando si aqui esta como booleano o string, ',respuesta.superUser);
-console.log(typeof respuesta.superUser);
 
 
 
 if(respuesta && respuesta.token){
 
 
-console.log("verificando que sale de respuesta: ",respuesta);
+
 
 
   Cookies.set('token', respuesta.token, { expires: 1 }); // Expires in 1 day
@@ -40,10 +39,12 @@ console.log("verificando que sale de respuesta: ",respuesta);
 
 
 
-  console.log('Token cookie:', Cookies.get('token'));
-  console.log('superUser cookie:', Cookies.get('superUser'));
+showToast('Ingresando!','success')
 
   navigate('/')
+}else{
+
+  showToast('Contraseña o usuario incorrecto, intentalo nuevamente','error')
 }
 
 
