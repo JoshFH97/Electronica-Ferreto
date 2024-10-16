@@ -1,4 +1,40 @@
+import { useState } from "react"
+import Cookies from 'js-cookie';//Se importa Cookies
+import { showToast } from '../hooks/alertas.js';//Se importan ALERTAS
+import usingFetch from '../hooks/usingFetch.js';//Metodos Fetch
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements, CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
+
 const Payments =()=>{
+const [pago,setPago]=useState(false)//Estado para ver si se logro procesar el pago exitosamente
+const stripePromise = loadStripe("pk_test_51QABlPRqzbauyrEOs9goZGDL5nouE89NviOHIKc3hgjUE6EGy6BseUV6Zo2zpAXFtBALvwpvsacd5umGdfvQSSmW00Mo35Bby0");
+  const SubmitPayment =async()=>{
+
+
+let endpoint='api/orden/'
+    //si el pago fue exitoso se crean detalles de factura
+if (pago) {
+  const orden={
+  estado:'Activo',
+  id_usuario_id:Cookies.get('userID')
+  }
+
+
+  const respuesta = await usingFetch.post(endpoint, orden);
+  console.log(respuesta);
+  
+}else{
+// si el pago no es exitoso se deja saber
+
+showToast('Pago no procesado', 'error')
+
+}
+
+
+  }
+
+
+
 
 
 return(
