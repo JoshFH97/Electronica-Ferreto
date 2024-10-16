@@ -12,29 +12,26 @@ const ShoppingCart = () => {
   const [total, setTotal] = useState(0); // Possibly not needed anymore
 
   useEffect(() => {
-    console.log("------------------------------------------------------------");
-    console.log("_______________USE EFFECT  1__________________");
-    
-    console.log('Cookies antes del getCart: ', Cookies.get('cart'));
+
     getCart();
     
-    console.log("------------------------------------------------------------");
+    
   }, [reload]);
 
   useEffect(() => {
-    console.log("------------------------------------------------------------");
-    console.log("_______________USE EFFECT  2__________________");
+    
+    
     // Set cookies whenever objCarrito changes
     if (objCarrito.length > 0) {
       Cookies.set('cart', JSON.stringify(objCarrito), { expires: 7 });
-      console.log('Cookies updated:', Cookies.get('cart'));
+      
     }
     
-    console.log("------------------------------------------------------------");
+    
   }, [objCarrito]);
 
   useEffect(() => {
-    console.log("_______________USE EFFECT  3 - Update Total__________________");
+    
   
     const newTotal = maping.reduce((acc, product) => {
       const carritoItem = objCarrito.find(item => item.id === product.id_producto);
@@ -42,29 +39,24 @@ const ShoppingCart = () => {
     }, 0);
   
     setTotal(newTotal);
-    console.log('Nuevo total: ', newTotal);
+    
   
   }, [objCarrito, maping]);
   
 
   const getCart = async () => {
-    console.log("------------------------------------------------------------");
-    console.log("_______________GET CART__________________");
-    
+
     const produCarrito = objCarrito.map(item => item.id);
     const dataProductos = await usingFetch.get(`api/productos`);
     
     const transitoria = dataProductos.filter(item => produCarrito.includes(item.id_producto));
     setMaping(transitoria);
     
-    console.log('ProduCarrito IDs: ', produCarrito);
-    console.log('Transitoria: ', transitoria);
-    console.log('Datos del GET productos: ', dataProductos);
-    console.log("------------------------------------------------------------");
+
   };
 
   const handleQuantityChange = (prod, delta) => {
-    console.log("_______________handleQuantityChange__________________");
+ 
   
     const id = prod.id_producto;
   
@@ -74,13 +66,13 @@ const ShoppingCart = () => {
         : product
     ));
     
-    console.log("Carrito actualizado con nueva cantidad.");
+    
   };
   
 
   const handleRemove = (id) => {
-    console.log("------------------------------------------------------------");
-    console.log("_______________handleRemove__________________");
+    
+   
 
     const updatedCart = objCarrito.filter(item => item.id !== id);
     
@@ -91,18 +83,18 @@ const ShoppingCart = () => {
     // Trigger a reload to update the displayed items
     setReload(!reload);
     
-    console.log('Carrito después de eliminar:', updatedCart);
-    console.log("------------------------------------------------------------");
+    
+    
   };
 
   const returnQuantity = (id) => {
-    console.log("------------------------------------------------------------");
-    console.log("_______________returnQuantity__________________");
+    
+    
 
     const filterObject = objCarrito.find(item => item.id === id);
     
     if (filterObject) {
-      console.log('Cantidad del objeto filtrado: ', filterObject.cantidad);
+      
       return filterObject.cantidad;
     }
     

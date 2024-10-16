@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet';  // Para manejar el contenido del <head> en React
 import 'bootstrap/dist/css/bootstrap.min.css';  // Importación de los estilos de Bootstrap
-
+import { showToast } from '../hooks/alertas.js';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import usingFetch from '../hooks/usingFetch.js';
@@ -23,7 +23,7 @@ const Cards = ({ endpoint }) => {
   useEffect(()=>{
     
     getProducto()
-    console.log('esto es lo que sale de endpoint: ',endpoint);
+    
     
   },[reload,endpoint])
   
@@ -57,16 +57,17 @@ if (LogedIn) {
       // Guardar el carrito actualizado en las cookies
       Cookies.set('cart', JSON.stringify(cart), { expires: 7 }); // Guardar por 7 días 
   
-      console.log('Carrito actualizado:', cart);
+      
     } else {
-      console.log('El producto ya está en el carrito');
+      
+      
+      showToast('El producto ya está en el carrito', 'info');
     }
   
-    // Mostrar el carrito actualizado en la consola
-    console.log('Contenido actual de las cookies:', Cookies.get('cart'));
 
 }else{
-  alert('inicie sesion para agregar al carrito')
+  
+  showToast('inicie sesion para agregar al carrito', 'info');
 }
 
 
@@ -88,17 +89,16 @@ let finalEndpoint = `api/productos`;
 
 if (endpoint.length>30) {
   
-  console.log('entro al if: ', endpoint);
+  
   
   finalEndpoint=endpoint;
 }
 if (!endpoint) {
   finalEndpoint = `api/productos`;
-  console.log('vacio');
+
   
 }
-console.log('despues del if: ', endpoint);
-console.log('antes de data producto ', finalEndpoint);
+
 
     const dataProductos=await usingFetch.get(finalEndpoint)
     setListaProductos(dataProductos)
@@ -109,7 +109,7 @@ console.log('antes de data producto ', finalEndpoint);
 const pseudoDelete = async (id) => {
   const endpoint = `http://127.0.0.1:8000/api/productos/${id}/delete/`; 
     const response = await usingFetch.put(endpoint, {}); 
-    console.log('Response data:', response);
+  
     setReload(!reload)
 
 };
@@ -130,7 +130,7 @@ const objeto={
 
 
 const response=await usingFetch.put(endpoint, objeto); 
-console.log('Response data:', response);
+
 setEditando(0)
 setReload(!reload)
 
