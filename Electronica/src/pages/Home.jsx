@@ -1,11 +1,16 @@
 // Importación de React y otros módulos necesarios
-import React from 'react';
-import { Helmet } from 'react-helmet';  // Para manejar el contenido del <head> en React
-import 'bootstrap/dist/css/bootstrap.min.css';  // Importación de los estilos de Bootstrap
-import Navbar from '../Components/Navbar';
 
-// Definición del componente principal de la aplicación
-const App = () => (
+import Navbar from '../Components/Navbar';
+import { Helmet } from 'react-helmet';
+import { useState } from 'react';
+import Cards from '../Components/Cards';
+
+const Home =()=>{
+  const [logedIn,setLogIn]=useState(false)
+
+
+  
+  return(
   <>
     {/* Helmet es utilizado para manejar el contenido del <head> de manera dinámica en React */}
     <Helmet>
@@ -38,7 +43,7 @@ const App = () => (
       <link href="./Home.css" rel="stylesheet" />
     </Helmet>
 
-    <Navbar/>
+    <Navbar logedIn={logedIn}/>
 
    
 
@@ -59,31 +64,18 @@ const App = () => (
     <section className="py-5">
       <div className="container px-4 px-lg-5 mt-5">
         <div className="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+    
+
           {/* Tarjeta de producto */}
-          <div className="col mb-5">
-            <div className="card h-100">
-              {/* Imagen del producto */}
-              <img
-                className="card-img-top"
-                src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg"
-                alt="..."
-              />
-              {/* Detalles del producto */}
-              <div className="card-body p-4">
-                <div className="text-center">
-                  <h5 className="fw-bolder">Fancy Product</h5>  {/* Nombre del producto */}
-                  $40.00 - $80.00  {/* Precio del producto */}
-                </div>
-              </div>
-              {/* Acciones de la tarjeta del producto */}
-              <div className="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                <div className="text-center">
-                  <a className="btn btn-outline-dark mt-auto" href="#">View options</a>  {/* Botón para ver más detalles */}
-                </div>
-              </div>
-            </div>
-          </div>
+        
+
+          <Cards endpoint={''}/>
+
+
           {/* Repite las tarjetas de productos según sea necesario */}
+        </div>
+        <div>
+           
         </div>
       </div>
     </section>
@@ -91,11 +83,12 @@ const App = () => (
     {/* Inicio del pie de página */}
     <footer className="py-5 bg-dark">
       <div className="container">
-        <p className="m-0 text-center text-white">Copyright © Your Website 2023</p>  {/* Copyright */}
+        <p className="m-0 text-center text-white">Copyright © Electronica Ferreto FWD 2024</p>  {/* Copyright */}
       </div>
     </footer>
   </>
-);
+  )
+};
 
 // Exportación del componente App para que pueda ser utilizado en otros archivos
-export default App;
+export default Home;

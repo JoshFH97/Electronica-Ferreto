@@ -42,17 +42,21 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'corsheaders'
 ]
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:5173',  # Agrega el origen de tu frontend (React)
+]
 CORS_ALLOWED_ALL_ORIGINS =True
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
+    
 ]
 
 ROOT_URLCONF = 'Electronica.urls'
