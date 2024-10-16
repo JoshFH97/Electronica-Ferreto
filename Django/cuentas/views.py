@@ -42,7 +42,8 @@ class LoginView(APIView):
             return Response({
                 'success': f'Status {status.HTTP_200_OK}',
                 'superUser': user.is_superuser,
-                'token': token.key
+                'userID':user.id,
+                'token': token.key,
             }, status=status.HTTP_200_OK)
         
         else:

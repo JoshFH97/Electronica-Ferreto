@@ -50,10 +50,11 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'corsheaders'
 ]
-CORS_ALLOWED_ORIGINS = [
-    'http://localhost:5173',  # Agrega el origen de tu frontend (React)
-]
-CORS_ALLOWED_ALL_ORIGINS =True
+
+CORS_ALLOW_ALL_ORIGINS = True
+STRIPE_SECRET_KEY = 'sk_test_51QABlPRqzbauyrEOElLdGXQQZwGTs2Fr1zV14BXu9g4F9MzozkiCNZO7wzUa1JkFSi6YTJiEaS1YjpYKcbXF9jOc0005StmWKC'
+STRIPE_PUBLISHABLE_KEY = 'pk_test_51QABlPRqzbauyrEOs9goZGDL5nouE89NviOHIKc3hgjUE6EGy6BseUV6Zo2zpAXFtBALvwpvsacd5umGdfvQSSmW00Mo35Bby0'
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

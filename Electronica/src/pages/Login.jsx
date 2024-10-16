@@ -14,6 +14,8 @@ const navigate = useNavigate()
 //-------------------------------------------
 
 const Verificacion=async()=>{
+
+  //creacion de objeto que se va a consultar
 const user={
   username: nombre,
   password: clave
@@ -21,29 +23,33 @@ const user={
 
 
 
-//response from fetch
+//response from fetch, se utiliza POST por motivos de seguridad de esta manera si hay match con el usuario  da una respuesta positiva y 
+//trae el token
 const respuesta = await usingFetch.post(endpoint, user);
 
 
 
 
-
+//se verifica una respuesta desde el back si existen tanto respuesta.token como respuesta hubo una respuesta correcta
 if(respuesta && respuesta.token){
 
 
 
 
-
+//Con estos Cookies. Set Mandamos token, si es super usuario e id de usuario a cookies una vez se confirma una respuesta exitosa del back
   Cookies.set('token', respuesta.token, { expires: 1 }); // Expires in 1 day
   Cookies.set('superUser', respuesta.superUser, { expires: 1 });
+  Cookies.set('userID', respuesta.userID, { expires: 1 })
 
 
+  
 
+//alerta para dejar saber que todo fue en orden
 showToast('Ingresando!','success')
-
+//se redirigue a la pagina principal
   navigate('/')
 }else{
-
+//alerta por si no llego el token
   showToast('Contraseña o usuario incorrecto, intentalo nuevamente','error')
 }
 

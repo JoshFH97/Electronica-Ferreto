@@ -11,6 +11,7 @@ function Navbar() {
   const [activeLink, setActiveLink] = useState(location.pathname);
   const admin=Cookies.get('superUser')==='true'
   const LogedIn = Cookies.get('token') != null && Cookies.get('token') !== '';
+  const [objCarrito, setObjCarrito] = useState(JSON.parse(Cookies.get('cart') || '[]'));
   
   
   
@@ -20,6 +21,10 @@ function Navbar() {
   useEffect(() => {
     setActiveLink(location.pathname);
   }, [location.pathname]);
+  useEffect(()=>{
+    
+    
+  },[objCarrito])
 
   const changeActiveLink = (url) => {
     navigate(url);
@@ -124,7 +129,7 @@ const logout=()=>{
                 <i className="fa-solid fa-cart-shopping bg-dark text-white"></i>
                 {/* Icono del carrito */}
                 Cart
-                <span className="badge bg-light text-black ms-1 rounded-pill">0</span>  
+                <span className="badge bg-light text-black ms-1 rounded-pill">{objCarrito.length}</span>  
                 {/* Contador del carrito */}
               </button>
               {LogedIn ? (

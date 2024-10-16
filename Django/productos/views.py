@@ -1,16 +1,50 @@
 from django.shortcuts import render
 from rest_framework import generics
 from rest_framework.response import Response
-from productos.models import Producto
-from productos.serializers import Producto_Serializer
-from productos.serializers import Producto_Serializer
+from productos.models import Producto, Orden
+from productos.serializers import Producto_Serializer, Orden_Serializer
+import stripe
+from django.http import JsonResponse
+from django.conf import settings
+from rest_framework.views import APIView
 
 
 # Create your views here.
 
 
+class Payments_View(APIView):
+    stripe.api_key = settings.STRIPE_SECRET_KEY
+
+    def post(self, request, *args, **kwargs):
+        try:
+            # Assuming you might get the amount dynamically, else it's set as $10.00
+            amount = request.data.get('amount', 1000)  # Default to 1000 cents ($10)
+            
+            # Create a PaymentIntent with Stripe
+            intent = stripe.PaymentIntent.create(
+                amount=amount,
+                currency='usd',
+                automatic_payment_methods={'enabled': True},
+            )
+
+            return JsonResponse({
+                'clientSecret': intent['client_secret']
+            })
+        except Exception as e:
+            return JsonResponse({'error': str(e)})
 
 
+class Facturas_View(generics.CreateAPIView):
+    
+     queryset = Orden.objects.all()
+     serializer_class=Orden_Serializer
+     
+      
+     
+   
+     
+     
+     
 
 class get_Producto_View(generics.ListCreateAPIView):
     queryset = Producto.objects.filter(activo=True)
