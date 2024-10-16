@@ -2,14 +2,19 @@ import { useNavigate, useLocation } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css'; // Importación de los estilos de Bootstrap
 import { useState, useEffect } from "react";
 import { button } from "framer-motion/client";
+import Cookies from 'js-cookie';
+import { showToast } from '../hooks/alertas.js';
 
-function Navbar(LogedIn) {
+function Navbar() {
   const navigate = useNavigate();
   const location = useLocation(); // Para saber la URL actual
   const [activeLink, setActiveLink] = useState(location.pathname);
-  const [admin, setAdmin]=useState(321)
+  const admin=Cookies.get('superUser')==='true'
+  const LogedIn = Cookies.get('token') != null && Cookies.get('token') !== '';
   
-  const contra=321
+  
+  
+  
 
   // Actualiza el estado `activeLink` cuando la URL cambia
   useEffect(() => {
@@ -19,6 +24,14 @@ function Navbar(LogedIn) {
   const changeActiveLink = (url) => {
     navigate(url);
   };
+const logout=()=>{
+  Cookies.remove('token'); // Elimina la cookie del token
+  Cookies.remove('superUser'); // Elimina la cookie de superUser
+  showToast('Sesion Terminada', 'info');
+  changeActiveLink('/')
+  window.location.reload()
+}
+
 
   return (
     <> 
@@ -40,7 +53,8 @@ function Navbar(LogedIn) {
             aria-expanded="false"
             aria-label="Toggle navigation"
           >
-            <span className="navbar-toggler-icon"><i className="fa-solid fa-bars"></i></span>
+            {/* incono del toggle */}
+            <span className="navbar-toggler-icon"></span> 
           </button>
 
           {/* Contenedor colapsable del menú */}
@@ -64,13 +78,13 @@ function Navbar(LogedIn) {
                   Contact
                 </a>
               </li>
-              {admin === contra ? (
+              {admin ? (
               <li className="nav-item">
                 <a
                   className={`nav-link ${activeLink === '/agregar' ? 'active' : ''}`}
                   onClick={() => changeActiveLink('/agregar')}
                 >
-                  Agregar
+                  Add
 
                 </a>
               </li>):<></>}
@@ -113,15 +127,17 @@ function Navbar(LogedIn) {
                 <span className="badge bg-light text-black ms-1 rounded-pill">0</span>  
                 {/* Contador del carrito */}
               </button>
-              {LogedIn?<button className="btn btn-outline-dark text-white" onClick={() => changeActiveLink('/LOGIN')} >Log In</button>:(<button className="btn btn-outline-dark text-white" type="submit">
-              <i className="bi bi-box-arrow-in-left"></i>
-                {/* Icono del carrito */}
-                logout
-                  
-                {/* Contador del carrito */}
+              {LogedIn ? (
+                    <button className="btn btn-outline-dark text-white" onClick={logout}>
+                    <i className="bi bi-box-arrow-in-left"></i>
+                            Logout
+                     </button>
+                    ) : (
+                   <button className="btn btn-outline-dark text-white" onClick={() => changeActiveLink('/LOGIN')}>
+                           Log In
+                   </button>
+                   )}
 
-              
-              </button>)}
             </form>
           </div>
         </div>

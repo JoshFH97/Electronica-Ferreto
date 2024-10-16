@@ -5,11 +5,66 @@ from productos.models import Producto
 from productos.serializers import Producto_Serializer
 from productos.serializers import Producto_Serializer
 
+
 # Create your views here.
+
+
+
+
+
 class get_Producto_View(generics.ListCreateAPIView):
     queryset = Producto.objects.filter(activo=True)
     serializer_class=Producto_Serializer
-    
+
+class FilterCellView(generics.ListCreateAPIView):
+       queryset = Producto.objects.filter(id_categoria_id=1) 
+       serializer_class=Producto_Serializer
+
+class FilterCompView(generics.ListCreateAPIView):
+       queryset = Producto.objects.filter(id_categoria_id=2) 
+       serializer_class=Producto_Serializer
+
+class FilterAcceView(generics.ListCreateAPIView):
+       queryset = Producto.objects.filter(id_categoria_id=3) 
+       serializer_class=Producto_Serializer
+
+class FilterSoftView(generics.ListCreateAPIView):
+       queryset = Producto.objects.filter(id_categoria_id=4)
+       serializer_class=Producto_Serializer
+
+
+
+class AscPrice(generics.ListCreateAPIView):
+    serializer_class = Producto_Serializer
+
+    def get_queryset(self):
+        id = self.kwargs.get('id')  # obtener el id de la URL
+        value = self.kwargs.get('value')  # obtener el valor (campo) de la URL
+        order = self.request.GET.get('order', None)  # obtener 'order' como query param
+        
+        print(f"Received category ID: {id}, order: {order}")
+        queryset = Producto.objects.filter(id_categoria_id=id, activo=True)
+        
+        if order == 'asc/':
+            queryset = queryset.order_by(value)
+        elif order == 'desc/':
+            queryset = queryset.order_by(f"-{value}")
+        
+        return queryset
+
+       
+
+
+class DescPrice(generics.ListCreateAPIView):
+       queryset = Producto.objects.all().order_by('-precio') 
+       serializer_class=Producto_Serializer
+
+class ProductNombre(generics.ListCreateAPIView):
+       lookup_field='nombre'
+       queryset = Producto.objects.filter(nombre=lookup_field)
+       serializer_class=Producto_Serializer
+
+
 class ToggleProductoActivoView(generics.UpdateAPIView):
     queryset = Producto.objects.all()
     serializer_class = Producto_Serializer

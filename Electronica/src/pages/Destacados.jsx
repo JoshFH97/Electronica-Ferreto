@@ -11,6 +11,7 @@ import {
   MDBRipple,
 } from "mdb-react-ui-kit";
 import Navbar from "../Components/Navbar";
+import { useState } from "react"; 
 
 // Define el componente Destacados
 const Destacados = () => {
@@ -145,7 +146,7 @@ const Destacados = () => {
                   {/* Cuerpo de la tarjeta que contiene las acciones: Cancelar y Comprar ahora */}
                   <MDBCardBody>
                     <div className="d-flex justify-content-between align-items-center">
-                      <MDBBtn color="primary">Agregar a Carrito</MDBBtn>
+                      <MDBBtn color="primary">Add Cart</MDBBtn>
                     </div>
                   </MDBCardBody>
                 </MDBCard>

@@ -7,5 +7,6 @@ urlpatterns = [
     path('api/registro',RegistroView.as_view()),
     path('api/registro/admin',RegistroViewAdmin.as_view()),
     path('api/login/',LoginView.as_view()),
-    path('api/',include("productos.urls"))
+    path('api/',include("productos.urls")),
+    path('core/', include('core.urls')), 
 ]

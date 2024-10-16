@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import '../Contact.css';
 
 // Importa los estilos de Bootstrap para utilizar sus clases de diseño
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 
 // Importa el componente Navbar desde la carpeta de componentes
 import Navbar from '../Components/Navbar';
@@ -94,10 +94,11 @@ const ContactSection = () => {
             {/* Información de contacto */}
             <div className="col-md-6 mt-3 contact-widget-section2">
               <p>
-                It is a long established fact that a reader will be distracted by
-                the readable content of a page when looking at its layout. The point
-                of using Lorem Ipsum is that it has a more-or-less normal
-                distribution of letters, as opposed to using Content.
+              At our company, we believe that great communication is key to delivering the best customer experience. 
+              Whether you're buying a cellphone, computer, or any of our devices, our team is here to provide prompt, 
+              clear, and helpful support at every step.
+
+We're committed to listening to your needs, guiding you through our products, and resolving any issues quickly. Your satisfaction is our priority, and we’re always here to ensure you have the best experience possible.
               </p>
               <div className="find-widget">
                 Company: <a href="#">Electronica Ferreto</a>

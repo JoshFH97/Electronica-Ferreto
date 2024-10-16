@@ -4,9 +4,10 @@ import 'bootstrap/dist/css/bootstrap.min.css'; // Importa Bootstrap
 import Navbar from '../Components/Navbar';//Navbar
 import defaulimage from '../assets/defaulimage.png';
 import usingFetch from '../hooks/usingFetch.js';
+import { showToast } from '../hooks/alertas.js'; 
 
 const Agregar =()=>{
-const endpoint='/api/productos/'
+const endpoint='api/productos/'
 
 const [modelo,setModelo]=useState('')
 const [descripcion,setDescripcion]=useState('')
@@ -42,10 +43,11 @@ const handleFileChange = (event) => {
         
         try {
             await usingFetch.post(endpoint,objeto)
-            alert('exito, su articulo ha sido agregado')
+           
+            showToast('Su  Articulo ha sido agregado exxitosamente','success')
         } catch (error) {
             console.error(error)
-            alert('fhubo un problema intente nuevamente')
+            showToast('Hubo un problema, intente mas tarde','info')
             
         }
         setModelo('')
@@ -74,11 +76,12 @@ const handleFileChange = (event) => {
           <div className="row">
             {/* Section Info */}
             <div className="col-md-6 mt-3 contact-widget-section2">
-                <p>CATEGORIAS</p>
+                <p>CATEGORIES</p>
         <select  onChange={(e)=>setCategoria(e.target.value)}  name="Category" className='form-control' style={{ width: '150px' } }>
             <option value="1">Celulares</option>
-            <option value="2" >Perifericos</option>
-            <option value="3">Servicios</option>
+            <option value="2" >Computadoras</option>
+            <option value="3">Accesorios</option>
+            <option value="4">Software</option>
             <option selected></option>
          </select>
               <div className="find-widget">
@@ -141,7 +144,7 @@ const handleFileChange = (event) => {
                 {/* Cantidad */}
                 <div className="form-group label-floating">
                   <label className="control-label" htmlFor="msg_subject">
-                    Cantidad
+                    Quantity
                   </label>
                   <input
                     className="form-control"

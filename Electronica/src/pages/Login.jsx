@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import usingFetch from '../hooks/usingFetch.js';
 import { useNavigate } from "react-router-dom";
+import Cookies from 'js-cookie';
+import { showToast } from '../hooks/alertas.js';
 
 function Login() {
   //inputs
@@ -16,10 +18,33 @@ const user={
   username: nombre,
   password: clave
 }
-console.log('esto es lo que llega a user '+JSON.stringify(user));
+
+
+
+//response from fetch
 const respuesta = await usingFetch.post(endpoint, user);
-if(respuesta.ok){
+
+
+
+
+
+if(respuesta && respuesta.token){
+
+
+
+
+
+  Cookies.set('token', respuesta.token, { expires: 1 }); // Expires in 1 day
+  Cookies.set('superUser', respuesta.superUser, { expires: 1 });
+
+
+
+showToast('Ingresando!','success')
+
   navigate('/')
+}else{
+
+  showToast('Contraseña o usuario incorrecto, intentalo nuevamente','error')
 }
 
 
@@ -51,7 +76,7 @@ if(respuesta.ok){
 
         <div className='inputbox'>
         <button onClick={Verificacion}>INGRESAR</button>
-        <a onClick={navigate('/register')}>no tienes cuenta?</a>
+        <a onClick={()=>navigate('/register')}>no tienes cuenta?</a>
         </div>
 
 
