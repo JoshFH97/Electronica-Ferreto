@@ -4,6 +4,7 @@ import Navbar from "../Components/Navbar";
 import usingFetch from '../hooks/usingFetch.js';
 import Cookies from 'js-cookie';
 import Payments from "../Components/Payments.jsx";
+import WrappedPayments from "../Components/Payments.jsx";
 
 const ShoppingCart = () => {
   const [reload, setReload] = useState(false);
@@ -154,7 +155,8 @@ const ShoppingCart = () => {
                         <h5 className="fw-bold mb-0">{finalTotal}$</h5>
                       </div>
                     </div>
-                    <Payments/>
+                    <WrappedPayments/>
+                    
                   </div>
                 </div>
               </div>
@@ -164,6 +166,7 @@ const ShoppingCart = () => {
       </section>
     </>
   );
+  
   
 };
 

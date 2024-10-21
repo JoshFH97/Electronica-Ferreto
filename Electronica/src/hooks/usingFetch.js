@@ -34,12 +34,15 @@ const post = async (endpoint, body) => {  //post para subir datos
       const data = await response.json();
     
       
+      console.log('checking response: ',response);
       
       if(response.ok){
         console.log(data.success);
+        console.log(data);
         return data
       }else{
         console.log(data.error);
+        console.log(data);
         return data
       }
     } catch (e) {
