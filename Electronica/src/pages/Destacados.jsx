@@ -11,43 +11,109 @@ import {
   MDBRipple,
 } from "mdb-react-ui-kit";
 import Navbar from "../Components/Navbar";
-import { useState } from "react"; 
+import { useEffect, useState } from "react"; 
+import usingFetch from '../hooks/usingFetch.js';
 
 // Define el componente Destacados
 const Destacados = () => {
+const [ListaProductos,setListaProductos]=useState([])
+const finalEndpoint= `api/productos`
+
+useEffect(()=>{
+getting()
+},[])
+
+
+const getting =async()=>{
+
+  const dataProductos=await usingFetch.get(finalEndpoint)
+  setListaProductos(dataProductos)
+  console.log(ListaProductos);
+
+
+//in case array ccomes emty
+
+
+const productosDestacados = [
+  {
+    id: 1,
+    nombre: "Dell Xtreme 270",
+    categoria: "Laptops",
+    precio: "$3,999",
+    imagen:
+      "https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/12.webp",
+    rating: 4.0,
+    codigo: "#### 8787",
+  },
+  {
+    id: 2,
+    nombre: "HP Spectre x360",
+    categoria: "Laptops",
+    precio: "$2,999",
+    imagen:
+      "https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/14.webp",
+    rating: 4.5,
+    codigo: "#### 1234",
+  },
+  {
+    id: 3,
+    nombre: "Apple MacBook Pro",
+    categoria: "Laptops",
+    precio: "$4,499",
+    imagen:
+      "https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/16.webp",
+    rating: 5.0,
+    codigo: "#### 5678",
+  },
+];
+
+
+
+  
+}
+
+
+
+let productosDestacados = [
+  {
+    id: 1,
+    nombre: "Dell Xtreme 270",
+    categoria: "Laptops",
+    precio: "$3,999",
+    imagen:
+      "https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/12.webp",
+    rating: 4.0,
+    codigo: "#### 8787",
+  },
+  {
+    id: 2,
+    nombre: "HP Spectre x360",
+    categoria: "Laptops",
+    precio: "$2,999",
+    imagen:
+      "https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/14.webp",
+    rating: 4.5,
+    codigo: "#### 1234",
+  },
+  {
+    id: 3,
+    nombre: "Apple MacBook Pro",
+    categoria: "Laptops",
+    precio: "$4,499",
+    imagen:
+      "https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/16.webp",
+    rating: 5.0,
+    codigo: "#### 5678",
+  },]
+
+  console.log(ListaProductos.length);
+  
+if (ListaProductos.length>1) {
+  productosDestacados=ListaProductos
+}
   // Lista simulada de productos destacados
-  const productosDestacados = [
-    {
-      id: 1,
-      nombre: "Dell Xtreme 270",
-      categoria: "Laptops",
-      precio: "$3,999",
-      imagen:
-        "https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/12.webp",
-      rating: 4.0,
-      codigo: "#### 8787",
-    },
-    {
-      id: 2,
-      nombre: "HP Spectre x360",
-      categoria: "Laptops",
-      precio: "$2,999",
-      imagen:
-        "https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/14.webp",
-      rating: 4.5,
-      codigo: "#### 1234",
-    },
-    {
-      id: 3,
-      nombre: "Apple MacBook Pro",
-      categoria: "Laptops",
-      precio: "$4,499",
-      imagen:
-        "https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/16.webp",
-      rating: 5.0,
-      codigo: "#### 5678",
-    },
-  ];
+  
+
 
   return (
     <>

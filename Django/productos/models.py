@@ -12,6 +12,7 @@ class Producto(models.Model):
     precio=models.IntegerField(null=False)
     stock=models.IntegerField()
     activo=models.BooleanField(default=True)
+    destacado=models.BooleanField(default=False)
     id_categoria = models.ForeignKey("Categoria",on_delete=models.CASCADE)
     imagen=models.TextField(blank=True, null=True)
 
