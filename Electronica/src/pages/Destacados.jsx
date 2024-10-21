@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 // Importa las dependencias necesarias de React y MDB React UI Kit
 import {
   MDBContainer,
@@ -20,57 +21,23 @@ const [ListaProductos,setListaProductos]=useState([])
 const finalEndpoint= `api/productos`
 
 useEffect(()=>{
-getting()
-},[])
+  const getting=async()=>{
+    const dataProductos = await usingFetch.get(finalEndpoint)
 
+    setListaProductos(dataProductos)
 
-const getting =async()=>{
-
-  const dataProductos=await usingFetch.get(finalEndpoint)
-  setListaProductos(dataProductos)
-  console.log(ListaProductos);
-
-
-//in case array ccomes emty
-
-
-const productosDestacados = [
-  {
-    id: 1,
-    nombre: "Dell Xtreme 270",
-    categoria: "Laptops",
-    precio: "$3,999",
-    imagen:
-      "https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/12.webp",
-    rating: 4.0,
-    codigo: "#### 8787",
-  },
-  {
-    id: 2,
-    nombre: "HP Spectre x360",
-    categoria: "Laptops",
-    precio: "$2,999",
-    imagen:
-      "https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/14.webp",
-    rating: 4.5,
-    codigo: "#### 1234",
-  },
-  {
-    id: 3,
-    nombre: "Apple MacBook Pro",
-    categoria: "Laptops",
-    precio: "$4,499",
-    imagen:
-      "https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/16.webp",
-    rating: 5.0,
-    codigo: "#### 5678",
-  },
-];
-
-
-
+    const destacados = mapArreglo(ListaProductos)
+    console.log(destacados);
+  }
+  getting()
   
-}
+},[ListaProductos])
+
+  const mapArreglo = (productos)=>{
+    return productos.filter((categoria)=>categoria.destacado === true)
+  }
+ 
+//in case array ccomes emty
 
 
 
@@ -108,9 +75,7 @@ let productosDestacados = [
 
   console.log(ListaProductos.length);
   
-if (ListaProductos.length>1) {
-  productosDestacados=ListaProductos
-}
+
   // Lista simulada de productos destacados
   
 
@@ -129,7 +94,7 @@ if (ListaProductos.length>1) {
           {/* Fila para alinear los productos en el centro */}
           <MDBRow className="justify-content-center">
             {/* Itera sobre la lista de productos y renderiza una tarjeta por cada producto */}
-            {productosDestacados.map((producto) => (
+            {ListaProductos.map((producto) => (
               // Columna responsiva para cada tarjeta de producto
               <MDBCol key={producto.id} md="8" lg="6" xl="4" className="mb-4">
                 {/* Tarjeta del producto con bordes redondeados */}
@@ -175,11 +140,11 @@ if (ListaProductos.length>1) {
                       <div>
                         <div className="d-flex flex-row text-danger">
                           {/* Renderiza estrellas llenas según el rating del producto */}
-                          {[...Array(Math.floor(producto.rating))].map(
+                          {/* {[...Array(Math.floor(producto.rating))].map(
                             (_, index) => (
                               <MDBIcon key={index} fas icon="star" />
                             )
-                          )}
+                          )} */}
                           {/* Si el rating tiene decimales, muestra una estrella media */}
                           {producto.rating % 1 !== 0 && (
                             <MDBIcon fas icon="star-half-alt" />

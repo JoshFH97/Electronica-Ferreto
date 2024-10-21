@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import usingFetch from '../hooks/usingFetch.js';
 import Cookies from 'js-cookie';
+import '../cards.css'; // Importación de los estilos de CSS para las tarjetas
 
 // Definición del componente principal de la aplicación
 const Cards = ({ endpoint }) => {
@@ -153,8 +154,13 @@ return (<>
            {/* Detalles del producto */}
            <div className="card-body p-4">
              <div className="text-center">
-               {producto.id_producto===editando? <input type="text" defaultValue={producto.nombre} onChange={(e)=>setNombre(e.target.value)} required data-error="Please enter the name" />:<h5 className="fw-bolder">{producto.nombre}</h5>}  {/* Nombre del producto */}
-               {producto.id_producto===editando? <input type="number" defaultValue={producto.precio}  onChange={(e)=>setPrecio(e.target.value)} required data-error="Please enter the price"/>:(<span>${producto.precio}</span>)}  {/* Precio del producto */}
+
+               {producto.id_producto===editando? <input type="text" defaultValue={producto.nombre} onChange={(e)=>setNombre(e.target.value)} 
+               required data-error="Please enter the name" />:<h5 className="fw-bolder">{producto.nombre}</h5>}  {/* Nombre del producto */}
+
+               {producto.id_producto===editando? <input type="number" defaultValue={producto.precio}  onChange={(e)=>setPrecio(e.target.value)} 
+               required data-error="Please enter the price"/>:(<span>${producto.precio}</span>)}  {/* Precio del producto */}
+
              </div>
            </div>
            {/* Acciones de la tarjeta del producto */}
@@ -162,8 +168,17 @@ return (<>
              <div className="text-center">
              {admin ? (
 <>
-{producto.id_producto===editando? <a className="btn btn-outline-dark mt-auto" onClick={()=>Edit(producto)}>Submit</a>: <a className="btn btn-outline-dark mt-auto" onClick={()=>setEditando(producto.id_producto)}>editar</a>}
-{producto.id_producto===editando? <a onClick={()=>setEditando(0)} style={{ marginLeft: '5px' }} className="btn btn-outline-dark mt-auto" href="#">cancel</a>:<a onClick={()=>pseudoDelete(producto.id_producto)} style={{ marginLeft: '5px' }} className="btn btn-outline-dark mt-auto" href="#">eliminar</a>}
+{producto.id_producto===editando? <a className="btn btn-outline-dark mt-auto" onClick={()=>Edit(producto)}>Submit</a>:
+ <a className="btn btn-outline-dark mt-auto" onClick={()=>setEditando(producto.id_producto)}>Edit</a>}
+{producto.id_producto===editando? <a onClick={()=>setEditando(0)} style={{ marginLeft: '5px' }} 
+className="btn btn-outline-dark mt-auto" href="#">Cancel</a>:<a onClick={()=>pseudoDelete(producto.id_producto)} 
+style={{ marginLeft: '5px' }} className="btn btn-outline-dark mt-auto" href="#">Delite</a>}
+<label className="toggle happy-sad"> 
+  <input type="checkbox" className="toggle-checkbox" />
+  <div className="toggle-btn" ></div>
+</label>
+
+
 </>
 ) : (
 <a className="btn btn-outline-dark mt-auto"onClick={()=>AddCart(producto.id_producto)} >Agregar a Carrito</a>

@@ -5,6 +5,9 @@ class Categoria(models.Model):
     id_categoria=models.AutoField(primary_key=True)
     nombre_categoria=models.CharField(max_length=20)
 
+    def __str__(self):
+        return self.nombre_categoria
+
 class Producto(models.Model):
     id_producto=models.AutoField(primary_key=True)
     nombre=models.CharField(max_length=20)
