@@ -1,3 +1,5 @@
+import { body } from "framer-motion/client";
+
 //GET METHOD
 const url='http://127.0.0.1:8000/';
 const get = async (endpoint, id = "") => {//se utiliza el url ya guardado se llama el endpoint para reutilizarlo con productos y usuarios
@@ -78,7 +80,31 @@ const put = async (url, body = {}) => {//metodo put para esperar cambios
  
 }
 
+//PATCH METHOD
+const patch = async (endpoint, body = {}) => {//metodo patch para esperar cambios
 
+  const urlFinal = `${url}${endpoint}`;
+
+  try {
+    const response = await fetch(urlFinal,{
+      method: "PATCH",
+      mode: "cors",
+      credentials: "same-origin",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body)
+    });
+   
+    const data = await response.json();
+    return data;
+  } catch (e) {
+    console.error(e);
+    
+    return null;
+  } 
+
+}
 
 
 
@@ -100,4 +126,4 @@ async function deleteMethod(endpoint,id) {//METHOD DELETE
     }
   }
 
-  export default { get, post, put, deleteMethod };
+  export default { get, post, put, patch,deleteMethod};
