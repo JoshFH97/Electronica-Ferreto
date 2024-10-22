@@ -7,6 +7,7 @@ import stripe
 from django.http import JsonResponse
 from django.conf import settings
 from rest_framework.views import APIView
+from  rest_framework import status
 
 
 # Create your views here.
@@ -101,8 +102,6 @@ class ToggleProductoActivoView(generics.UpdateAPIView):
     
     
 class EditView(generics.UpdateAPIView):
-
-
     queryset = Producto.objects.all()  # You want to update any Producto, not just the active ones
     serializer_class = Producto_Serializer
 
@@ -125,6 +124,14 @@ class EditView(generics.UpdateAPIView):
 
         # Return the updated object as a response
         return Response(serializer.data)
+    
+class UpdateDestacado(generics.RetrieveUpdateDestroyAPIView):
+     queryset = Producto.objects.all()
+     serializer_class = Producto_Serializer
+     lookup_field = 'id_producto'
+
+
+
 
     
 
