@@ -7,7 +7,11 @@ import stripe
 from django.http import JsonResponse
 from django.conf import settings
 from rest_framework.views import APIView
+
+from rest_framework.permissions import IsAdminUser
+from rest_framework.authentication import TokenAuthentication
 from  rest_framework import status
+
 
 
 # Create your views here.
@@ -18,8 +22,7 @@ class Payments_View(APIView):
 
     def post(self, request, *args, **kwargs):
         try:
-            # Assuming you might get the amount dynamically, else it's set as $10.00
-            amount = request.data.get('amount', 1000)  # Default to 1000 cents ($10)
+            amount = request.data.get('amount', 1000)  
             
             # Create a PaymentIntent with Stripe
             intent = stripe.PaymentIntent.create(
@@ -30,7 +33,27 @@ class Payments_View(APIView):
 
             return JsonResponse({
                 'clientSecret': intent['client_secret']
-            })
+            }, status=200)  # Asegúrate de devolver el status 200 para éxito
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=400)
+
+class VerifyPaymentView(APIView):
+    stripe.api_key = settings.STRIPE_SECRET_KEY
+
+    def post(self, request, *args, **kwargs):
+        payment_intent_id = request.data.get('paymentIntentId')
+
+        try:
+            # Retrieve the payment intent from Stripe
+            intent = stripe.PaymentIntent.retrieve(payment_intent_id)
+
+            # Check the status of the payment intent
+            if intent['status'] == 'succeeded':
+                # Payment was successful
+                return JsonResponse({'success': True, 'message': 'Payment successful!'})
+            else:
+                # Payment was not successful
+                return JsonResponse({'success': False, 'message': 'Payment failed!'})
         except Exception as e:
             return JsonResponse({'error': str(e)})
 
@@ -84,6 +107,8 @@ class ProductNombre(generics.ListCreateAPIView):
 
 
 class ToggleProductoActivoView(generics.UpdateAPIView):
+    permission_classes = [IsAdminUser]
+    
     queryset = Producto.objects.all()
     serializer_class = Producto_Serializer
     lookup_field = 'id_producto'
@@ -102,6 +127,9 @@ class ToggleProductoActivoView(generics.UpdateAPIView):
     
     
 class EditView(generics.UpdateAPIView):
+    authentication_classes= [TokenAuthentication]
+    permission_classes = [IsAdminUser]
+
     queryset = Producto.objects.all()  # You want to update any Producto, not just the active ones
     serializer_class = Producto_Serializer
 

@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react"; 
-import "../ShoppingCart.css"; // Importa los estilos CSS específicos para el carrito de compras
-import Navbar from "../Components/Navbar"; // Importa el componente Navbar para la navegación
-import usingFetch from '../hooks/usingFetch.js'; // Importa el hook personalizado para manejar solicitudes HTTP
-import Cookies from 'js-cookie'; // Importa la librería para manejar cookies en el navegador
-import Payments from "../Components/Payments.jsx"; // Importa el componente Payments para gestionar el pago
+import React, { useEffect, useState } from "react";
+import "../ShoppingCart.css";
+import Navbar from "../Components/Navbar";
+import usingFetch from '../hooks/usingFetch.js';
+import Cookies from 'js-cookie';
+import Payments from "../Components/Payments.jsx";
+import WrappedPayments from "../Components/Payments.jsx";
 
 const ShoppingCart = () => {
   // Estados para manejar la recarga, mapeo de productos, objeto del carrito y el total
@@ -155,9 +156,7 @@ const ShoppingCart = () => {
                         <h5 className="fw-bold mb-0">{finalTotal}$</h5>
                       </div>
                     </div>
-                    
-                    {/* Componente Payments para gestionar el pago */}
-                    <Payments />
+                    <WrappedPayments/>
                     
                   </div>
                 </div>
@@ -168,6 +167,8 @@ const ShoppingCart = () => {
       </section>
     </>
   );
+  
+  
 };
 
 export default ShoppingCart; // Exporta el componente para su uso en otras partes de la aplicación
