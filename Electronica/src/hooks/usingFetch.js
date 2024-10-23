@@ -1,5 +1,5 @@
 import { body } from "framer-motion/client";
-
+import Cookies from 'js-cookie';
 //GET METHOD
 const url='http://127.0.0.1:8000/';
 const get = async (endpoint, id = "") => {//se utiliza el url ya guardado se llama el endpoint para reutilizarlo con productos y usuarios
@@ -58,14 +58,16 @@ const post = async (endpoint, body) => {  //post para subir datos
 
 //PUT METHOD
 const put = async (url, body = {}) => {//metodo put para esperar cambios
+console.log('cookies token put ',Cookies.get('token'));
 
     try {
       const response = await fetch(url, {
         method: "PUT",
         mode: "cors",
-        credentials: "same-origin",
+        
         headers: {
           "Content-Type": "application/json",
+          "Authorization": `Token ${Cookies.get('token')}`
         },
         body: JSON.stringify(body)
       });

@@ -7,6 +7,7 @@ from django.contrib.auth import authenticate
 from rest_framework.authtoken.models import Token
 from rest_framework import status
 from .models import Usuario
+from rest_framework.permissions import IsAdminUser
 # Create your views here.
 
 class RegistroView(APIView):
@@ -57,7 +58,7 @@ class LoginView(APIView):
         
 class RegistroViewAdmin(APIView):
     def post(self,request):
-        
+        permission_classes = [IsAdminUser]
         username=request.data.get('username')
         password=request.data.get('password')
         email = request.data.get('email')

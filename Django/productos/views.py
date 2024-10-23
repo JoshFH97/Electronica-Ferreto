@@ -7,7 +7,8 @@ import stripe
 from django.http import JsonResponse
 from django.conf import settings
 from rest_framework.views import APIView
-
+from rest_framework.permissions import IsAdminUser
+from rest_framework.authentication import TokenAuthentication
 
 # Create your views here.
 
@@ -119,6 +120,8 @@ class ProductNombre(generics.ListCreateAPIView):
 
 
 class ToggleProductoActivoView(generics.UpdateAPIView):
+    permission_classes = [IsAdminUser]
+    
     queryset = Producto.objects.all()
     serializer_class = Producto_Serializer
     lookup_field = 'id_producto'
@@ -137,7 +140,8 @@ class ToggleProductoActivoView(generics.UpdateAPIView):
     
     
 class EditView(generics.UpdateAPIView):
-
+    authentication_classes= [TokenAuthentication]
+    permission_classes = [IsAdminUser]
 
     queryset = Producto.objects.all()  # You want to update any Producto, not just the active ones
     serializer_class = Producto_Serializer
