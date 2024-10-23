@@ -34,7 +34,7 @@ const Cards = ({ endpoint }) => { // Definición del componente principal que re
     setEstadoDestacado((prev) => ({ ...prev, [idProducto]: nuevoEstado })); // Actualiza solo el estado del producto en cuestión.
 
     const popular = { destacado: nuevoEstado }; // Prepara el objeto para la petición PATCH.
-    await usingFetch.patch(`api/productosUpdateDestacados`, popular, idProducto); // Realiza la petición para actualizar el estado en el servidor.
+    await usingFetch.patch_Desc(`api/productosUpdateDestacados`, popular, idProducto); // Realiza la petición para actualizar el estado en el servidor.
   };
 
   // Función para agregar un producto al carrito.

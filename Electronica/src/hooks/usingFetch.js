@@ -112,7 +112,28 @@ const patch = async (endpoint, body = {}) => {//metodo patch para esperar cambio
   } 
 
 }
+//PATCH DESTACADOS  METHOD
+const patch_Desc = async (endpoint, body, id) => {
+  const url = `http://127.0.0.1:8000/${endpoint}/${id}/`; 
 
+  try {
+    const response = await fetch(url, {
+      method: "PATCH",
+      mode: "cors",
+      credentials: "same-origin",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
+    const data = await response.json();
+    return data;
+  } catch (e) {
+    console.error(e);
+    console.log(data);
+    return null;
+  } 
+};
 
 
 
@@ -133,4 +154,4 @@ async function deleteMethod(endpoint,id) {//METHOD DELETE
     }
   }
 
-  export default { get, post, put, patch,deleteMethod};
+  export default { get, post, put, patch,deleteMethod, patch_Desc};
