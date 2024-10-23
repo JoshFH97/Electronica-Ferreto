@@ -7,8 +7,12 @@ import stripe
 from django.http import JsonResponse
 from django.conf import settings
 from rest_framework.views import APIView
+
 from rest_framework.permissions import IsAdminUser
 from rest_framework.authentication import TokenAuthentication
+from  rest_framework import status
+
+
 
 # Create your views here.
 
@@ -58,33 +62,16 @@ class Facturas_View(generics.CreateAPIView):
     
      queryset = Orden.objects.all()
      serializer_class=Orden_Serializer
-     
-      
-     
-   
-     
-     
-     
+          
 
 class get_Producto_View(generics.ListCreateAPIView):
     queryset = Producto.objects.filter(activo=True)
     serializer_class=Producto_Serializer
 
-class FilterCellView(generics.ListCreateAPIView):
-       queryset = Producto.objects.filter(id_categoria_id=1) 
-       serializer_class=Producto_Serializer
 
-class FilterCompView(generics.ListCreateAPIView):
-       queryset = Producto.objects.filter(id_categoria_id=2) 
-       serializer_class=Producto_Serializer
-
-class FilterAcceView(generics.ListCreateAPIView):
-       queryset = Producto.objects.filter(id_categoria_id=3) 
-       serializer_class=Producto_Serializer
-
-class FilterSoftView(generics.ListCreateAPIView):
-       queryset = Producto.objects.filter(id_categoria_id=4)
-       serializer_class=Producto_Serializer
+class FilterDestacadoView(generics.ListCreateAPIView):
+           queryset = Producto.objects.filter(activo=True, destacado=True)
+           serializer_class=Producto_Serializer
 
 
 
@@ -165,6 +152,14 @@ class EditView(generics.UpdateAPIView):
 
         # Return the updated object as a response
         return Response(serializer.data)
+    
+class UpdateDestacado(generics.RetrieveUpdateDestroyAPIView):
+     queryset = Producto.objects.all()
+     serializer_class = Producto_Serializer
+     lookup_field = 'id_producto'
+
+
+
 
     
 

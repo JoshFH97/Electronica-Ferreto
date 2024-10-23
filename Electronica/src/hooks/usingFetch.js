@@ -1,5 +1,10 @@
+
 import { body } from "framer-motion/client";
 import Cookies from 'js-cookie';
+
+import { data } from "framer-motion/client";
+
+
 //GET METHOD
 const url='http://127.0.0.1:8000/';
 const get = async (endpoint, id = "") => {//se utiliza el url ya guardado se llama el endpoint para reutilizarlo con productos y usuarios

@@ -5,6 +5,9 @@ class Categoria(models.Model):
     id_categoria=models.AutoField(primary_key=True)
     nombre_categoria=models.CharField(max_length=20)
 
+    def __str__(self):
+        return self.nombre_categoria
+
 class Producto(models.Model):
     id_producto=models.AutoField(primary_key=True)
     nombre=models.CharField(max_length=20)
@@ -12,6 +15,7 @@ class Producto(models.Model):
     precio=models.IntegerField(null=False)
     stock=models.IntegerField()
     activo=models.BooleanField(default=True)
+    destacado=models.BooleanField(default=False)
     id_categoria = models.ForeignKey("Categoria",on_delete=models.CASCADE)
     imagen=models.TextField(blank=True, null=True)
 
