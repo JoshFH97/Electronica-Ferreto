@@ -22,6 +22,23 @@ function masDeOcho(contra) {
 }
 
 
+function no_empty(box) {
+    
+    box = box.trim()
+
+    if (box && box.length>0) {
+        return true
+    }else{
+
+        showToast('no se permiten espacios vacios','error')
+        return false
+    }
+
+
+
+
+}
+
 function coinciden (contra,confirmacion) {
     
     if (contra===confirmacion) {
@@ -50,4 +67,4 @@ function correo(email) {
 
 }
 
-export default{correo, coinciden, masDeOcho}
+export default{correo, coinciden, masDeOcho,no_empty}

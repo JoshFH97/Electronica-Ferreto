@@ -5,6 +5,7 @@ import Navbar from '../Components/Navbar';//Navbar
 import defaulimage from '../assets/defaulimage.png';
 import usingFetch from '../hooks/usingFetch.js';
 import { showToast } from '../hooks/alertas.js'; 
+import verification from '../hooks/verification.js';
 
 const Agregar =()=>{
 const endpoint='api/productos/'
@@ -32,6 +33,21 @@ const handleFileChange = (event) => {
 
     const Add =async(e)=>{
         e.preventDefault()
+      const mod=verification.no_empty(modelo)
+      const des=verification.no_empty(descripcion)
+      const pre=verification.no_empty(precio)
+      const cant=verification.no_empty(cantidad)
+      const bas=verification.no_empty(base64)
+      const cat=verification.no_empty(categoria)
+
+
+      if (!mod,!des,!pre,!cant,!bas,!cat) {
+        showToast('Ingrese todos los campos por favor','error')
+        return  
+      }
+
+
+
         const objeto=     {
             nombre: modelo,
             descripcion: descripcion ,

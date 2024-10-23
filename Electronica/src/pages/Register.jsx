@@ -16,9 +16,10 @@ const Verificacion=async()=>{
     const coinciden = verification.coinciden(contrasena, confirma);
     const esValidaContrasena = verification.masDeOcho(contrasena);
     const esValidoCorreo = verification.correo(email);
+    const vacios =verification.no_empty(nombre)
 
     // Si alguna de las validaciones falla, mostrar error y salir
-    if (!coinciden || !esValidaContrasena || !esValidoCorreo) {
+    if (!coinciden || !esValidaContrasena || !esValidoCorreo || !vacios) {
         
         
         showToast("Por favor, revisa los campos ingresados.", "error");

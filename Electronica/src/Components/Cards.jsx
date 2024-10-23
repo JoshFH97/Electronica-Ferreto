@@ -6,6 +6,7 @@ import { useEffect } from 'react'; // Importa el hook useEffect para manejar efe
 import usingFetch from '../hooks/usingFetch.js'; // Importa un hook personalizado para realizar peticiones HTTP.
 import Cookies from 'js-cookie'; // Importa la librería js-cookie para manejar cookies en el navegador.
 import '../cards.css'; // Importación de los estilos CSS específicos para las tarjetas.
+import verification from '../hooks/verification.js';//se importa verificacion vacios
 
 const Cards = ({ endpoint }) => { // Definición del componente principal que recibe un prop "endpoint".
   const [listaProductos, setListaProductos] = useState([]); // Estado para almacenar la lista de productos.
@@ -92,6 +93,13 @@ const Cards = ({ endpoint }) => { // Definición del componente principal que re
   // Función para editar un producto.
   const Edit = async (producto) => {
     const endpoint = `http://127.0.0.1:8000/api/productos/${producto.id_producto}/update/`; // Define el endpoint para la actualización.
+    const  nom = verification.no_empty(nombre)
+    const  prec = verification.no_empty(precio)
+
+    if (!nom||!prec) {
+      showToast('Porfavor ingrese ambos campos','error')
+      return
+    }
 
     const objeto = { // Prepara el objeto con los datos del producto a editar.
       nombre: nombre, // Nombre del producto.
