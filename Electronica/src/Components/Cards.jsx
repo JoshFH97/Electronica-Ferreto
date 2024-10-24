@@ -23,7 +23,7 @@ const Cards = ({ endpoint }) => { // Definición del componente principal que re
     getProducto(); // Llama a la función que obtiene los productos desde la API.
   }, [reload, endpoint]); // Dependencias para el useEffect.
 
-  let cart = Cookies.get('cart'); // Intenta recuperar el carrito de compras desde las cookies.
+  let cart = Cookies.get(Cookies.get('userID')); // Intenta recuperar el carrito de compras desde las cookies.
   if (!cart) { // Si no existe, inicializa el carrito como un array vacío.
     cart = [];
   }
@@ -41,7 +41,7 @@ const Cards = ({ endpoint }) => { // Definición del componente principal que re
   // Función para agregar un producto al carrito.
   const AddCart = (id) => {
     if (LogedIn) { // Verifica si el usuario está logueado.
-      let cart = Cookies.get('cart') ? JSON.parse(Cookies.get('cart')) : []; // Recupera el carrito, o lo inicializa vacío.
+      let cart = Cookies.get(Cookies.get('userID')) ? JSON.parse(Cookies.get(Cookies.get('userID'))) : []; // Recupera el carrito, o lo inicializa vacío.
       const existeProducto = cart.some(producto => producto.id === id); // Verifica si el producto ya está en el carrito.
       
       if (!existeProducto) { // Si el producto no está en el carrito:
@@ -50,7 +50,7 @@ const Cards = ({ endpoint }) => { // Definición del componente principal que re
 
         cart = [...cart, objeto]; // Agrega el nuevo producto al carrito.
         setCarrito(cart); // Actualiza el estado del carrito.
-        Cookies.set('cart', JSON.stringify(cart), { expires: 7 }); // Guarda el carrito actualizado en las cookies por 7 días.
+        Cookies.set(Cookies.get('userID'), JSON.stringify(cart), { expires: 7 }); // Guarda el carrito actualizado en las cookies por 7 días.
       } else {
         showToast('El producto ya está en el carrito', 'info'); // Muestra un mensaje si el producto ya está en el carrito.
       }
@@ -98,6 +98,8 @@ const Cards = ({ endpoint }) => { // Definición del componente principal que re
 
     if (!nom||!prec) {
       showToast('Porfavor ingrese ambos campos','error')
+      setNombre('')
+      setPrecio('')
       return
     }
 

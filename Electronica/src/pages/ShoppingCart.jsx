@@ -10,8 +10,9 @@ const ShoppingCart = () => {
   // Estados para manejar la recarga, mapeo de productos, objeto del carrito y el total
   const [reload, setReload] = useState(false); // Estado booleano para forzar la recarga de datos
   const [maping, setMaping] = useState([]); // Estado para almacenar los detalles de los productos en el carrito
-  const [objCarrito, setObjCarrito] = useState(JSON.parse(Cookies.get('cart') || '[]')); // Estado que representa el carrito, inicializado desde una cookie
+  const [objCarrito, setObjCarrito] = useState(JSON.parse(Cookies.get(Cookies.get('userID')) || '[]')); // Estado que representa el carrito, inicializado desde una cookie
   const [total, setTotal] = useState(0); // Estado para almacenar el total de la compra (posiblemente ya no necesario)
+  
 
   // Primer useEffect: se ejecuta al montar el componente y cada vez que cambia 'reload'
   useEffect(() => {
@@ -22,7 +23,7 @@ const ShoppingCart = () => {
   useEffect(() => {
     // Actualiza las cookies cada vez que 'objCarrito' cambia
     if (objCarrito.length > 0) {
-      Cookies.set('cart', JSON.stringify(objCarrito), { expires: 7 }); // Establece la cookie 'cart' con el contenido actual del carrito y una expiración de 7 días
+      Cookies.set(Cookies.get('userID'), JSON.stringify(objCarrito), { expires: 7 }); // Establece la cookie 'cart' con el contenido actual del carrito y una expiración de 7 días
     }
   }, [objCarrito]); // Dependencia en 'objCarrito' para reejecutar cuando este cambie
 
@@ -65,7 +66,7 @@ const ShoppingCart = () => {
 
     // Actualiza el estado y las cookies con el carrito actualizado
     setObjCarrito(updatedCart);
-    Cookies.set('cart', JSON.stringify(updatedCart), { expires: 7 });
+    Cookies.set(Cookies.get('userID'), JSON.stringify(updatedCart), { expires: 7 });
 
     // Alterna el estado 'reload' para forzar la recarga de useEffect y actualizar la visualización de productos
     setReload(!reload);

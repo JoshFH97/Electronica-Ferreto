@@ -30,7 +30,16 @@ const handleFileChange = (event) => {
         setBase64(reader.result);
       };
     };
-
+    const clearFields=()=>{
+              // Clear the form fields after successful submission
+              setModelo('');
+              setDescripcion('');
+              setPrecio(0);
+              setCantidad(0);
+              setBase64('');
+              setCategoria(0);
+              document.getElementById('inputfile').value = '';
+    }
     const Add =async(e)=>{
         e.preventDefault()
       const mod=verification.no_empty(modelo)
@@ -41,7 +50,7 @@ const handleFileChange = (event) => {
       const cat=verification.no_empty(categoria)
 
 
-      if (!mod,!des,!pre,!cant,!bas,!cat) {
+      if (!mod || !des || !pre || !cant || !bas || !cat) {
         showToast('Ingrese todos los campos por favor','error')
         return  
       }
@@ -60,18 +69,16 @@ const handleFileChange = (event) => {
         try {
             await usingFetch.post(endpoint,objeto)
            
-            showToast('Su  Articulo ha sido agregado exxitosamente','success')
+            showToast('Su  Articulo ha sido agregado exitosamente','success')
+
+            clearFields()
         } catch (error) {
             console.error(error)
             showToast('Hubo un problema, intente mas tarde','info')
-            
+            clearFields()
+
         }
-        setModelo('')
-        setDescripcion('')
-        setPrecio('')
-        setCantidad('')
-        setBase64('')
-        setCategoria('')
+
     
 
 
@@ -93,12 +100,13 @@ const handleFileChange = (event) => {
             {/* Section Info */}
             <div className="col-md-6 mt-3 contact-widget-section2">
                 <p>CATEGORIES</p>
-        <select  onChange={(e)=>setCategoria(e.target.value)}  name="Category" className='form-control' style={{ width: '150px' } }>
+        <select  onChange={(e)=>setCategoria(e.target.value)}
+        value={categoria}  name="Category" className='form-control' style={{ width: '150px' }  }>
             <option value="1">Celulares</option>
             <option value="2" >Computadoras</option>
             <option value="3">Accesorios</option>
             <option value="4">Software</option>
-            <option selected></option>
+            <option selected value='0'></option>
          </select>
               <div className="find-widget">
                 <a href="#">image preview</a>
@@ -151,6 +159,7 @@ const handleFileChange = (event) => {
                     type="number"
                     name="number"
                     onChange={(e)=>setPrecio(e.target.value)}
+                    value={precio}
 
                     required
                     data-error="Please enter your Email"
@@ -168,6 +177,7 @@ const handleFileChange = (event) => {
                     type="number"
                     name="Cantidad"
                     onChange={(e)=>setCantidad(e.target.value)}
+                    value={cantidad}
 
                     required
                     data-error="Please enter your message subject"
@@ -185,6 +195,7 @@ const handleFileChange = (event) => {
                     id="message"
                     name="message"
                     onChange={(e)=>setDescripcion(e.target.value)}
+                    value={descripcion}
                     required
                     data-error="Write your description"
                   />

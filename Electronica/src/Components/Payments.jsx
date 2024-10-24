@@ -22,7 +22,7 @@ const fetchClientSecret = async () => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-         "Authorization": `Token ${Cookies.get('token')}`
+         
       },
       body: JSON.stringify({ amount: 1000 }),
     });
