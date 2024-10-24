@@ -5,13 +5,14 @@ import { button } from "framer-motion/client";
 import Cookies from 'js-cookie';
 import { showToast } from '../hooks/alertas.js';
 
-function Navbar() {
+function Navbar({reload}) {
   const navigate = useNavigate();
   const location = useLocation(); // Para saber la URL actual
   const [activeLink, setActiveLink] = useState(location.pathname);
+  const [reder,setRender]=useState()
   const admin=Cookies.get('superUser')==='true'
   const LogedIn = Cookies.get('token') != null && Cookies.get('token') !== '';
-  const [objCarrito, setObjCarrito] = useState(JSON.parse(Cookies.get('cart') || '[]'));
+  const [objCarrito, setObjCarrito] = useState(JSON.parse(Cookies.get(Cookies.get('userID')) || '[]'));
   
   
   
@@ -26,6 +27,11 @@ function Navbar() {
     
   },[objCarrito])
 
+
+  useEffect(()=>{
+
+
+  },[reload])
   const changeActiveLink = (url) => {
     navigate(url);
   };
@@ -124,14 +130,14 @@ const logout=()=>{
 
             {/* Formulario del carrito de compras con icono y contador */}
             <form className="d-flex">
-              <button className = "btn btn-outline-dark text-white" type="submit" onClick={() => changeActiveLink('/Cart')}>
+{ LogedIn?<button className = "btn btn-outline-dark text-white" type="submit" onClick={() => changeActiveLink('/Cart')}>
 
                 <i className="fa-solid fa-cart-shopping bg-dark text-white"></i>
                 {/* Icono del carrito */}
                 Cart
                 <span className="badge bg-light text-black ms-1 rounded-pill">{objCarrito.length}</span>  
                 {/* Contador del carrito */}
-              </button>
+              </button>:<></>}
               {LogedIn ? (
                     <button className="btn btn-outline-dark text-white" onClick={logout}>
                     <i className="bi bi-box-arrow-in-left"></i>

@@ -22,6 +22,7 @@ const fetchClientSecret = async () => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+         
       },
       body: JSON.stringify({ amount: 1000 }),
     });
@@ -80,7 +81,7 @@ const fetchClientSecret = async () => {
   };
 
   useEffect(() => {
-    fetchClientSecret();
+   
   }, []);
 
   return (
