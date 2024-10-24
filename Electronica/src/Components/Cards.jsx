@@ -43,6 +43,7 @@ const Cards = ({ endpoint }) => { // Definición del componente principal que re
       let cart = Cookies.get('cart') ? JSON.parse(Cookies.get('cart')) : []; // Recupera el carrito, o lo inicializa vacío.
       const existeProducto = cart.some(producto => producto.id === id); // Verifica si el producto ya está en el carrito.
       
+      
       if (!existeProducto) { // Si el producto no está en el carrito:
         // Crea un objeto para el producto que se va a agregar.
         const objeto = { id: id, cantidad: 0 }; // Inicializa la cantidad a 0.
@@ -50,11 +51,12 @@ const Cards = ({ endpoint }) => { // Definición del componente principal que re
         cart = [...cart, objeto]; // Agrega el nuevo producto al carrito.
         setCarrito(cart); // Actualiza el estado del carrito.
         Cookies.set('cart', JSON.stringify(cart), { expires: 7 }); // Guarda el carrito actualizado en las cookies por 7 días.
+        showToast('The product is add', 'info')
       } else {
-        showToast('El producto ya está en el carrito', 'info'); // Muestra un mensaje si el producto ya está en el carrito.
+        showToast('The product is already in the cart.', 'info'); // Muestra un mensaje si el producto ya está en el carrito.
       }
     } else {
-      showToast('inicie sesion para agregar al carrito', 'info'); // Mensaje si el usuario no está logueado.
+      showToast('login to add to cart', 'info'); // Mensaje si el usuario no está logueado.
     }
   };
 
@@ -164,7 +166,8 @@ const Cards = ({ endpoint }) => { // Definición del componente principal que re
                     </label>
                   </>
                 ) : (
-                  <a className="btn btn-outline-dark mt-auto" onClick={() => AddCart(producto.id_producto)}>Agregar a Carrito</a> // Botón para agregar al carrito.
+                  <a className="btn btn-outline-dark mt-auto" onClick={() => AddCart(producto.id_producto)}>Add to Cart</a> // Botón para agregar al carrito.
+                  
                 )}
               </div>
             </div>
