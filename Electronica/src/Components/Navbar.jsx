@@ -5,10 +5,11 @@ import { button } from "framer-motion/client";
 import Cookies from 'js-cookie';
 import { showToast } from '../hooks/alertas.js';
 
-function Navbar() {
+function Navbar({reload}) {
   const navigate = useNavigate();
   const location = useLocation(); // Para saber la URL actual
   const [activeLink, setActiveLink] = useState(location.pathname);
+  const [reder,setRender]=useState()
   const admin=Cookies.get('superUser')==='true'
   const LogedIn = Cookies.get('token') != null && Cookies.get('token') !== '';
   const [objCarrito, setObjCarrito] = useState(JSON.parse(Cookies.get(Cookies.get('userID')) || '[]'));
@@ -26,6 +27,11 @@ function Navbar() {
     
   },[objCarrito])
 
+
+  useEffect(()=>{
+
+
+  },[reload])
   const changeActiveLink = (url) => {
     navigate(url);
   };
