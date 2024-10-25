@@ -1,23 +1,21 @@
-import { Helmet } from 'react-helmet';  // Para manejar el contenido del <head> en React
 import 'bootstrap/dist/css/bootstrap.min.css';  // Importación de los estilos de Bootstrap
-import { showToast } from '../hooks/alertas.js'; // Importa una función para mostrar notificaciones o alertas al usuario.
 import { useState } from 'react'; // Importa el hook useState para manejar el estado dentro del componente.
 import { useEffect } from 'react'; // Importa el hook useEffect para manejar efectos secundarios en el componente.
 import usingFetch from '../hooks/usingFetch.js'; // Importa un hook personalizado para realizar peticiones HTTP.
 import Cookies from 'js-cookie'; // Importa la librería js-cookie para manejar cookies en el navegador.
 import '../cards.css'; // Importación de los estilos CSS específicos para las tarjetas.
-import verification from '../hooks/verification.js';//se importa verificacion vacios
+import BtnAgregarCarrito from './BtnAgregarCarrito.jsx';
+import AdminBtns from './AdminBtns.jsx';
 
 const Cards = ({ endpoint }) => { // Definición del componente principal que recibe un prop "endpoint".
   const [listaProductos, setListaProductos] = useState([]); // Estado para almacenar la lista de productos.
   const [editando, setEditando] = useState(0); // Estado para manejar qué producto está siendo editado.
   const [nombre, setNombre] = useState(''); // Estado para almacenar el nombre del producto que se va a editar.
   const [precio, setPrecio] = useState(); // Estado para almacenar el precio del producto que se va a editar.
-  const [carrito, setCarrito] = useState([]); // Estado para almacenar los productos en el carrito de compras.
   const [reload, setReload] = useState(false); // Estado para manejar el recarga de productos.
   const [estadoDestacado, setEstadoDestacado] = useState(false); // Estado para manejar el estado de "destacado" de los productos.
   const admin = Cookies.get('superUser') === 'true'; // Verifica si el usuario es un administrador a través de las cookies.
-  const LogedIn = Cookies.get('token') != null && Cookies.get('token') !== ''; // Verifica si el usuario está logueado.
+
 
   useEffect(() => { // Hook que se ejecuta cuando el componente se monta o cuando se actualiza el estado de "reload" o "endpoint".
     getProducto(); // Llama a la función que obtiene los productos desde la API.
@@ -29,37 +27,6 @@ const Cards = ({ endpoint }) => { // Definición del componente principal que re
   }
   cart = JSON.stringify(cart); // Convierte el carrito a formato JSON.
 
-  // Función para cambiar el estado de "destacado" de un producto.
-  const changePopularItem = async (idProducto) => {
-    const nuevoEstado = !estadoDestacado[idProducto]; // Cambia el estado actual del producto al hacer clic.
-    setEstadoDestacado((prev) => ({ ...prev, [idProducto]: nuevoEstado })); // Actualiza solo el estado del producto en cuestión.
-
-    const popular = { destacado: nuevoEstado }; // Prepara el objeto para la petición PATCH.
-    await usingFetch.patch_Desc(`api/productosUpdateDestacados`, popular, idProducto); // Realiza la petición para actualizar el estado en el servidor.
-  };
-
-  // Función para agregar un producto al carrito.
-  const AddCart = (id) => {
-    if (LogedIn) { // Verifica si el usuario está logueado.
-      let cart = Cookies.get(Cookies.get('userID')) ? JSON.parse(Cookies.get(Cookies.get('userID'))) : []; // Recupera el carrito, o lo inicializa vacío.
-      const existeProducto = cart.some(producto => producto.id === id); // Verifica si el producto ya está en el carrito.
-      
-      
-      if (!existeProducto) { // Si el producto no está en el carrito:
-        // Crea un objeto para el producto que se va a agregar.
-        const objeto = { id: id, cantidad: 0 }; // Inicializa la cantidad a 0.
-
-        cart = [...cart, objeto]; // Agrega el nuevo producto al carrito.
-        setCarrito(cart); // Actualiza el estado del carrito.
-        Cookies.set(Cookies.get('userID'), JSON.stringify(cart), { expires: 7 }); // Guarda el carrito actualizado en las cookies por 7 días.
-        showToast('The product is add', 'info')
-      } else {
-        showToast('The product is already in the cart.', 'info'); // Muestra un mensaje si el producto ya está en el carrito.
-      }
-    } else {
-      showToast('login to add to cart', 'info'); // Mensaje si el usuario no está logueado.
-    }
-  };
 
   // Función para obtener la lista de productos desde la API.
   const getProducto = async () => {
@@ -82,43 +49,20 @@ const Cards = ({ endpoint }) => { // Definición del componente principal que re
       estadoInicial[producto.id_producto] = producto.destacado || false; // Establece el estado de "destacado" para cada producto.
     });
     setEstadoDestacado(estadoInicial); // Actualiza el estado de destacados con los datos obtenidos.
+    
+  
   };
+
+
+  const cambiarRecarga=()=>{
+    setReload(!reload);
+  }
 
   // Función para eliminar un producto.
-  const pseudoDelete = async (id) => {
-    const endpoint = `http://127.0.0.1:8000/api/productos/${id}/delete/`; // Define el endpoint para la eliminación.
-    const response = await usingFetch.put(endpoint, {}); // Realiza la petición para eliminar el producto.
-    
-    setReload(!reload); // Cambia el estado de reload para refrescar la lista de productos.
-  };
 
-  // Función para editar un producto.
-  const Edit = async (producto) => {
-    const endpoint = `http://127.0.0.1:8000/api/productos/${producto.id_producto}/update/`; // Define el endpoint para la actualización.
-    const  nom = verification.no_empty(nombre)
-    const  prec = verification.no_empty(precio)
 
-    if (!nom||!prec) {
-      showToast('Porfavor ingrese ambos campos','error')
-      setNombre('')
-      setPrecio('')
-      return
-    }
+ 
 
-    const objeto = { // Prepara el objeto con los datos del producto a editar.
-      nombre: nombre, // Nombre del producto.
-      descripcion: producto.descripcion, // Descripción del producto.
-      precio: precio, // Precio del producto.
-      stock: producto.stock, // Stock del producto.
-      imagen: producto.imagen, // Imagen del producto.
-      id_categoria: producto.id_categoria // Categoría del producto.
-    };
-
-    const response = await usingFetch.put(endpoint, objeto); // Realiza la petición para actualizar el producto.
-    
-    setEditando(0); // Restablece el estado de "editando" a 0 (ningún producto en edición).
-    setReload(!reload); // Cambia el estado de reload para refrescar la lista de productos.
-  };
 
   // Renderiza los productos en tarjetas.
   return (
@@ -154,29 +98,10 @@ const Cards = ({ endpoint }) => { // Definición del componente principal que re
             <div className="card-footer p-4 pt-0 border-top-0 bg-transparent">
               <div className="text-center">
                 {admin ? ( // Verifica si el usuario es un administrador.
-                  <>
-                    {producto.id_producto === editando ? ( // Si se está editando el producto.
-                      <a className="btn btn-outline-dark mt-auto" onClick={() => Edit(producto)}>Submit</a>
-                    ) : (
-                      <a className="btn btn-outline-dark mt-auto" onClick={() => setEditando(producto.id_producto)}>Edit</a>
-                    )}
-                    {producto.id_producto === editando ? ( // Muestra botón de cancelar si se está editando.
-                      <a onClick={() => setEditando(0)} style={{ marginLeft: '5px' }} 
-                      className="btn btn-outline-dark mt-auto" href="#">Cancel</a>
-                    ) : (
-                      <a onClick={() => pseudoDelete(producto.id_producto)} 
-                      style={{ marginLeft: '5px' }} className="btn btn-outline-dark mt-auto" href="#">Delete</a>
-                    )}
-
-                    {/* Checkbox para cambiar el estado de "destacado" */}
-                    <label className="toggle happy-sad"> 
-                      <input type="checkbox" className="toggle-checkbox" checked={estadoDestacado[producto.id_producto]} 
-                      onChange={() => changePopularItem(producto.id_producto)} />
-                      <div className="toggle-btn"></div>
-                    </label>
-                  </>
+                    <AdminBtns productoCompleto={producto} recarga={cambiarRecarga} estadoEditar={setEditando} nombreInput={nombre} precioInput={precio}/>
                 ) : (
-                  <a className="btn btn-outline-dark mt-auto" onClick={() => AddCart(producto.id_producto)}>Add to Cart</a> // Botón para agregar al carrito.
+                  
+                  <BtnAgregarCarrito idProducto={producto.id_producto} />
                   
                 )}
               </div>
@@ -186,6 +111,7 @@ const Cards = ({ endpoint }) => { // Definición del componente principal que re
       ))}
     </>
   );
+  
 }
 
 export default Cards; // Exporta el componente Cards para poder usarlo en otras partes de la aplicación.

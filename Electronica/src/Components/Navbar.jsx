@@ -5,14 +5,16 @@ import { button } from "framer-motion/client";
 import Cookies from 'js-cookie';
 import { showToast } from '../hooks/alertas.js';
 
-function Navbar({reload}) {
+function Navbar({onAddToCard}) {
   const navigate = useNavigate();
   const location = useLocation(); // Para saber la URL actual
   const [activeLink, setActiveLink] = useState(location.pathname);
   const [reder,setRender]=useState()
   const admin=Cookies.get('superUser')==='true'
   const LogedIn = Cookies.get('token') != null && Cookies.get('token') !== '';
+  const [reloading,setReloading]=useState(Cookies.get('reloadState'))
   const [objCarrito, setObjCarrito] = useState(JSON.parse(Cookies.get(Cookies.get('userID')) || '[]'));
+  const valor = localStorage.getItem('reloadState');
   
   
   
@@ -30,8 +32,11 @@ function Navbar({reload}) {
 
   useEffect(()=>{
 
+  console.log("Navbar reloaded due to prop change:", reloading);
+  console.log("Navbar reloaded trying to use localstorage:", valor);
 
-  },[reload])
+  
+  },[reloading,valor])
   const changeActiveLink = (url) => {
     navigate(url);
   };
