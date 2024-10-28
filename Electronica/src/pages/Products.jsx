@@ -11,31 +11,36 @@ const ProductSection = () => {
   });
 const[categoria,setCategoria]=useState('')
 const[orden,setOrden]=useState('')
-const [endpoint, setEndpoint] = useState('');
+const [endpoint, setEndpoint] = useState('')
+const [search, setSearch] = useState('');
 
+// Función para manejar el filtro por nombre
+const FilterByName = (e) => {
+  const name = e.target.value;
+  setSearch(name);
+  setFilter({ ...filter, Name: name });
+};
 
-
-
-
-  // Handle filter field changes
-  const handleFilterChange = (e) => {
-    const { name, value } = e.target;
-    setFilter(prevFilter => ({
-      ...prevFilter,
-      [name]: value
-    }));
-  };
-
-  // Handle applying the filters
-  const applyFilters = () => {
-    
-    // Add logic here to filter the data based on the `filter` values
-    if (categoria && orden) {
+// Función para aplicar filtros
+const applyFilters = () => {
+  let newEndpoint = `/api/productos/`;
   
-      setEndpoint ( `api/productos/categoria/${categoria}/ordenar/precio/?order=${orden}`)
-      
-    }
-  };
+  if (categoria && orden) {
+    newEndpoint += `categoria/${categoria}/ordenar/${orden}`;
+  } else if (search) {
+    newEndpoint += `busqueda/${search}`;
+  }
+
+  setEndpoint(newEndpoint);
+};
+// Handle filter field changes
+const handleFilterChange = (e) => {
+  const { name, value } = e.target;
+  setFilter(prevFilter => ({
+    ...prevFilter,
+    [name]: value
+  }));
+};
 
   return (
     <section className="product-section">
@@ -56,8 +61,8 @@ const [endpoint, setEndpoint] = useState('');
                       className="form-control"
                       id="filterName"
                       name="Name"
-                      value={filter.Name}
-                      onChange={handleFilterChange}
+                      value={search}
+                      onChange={FilterByName}
                       placeholder="Product Name"
                     />
                   </div>

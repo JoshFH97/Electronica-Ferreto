@@ -126,9 +126,7 @@ const logout=()=>{
                       All Products
                     </a>
                   </li>
-                  <li><hr className="dropdown-divider" /></li>
-                  <li><a className={`dropdown-item ${activeLink === '/Shop/Popular_Items' ? 'active' : ''}`}
-                      onClick={() => changeActiveLink('/Shop/Popular_Items')}>Popular Items</a></li>
+
                 </ul>
               </li>
             </ul>
