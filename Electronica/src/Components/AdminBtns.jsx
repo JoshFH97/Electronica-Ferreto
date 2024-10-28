@@ -11,14 +11,16 @@ import verification from '../hooks/verification.js';//se importa verificacion va
 import BtnAgregarCarrito from './BtnAgregarCarrito.jsx';
 
 
-const AdminBtns=({productoCompleto,recarga, estadoEditar,nombreInput ,precioInput,destadoDestacado})=>{
+const AdminBtns=({productoCompleto,recarga, estadoEditar,nombreInput ,precioInput, DestacadosVer})=>{
     const [editando, setEditando] = useState(0); // Estado para manejar qué producto está siendo editado.
   const [nombre, setNombre] = useState(nombreInput); // Estado para almacenar el nombre del producto que se va a editar.
   const [precio, setPrecio] = useState(precioInput); // Estado para almacenar el precio del producto que se va a editar.
   const [estadoDestacado, setEstadoDestacado] = useState(false); // Estado para manejar el estado de "destacado" de los productos.
 
 
-    
+  useEffect(() => {
+    setEstadoDestacado(DestacadosVer);
+}, [DestacadosVer]);
 
 
       // Función para editar un producto.
@@ -69,12 +71,13 @@ const AdminBtns=({productoCompleto,recarga, estadoEditar,nombreInput ,precioInpu
   }
 
   const changePopularItem = async (idProducto) => {
-    const nuevoEstado = !estadoDestacado[idProducto]; // Cambia el estado actual del producto al hacer clic.
-    setEstadoDestacado((prev) => ({ ...prev, [idProducto]: nuevoEstado })); // Actualiza solo el estado del producto en cuestión.
+    const nuevoEstado = !estadoDestacado[idProducto];
+    setEstadoDestacado((prev) => ({ ...prev, [idProducto]: nuevoEstado }));
 
-    const popular = { destacado: nuevoEstado }; // Prepara el objeto para la petición PATCH.
-    await usingFetch.patch_Desc(`api/productosUpdateDestacados`, popular, idProducto); // Realiza la petición para actualizar el estado en el servidor.
-  };
+    const popular = { destacado: nuevoEstado };
+    await usingFetch.patch_Desc(`api/productosUpdateDestacados`, popular, idProducto);
+};
+
 
   const pseudoDelete = async (id) => {
     console.log('id en pseudo delete: ',id);

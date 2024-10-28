@@ -13,7 +13,7 @@ const Cards = ({ endpoint }) => { // Definición del componente principal que re
   const [nombre, setNombre] = useState(''); // Estado para almacenar el nombre del producto que se va a editar.
   const [precio, setPrecio] = useState(); // Estado para almacenar el precio del producto que se va a editar.
   const [reload, setReload] = useState(false); // Estado para manejar el recarga de productos.
-  const [estadoDestacado, setEstadoDestacado] = useState(false); // Estado para manejar el estado de "destacado" de los productos.
+  const [estadoDestacado, setEstadoDestacado] = useState({}); // Estado para manejar el estado de "destacado" de los productos.
   const admin = Cookies.get('superUser') === 'true'; // Verifica si el usuario es un administrador a través de las cookies.
 
 
