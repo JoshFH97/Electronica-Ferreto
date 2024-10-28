@@ -6,15 +6,47 @@ from productos.serializers import Producto_Serializer, Orden_Serializer
 import stripe
 from django.http import JsonResponse
 from django.conf import settings
+from rest_framework.generics import ListAPIView
 from rest_framework.views import APIView
 
 from rest_framework.permissions import IsAdminUser
 from rest_framework.authentication import TokenAuthentication
 from  rest_framework import status
 
+from django.db.models import Q
+from rest_framework.generics import ListAPIView
+from productos.models import Producto
+from productos.serializers import Producto_Serializer
+
 
 
 # Create your views here.
+
+class FilterProductsView(ListAPIView):
+    serializer_class = Producto_Serializer
+
+    def get_queryset(self):
+        queryset = Producto.objects.filter(activo=True)
+        name = self.request.query_params.get('Name', None)
+        price_order = self.request.query_params.get('Price', None)
+        category_id = self.request.query_params.get('Category', None)
+        
+        # Filtrar por nombre si está presente
+        if name:
+            queryset = queryset.filter(nombre__icontains=name)
+
+        # Filtrar por categoría si está presente
+        if category_id:
+            queryset = queryset.filter(id_categoria_id=category_id)
+        
+        # Ordenar por precio si está presente
+        if price_order:
+            if price_order == 'asc':
+                queryset = queryset.order_by('precio')
+            elif price_order == 'desc':
+                queryset = queryset.order_by('-precio')
+
+        return queryset
 
 
 class Payments_View(APIView):
@@ -94,6 +126,16 @@ class AscPrice(generics.ListCreateAPIView):
         return queryset
 
        
+
+class SearchNameFilterView(ListAPIView):
+     queryset = Producto.objects.all()
+     serializer_class = Producto_Serializer
+     lookup_field = 'nombre'
+     def get_queryset(self):
+          producto_busqueda = self.kwargs.get(self.lookup_field)
+
+          return Producto.objects.filter(nombre=producto_busqueda)     
+     
 
 
 class DescPrice(generics.ListCreateAPIView):

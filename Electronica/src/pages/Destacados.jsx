@@ -67,7 +67,7 @@ const Destacados = () => {
               // Columna responsiva para cada tarjeta de producto
               <MDBCol key={producto.id_producto} md="8" lg="6" xl="4" className="mb-4">
                 {/* Tarjeta del producto con bordes redondeados */}
-                <MDBCard style={{ borderRadius: "15px" }}>
+                <MDBCard style={{ borderRadius: "15px", maxWidth:"400px" }}>
                   {/* Efecto de ripple sobre la imagen */}
                   <MDBRipple
                     rippleColor="light"
