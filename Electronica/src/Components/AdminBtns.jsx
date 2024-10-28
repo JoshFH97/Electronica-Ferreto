@@ -11,7 +11,7 @@ import verification from '../hooks/verification.js';//se importa verificacion va
 import BtnAgregarCarrito from './BtnAgregarCarrito.jsx';
 
 
-const AdminBtns=({productoCompleto,recarga, estadoEditar,nombreInput ,precioInput,DestacadosVer})=>{
+const AdminBtns=({productoCompleto,recarga, estadoEditar,nombreInput ,precioInput,destadoDestacado})=>{
     const [editando, setEditando] = useState(0); // Estado para manejar qué producto está siendo editado.
   const [nombre, setNombre] = useState(nombreInput); // Estado para almacenar el nombre del producto que se va a editar.
   const [precio, setPrecio] = useState(precioInput); // Estado para almacenar el precio del producto que se va a editar.

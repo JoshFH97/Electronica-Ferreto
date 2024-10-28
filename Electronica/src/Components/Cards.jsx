@@ -46,9 +46,10 @@ const Cards = ({ endpoint }) => { // Definición del componente principal que re
     // Inicializa el estado para los checkboxes de productos destacados.
     const estadoInicial = {};
     dataProductos.forEach((producto) => {
-      estadoInicial[producto.id_producto] = producto.destacado || false; // Establece el estado de "destacado" para cada producto.
+      estadoInicial[producto.id_producto] = producto.destacado || false;
     });
-    setEstadoDestacado(estadoInicial); // Actualiza el estado de destacados con los datos obtenidos.
+    setEstadoDestacado(estadoInicial);
+     // Actualiza el estado de destacados con los datos obtenidos.
     
   
   };
@@ -98,7 +99,11 @@ const Cards = ({ endpoint }) => { // Definición del componente principal que re
             <div className="card-footer p-4 pt-0 border-top-0 bg-transparent">
               <div className="text-center">
                 {admin ? ( // Verifica si el usuario es un administrador.
-                    <AdminBtns productoCompleto={producto} recarga={cambiarRecarga} estadoEditar={setEditando} nombreInput={nombre} precioInput={precio}/>
+                    <AdminBtns productoCompleto={producto}
+                     recarga={cambiarRecarga}
+                      estadoEditar={setEditando}
+                       nombreInput={nombre} precioInput={precio}
+                        DestacadosVer={estadoDestacado}/>
                 ) : (
                   
                   <BtnAgregarCarrito idProducto={producto.id_producto} />
