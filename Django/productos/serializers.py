@@ -10,5 +10,6 @@ class Producto_Serializer(serializers.ModelSerializer):
 class Orden_Serializer(serializers.ModelSerializer):
     class Meta:
         model=Orden
-        fields="__all__"        
+        fields="__all__"   
+             
     
