@@ -17,13 +17,35 @@ const get = async (endpoint, id = "") => {//se utiliza el url ya guardado se lla
           "Content-Type": "application/json",
         }
       });
-      const data  = response.json()
+      const data  = await response.json()
     return data
      
     } catch (e) {
       console.error(e);
     
     } 
+};
+
+//get pelon
+const getPelon = async (endpoint) => {//se utiliza el url ya guardado se llama el endpoint para reutilizarlo con productos y usuarios
+  try {
+    console.log('esta llegando al pelon');
+    
+    const response = await fetch(url+endpoint, {
+      method: "GET",
+      mode: "cors",
+      credentials: "same-origin",
+      headers: {
+        "Content-Type": "application/json",
+      }
+    });
+    const data  = await response.json()
+  return data
+   
+  } catch (e) {
+    console.error(e);
+  
+  } 
 };
 
 //POST METHOD
@@ -154,4 +176,4 @@ async function deleteMethod(endpoint,id) {//METHOD DELETE
     }
   }
 
-  export default { get, post, put, patch,deleteMethod, patch_Desc};
+  export default { get, post, put, patch,deleteMethod, patch_Desc, getPelon};

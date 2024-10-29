@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from '../Components/Navbar';
 import Cards from '../Components/Cards';
@@ -13,13 +13,23 @@ const[categoria,setCategoria]=useState('')
 const[orden,setOrden]=useState('')
 const [endpoint, setEndpoint] = useState('')
 const [search, setSearch] = useState('');
+const [buscando,setBuscando]=useState(false)
 
 // Función para manejar el filtro por nombre
 const FilterByName = (e) => {
-  const name = e.target.value;
-  setSearch(name);
-  setFilter({ ...filter, Name: name });
+  // const newEndpoint = `filtro/nombre?nombre=${name}`;
+  const trimmedSearch = search.replace(/\/$/, ""); // Elimina la barra final si existe
+  const newEndpoint = `api/filtro/nombre/?search=${encodeURIComponent(trimmedSearch)}`;
+  
+  console.log(newEndpoint);
+  
+  setEndpoint(newEndpoint);
+  setBuscando(true)
 };
+
+useEffect(()=>{
+    FilterByName()
+},[search])
 
 // Función para aplicar filtros
 const applyFilters = () => {
@@ -61,8 +71,7 @@ const handleFilterChange = (e) => {
                       className="form-control"
                       id="filterName"
                       name="Name"
-                      value={search}
-                      onChange={FilterByName}
+                      onChange={(e)=>setSearch(e.target.value)}
                       placeholder="Product Name"
                     />
                   </div>
@@ -113,7 +122,7 @@ const handleFilterChange = (e) => {
 
         {/* Here you can add the section to display the filtered products */}
         <div className="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-        <Cards endpoint={endpoint} />
+        <Cards endpoint={endpoint} buscando={buscando} />
         </div>
       </div>
     </section>

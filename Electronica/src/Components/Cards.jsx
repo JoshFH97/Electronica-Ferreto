@@ -7,7 +7,7 @@ import '../cards.css'; // Importación de los estilos CSS específicos para las 
 import BtnAgregarCarrito from './BtnAgregarCarrito.jsx';
 import AdminBtns from './AdminBtns.jsx';
 
-const Cards = ({ endpoint }) => { // Definición del componente principal que recibe un prop "endpoint".
+const Cards = ({ endpoint, buscando}) => { // Definición del componente principal que recibe un prop "endpoint".
   const [listaProductos, setListaProductos] = useState([]); // Estado para almacenar la lista de productos.
   const [editando, setEditando] = useState(0); // Estado para manejar qué producto está siendo editado.
   const [nombre, setNombre] = useState(''); // Estado para almacenar el nombre del producto que se va a editar.
@@ -31,18 +31,32 @@ const Cards = ({ endpoint }) => { // Definición del componente principal que re
   // Función para obtener la lista de productos desde la API.
   const getProducto = async () => {
     let finalEndpoint = `api/productos`; // Define el endpoint por defecto para obtener los productos.
-
+    console.log("no ha entrado al if ",finalEndpoint,"tamano ",endpoint.length);
+    
     // Si el endpoint tiene una longitud mayor a 30, se asigna el valor del prop "endpoint".
     if (endpoint.length > 30) {
       finalEndpoint = endpoint;
+      console.log("Entro al IF ",endpoint,"tamano ",endpoint.length);
     }
     if (!endpoint) { // Si no hay endpoint, se utiliza el por defecto.
       finalEndpoint = `api/productos`;
     }
 
-    const dataProductos = await usingFetch.get(finalEndpoint); // Realiza la petición para obtener los productos.
-    setListaProductos(dataProductos); // Actualiza la lista de productos con la respuesta de la API.
 
+    const dataProductos = await usingFetch.get(finalEndpoint); // Realiza la petición para obtener los productos.
+
+    if (buscando) {
+       const dataProductos = await usingFetch.getPelon(finalEndpoint); // Realiza la petición para obtener los productos.
+       setListaProductos(dataProductos)
+       console.log('llega a if buscando');
+       console.log(dataProductos)
+       
+      
+    }
+
+   // setListaProductos(dataProductos); // Actualiza la lista de productos con la respuesta de la API.
+    console.log(dataProductos);
+    
     // Inicializa el estado para los checkboxes de productos destacados.
     const estadoInicial = {};
     dataProductos.forEach((producto) => {

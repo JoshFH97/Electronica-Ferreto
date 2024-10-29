@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import SearchNameFilterView, UpdateDestacado, get_Producto_View,ToggleProductoActivoView,EditView, AscPrice,  ProductNombre,Facturas_View,Payments_View, FilterDestacadoView, FilterProductsView;
+from .views import SearchNameFilterView, UpdateDestacado, get_Producto_View,ToggleProductoActivoView,EditView, AscPrice,  ProductNombre,Facturas_View,Payments_View, FilterDestacadoView, FilterProductsView, ProductListView;
 
 
 urlpatterns = [
@@ -13,6 +13,7 @@ urlpatterns = [
   path('productos/destacados/', FilterDestacadoView.as_view(), name='destacado'),
   path('productosUpdateDestacados/<int:id_producto>/', UpdateDestacado.as_view(), name='destacado'),
   path('producto/busqueda/<str:nombre>/', SearchNameFilterView.as_view(), name='nombre'),
-   path('api/productos/', FilterProductsView.as_view(), name='filter_products'),
+  path('api/productos/', FilterProductsView.as_view(), name='filter_products'),
+  path('filtro/nombre/', ProductListView.as_view(), name='filter_name'),
 
 ]
