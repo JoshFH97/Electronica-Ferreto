@@ -3,6 +3,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from '../Components/Navbar';
 import Cards from '../Components/Cards';
 
+
+
 const ProductSection = () => {
   const [filter, setFilter] = useState({
     Name: '', 
@@ -13,6 +15,12 @@ const[categoria,setCategoria]=useState('')
 const[orden,setOrden]=useState('')
 const [endpoint, setEndpoint] = useState('')
 const [search, setSearch] = useState('');
+const [reload, setReload] = useState(false); // Estado para manejar el recarga de productos.
+
+
+const cambiarRecarga=()=>{
+  setReload(!reload);
+}
 
 // Función para manejar el filtro por nombre
 const FilterByName = (e) => {
@@ -113,7 +121,7 @@ const handleFilterChange = (e) => {
 
         {/* Here you can add the section to display the filtered products */}
         <div className="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-        <Cards endpoint={endpoint} />
+        <Cards endpoint={endpoint} reload={reload} cambiarRecarga={cambiarRecarga} />
         </div>
       </div>
     </section>

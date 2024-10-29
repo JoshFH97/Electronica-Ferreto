@@ -7,12 +7,11 @@ import '../cards.css'; // Importación de los estilos CSS específicos para las 
 import BtnAgregarCarrito from './BtnAgregarCarrito.jsx';
 import AdminBtns from './AdminBtns.jsx';
 
-const Cards = ({ endpoint }) => { // Definición del componente principal que recibe un prop "endpoint".
+const Cards = ({ endpoint, reload, cambiarRecarga }) => { // Definición del componente principal que recibe un prop "endpoint".
   const [listaProductos, setListaProductos] = useState([]); // Estado para almacenar la lista de productos.
   const [editando, setEditando] = useState(0); // Estado para manejar qué producto está siendo editado.
   const [nombre, setNombre] = useState(''); // Estado para almacenar el nombre del producto que se va a editar.
   const [precio, setPrecio] = useState(); // Estado para almacenar el precio del producto que se va a editar.
-  const [reload, setReload] = useState(false); // Estado para manejar el recarga de productos.
   const [estadoDestacado, setEstadoDestacado] = useState({}); // Estado para manejar el estado de "destacado" de los productos.
   const admin = Cookies.get('superUser') === 'true'; // Verifica si el usuario es un administrador a través de las cookies.
 
@@ -55,9 +54,7 @@ const Cards = ({ endpoint }) => { // Definición del componente principal que re
   };
 
 
-  const cambiarRecarga=()=>{
-    setReload(!reload);
-  }
+
 
   // Función para eliminar un producto.
 
@@ -106,7 +103,7 @@ const Cards = ({ endpoint }) => { // Definición del componente principal que re
                         DestacadosVer={estadoDestacado}/>
                 ) : (
                   
-                  <BtnAgregarCarrito idProducto={producto.id_producto} />
+                  <BtnAgregarCarrito idProducto={producto.id_producto} recarga={cambiarRecarga} />
                   
                 )}
               </div>
