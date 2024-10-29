@@ -5,7 +5,7 @@ import { button } from "framer-motion/client";
 import Cookies from 'js-cookie';
 import { showToast } from '../hooks/alertas.js';
 
-function Navbar({onAddToCard}) {
+function Navbar() {
   const navigate = useNavigate();
   const location = useLocation(); // Para saber la URL actual
   const [activeLink, setActiveLink] = useState(location.pathname);
@@ -40,6 +40,17 @@ function Navbar({onAddToCard}) {
   const changeActiveLink = (url) => {
     navigate(url);
   };
+  useEffect(() => {
+    const actualizarCarrito = () => {
+        const carritoActualizado = JSON.parse(Cookies.get(Cookies.get('userID')) || '[]');
+        setObjCarrito(carritoActualizado);
+    };
+    
+    actualizarCarrito();
+    const interval = setInterval(actualizarCarrito, 1000); // Revisa cada segundo
+
+    return () => clearInterval(interval);
+}, []);
 const logout=()=>{
   Cookies.remove('token'); // Elimina la cookie del token
   Cookies.remove('superUser'); // Elimina la cookie de superUser
