@@ -7,7 +7,7 @@ import '../cards.css'; // Importación de los estilos CSS específicos para las 
 import BtnAgregarCarrito from './BtnAgregarCarrito.jsx';
 import AdminBtns from './AdminBtns.jsx';
 
-const Cards = ({ endpoint, buscando,  reload, cambiarRecarga }) => { // Definición del componente principal que recibe un prop "endpoint".
+const Cards = ({ endpoint, buscando,  reload, cambiarRecarga,sorteando, sorteado }) => { // Definición del componente principal que recibe un prop "endpoint".
   const [listaProductos, setListaProductos] = useState([]); // Estado para almacenar la lista de productos.
   const [editando, setEditando] = useState(0); // Estado para manejar qué producto está siendo editado.
   const [nombre, setNombre] = useState(''); // Estado para almacenar el nombre del producto que se va a editar.
@@ -52,6 +52,25 @@ const Cards = ({ endpoint, buscando,  reload, cambiarRecarga }) => { // Definici
        console.log(dataProductos)
        
       
+    }
+
+
+    if (sorteando) {
+
+      if (sorteado=='Asc') {
+        
+        console.log('llego a lista productos array antes de ordenar::::::::::::::::::::::    ',listaProductos );
+        
+        
+        setListaProductos(listaProductos.sort((a, b) => a.precio - b.precio))
+        
+        console.log('llego a lista productos array DESPUES de ordenar::::::::::::::::::::::    ',listaProductos );
+      }
+      if (sorteado=='Desc') {
+        
+        setListaProductos(listaProductos.sort((a, b) => b.precio - a.precio))
+        console.log('llego a lista productos array DESPUES de ordenar:::::::::DESC:::::::::::::    ',listaProductos );
+      }
     }
 
    // setListaProductos(dataProductos); // Actualiza la lista de productos con la respuesta de la API.
