@@ -9,9 +9,12 @@ function Navbar() {
   const navigate = useNavigate();
   const location = useLocation(); // Para saber la URL actual
   const [activeLink, setActiveLink] = useState(location.pathname);
+  const [reder,setRender]=useState()
   const admin=Cookies.get('superUser')==='true'
   const LogedIn = Cookies.get('token') != null && Cookies.get('token') !== '';
-  const [objCarrito, setObjCarrito] = useState(JSON.parse(Cookies.get('cart') || '[]'));
+  const [reloading,setReloading]=useState(Cookies.get('reloadState'))
+  const [objCarrito, setObjCarrito] = useState(JSON.parse(Cookies.get(Cookies.get('userID')) || '[]'));
+  const valor = localStorage.getItem('reloadState');
   
   
   
@@ -26,9 +29,31 @@ function Navbar() {
     
   },[objCarrito])
 
+
+  useEffect(()=>{
+
+  console.log("Navbar reloaded due to prop change:", reloading);
+  console.log("Navbar reloaded trying to use localstorage:", valor);
+
+  
+  },[reloading,valor])
   const changeActiveLink = (url) => {
     navigate(url);
   };
+
+  useEffect(() => {
+    const actualizarCarrito = () => {
+        const carritoActualizado = JSON.parse(Cookies.get(Cookies.get('userID')) || '[]');
+        setObjCarrito(carritoActualizado);
+    };
+    
+    actualizarCarrito();
+    const interval = setInterval(actualizarCarrito, 1000); // Revisa cada segundo
+    return () => clearInterval(interval);
+}, []);
+
+
+
 const logout=()=>{
   Cookies.remove('token'); // Elimina la cookie del token
   Cookies.remove('superUser'); // Elimina la cookie de superUser
@@ -115,23 +140,21 @@ const logout=()=>{
                       All Products
                     </a>
                   </li>
-                  <li><hr className="dropdown-divider" /></li>
-                  <li><a className={`dropdown-item ${activeLink === '/Shop/Popular_Items' ? 'active' : ''}`}
-                      onClick={() => changeActiveLink('/Shop/Popular_Items')}>Popular Items</a></li>
+
                 </ul>
               </li>
             </ul>
 
             {/* Formulario del carrito de compras con icono y contador */}
             <form className="d-flex">
-              <button className = "btn btn-outline-dark text-white" type="submit" onClick={() => changeActiveLink('/Cart')}>
+{ LogedIn?<button className = "btn btn-outline-dark text-white" type="submit" onClick={() => changeActiveLink('/Cart')}>
 
                 <i className="fa-solid fa-cart-shopping bg-dark text-white"></i>
                 {/* Icono del carrito */}
                 Cart
                 <span className="badge bg-light text-black ms-1 rounded-pill">{objCarrito.length}</span>  
                 {/* Contador del carrito */}
-              </button>
+              </button>:<></>}
               {LogedIn ? (
                     <button className="btn btn-outline-dark text-white" onClick={logout}>
                     <i className="bi bi-box-arrow-in-left"></i>

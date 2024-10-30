@@ -3,8 +3,11 @@ import usingFetch from '../hooks/usingFetch.js';
 import { useNavigate } from "react-router-dom";
 import Cookies from 'js-cookie';
 import { showToast } from '../hooks/alertas.js';
+import Forgot from '../Components/Forgot.jsx';
 
 function Login() {
+  //estado de cambio
+  const [olvido,setOlvido]=useState(false)
   //inputs
 const [nombre,setNombre]=useState('')
 const [clave,setclave]=useState('')
@@ -12,6 +15,8 @@ const [clave,setclave]=useState('')
 const endpoint='api/login/'
 const navigate = useNavigate()
 //-------------------------------------------
+
+
 
 const Verificacion=async()=>{
 
@@ -66,6 +71,8 @@ showToast('Ingresando!','success')
         </div>
 
         {/* division */}
+
+        {olvido? <Forgot setOlvido={setOlvido} />:
         <div className='boxside'>
      <h1>Bienvenido</h1>
         <div className='inputbox'>
@@ -76,7 +83,7 @@ showToast('Ingresando!','success')
         <div className='inputbox'>
         <label htmlFor="contra">Contraseña</label>
         <input type="text" id="contra" onChange={(e)=>setclave(e.target.value)}/>
-        <a>has olvidado la Contraseña</a>
+        <a onClick={()=>setOlvido(true)}>has olvidado la Contraseña</a>
         </div>
 
 
@@ -86,12 +93,13 @@ showToast('Ingresando!','success')
         </div>
 
 
-        </div>
+        </div>}
 
 
     </div>
     </>
   )
+  
 }
 
 export default Login

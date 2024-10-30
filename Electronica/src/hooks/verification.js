@@ -22,6 +22,30 @@ function masDeOcho(contra) {
 }
 
 
+function no_empty(box) {
+    console.log('antes de llegar al if ',box);
+    
+    if (box!=null||box!=undefined) {
+        
+        console.log('llego al if 1 ',box);
+        
+        const trimmedBox = box.trim();
+        
+        if (trimmedBox.length > 0) {
+        console.log('llego al if 2 ',box);
+        return true;
+    } else {
+        showToast('no se permiten espacios vacios', 'error');
+        return false;
+    }
+}else{
+    
+    showToast('no se permiten espacios vacios', 'error');
+
+}
+}
+
+
 function coinciden (contra,confirmacion) {
     
     if (contra===confirmacion) {
@@ -50,4 +74,4 @@ function correo(email) {
 
 }
 
-export default{correo, coinciden, masDeOcho}
+export default{correo, coinciden, masDeOcho,no_empty}

@@ -1,0 +1,21 @@
+.custom-btn {
+    background-color: #007bff; /* Color base del botón */
+    color: #fff; /* Color de texto blanco */
+    border: none; /* Sin borde */
+    padding: 10px 20px; /* Espaciado interno del botón */
+    border-radius: 8px; /* Bordes redondeados */
+    font-size: 1rem; /* Tamaño de fuente */
+    cursor: pointer; /* Cambia el cursor a pointer */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Efecto de transición */
+  }
+  
+  .custom-btn:hover {
+    background-color: #0056b3; /* Color al hacer hover */
+    transform: scale(1.05); /* Aumenta ligeramente el tamaño al hacer hover */
+  }
+  
+  .custom-btn:active {
+    transform: scale(0.98); /* Reduce ligeramente el tamaño al hacer clic */
+    background-color: #004085; /* Cambia el color para un efecto de presionado */
+  }
+  

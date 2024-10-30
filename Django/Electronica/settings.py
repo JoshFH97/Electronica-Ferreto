@@ -48,10 +48,12 @@ INSTALLED_APPS = [
     "productos",
     'rest_framework',
     'rest_framework.authtoken',
-    'corsheaders'
+    'corsheaders',
+    
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
+
 STRIPE_SECRET_KEY = 'sk_test_51QABlPRqzbauyrEOElLdGXQQZwGTs2Fr1zV14BXu9g4F9MzozkiCNZO7wzUa1JkFSi6YTJiEaS1YjpYKcbXF9jOc0005StmWKC'
 STRIPE_PUBLISHABLE_KEY = 'pk_test_51QABlPRqzbauyrEOs9goZGDL5nouE89NviOHIKc3hgjUE6EGy6BseUV6Zo2zpAXFtBALvwpvsacd5umGdfvQSSmW00Mo35Bby0'
 
@@ -67,6 +69,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     
 ]
+
 
 ROOT_URLCONF = 'Electronica.urls'
 
@@ -121,6 +124,18 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',  # Permite acceso sin autenticación por defecto
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',  # Autenticación mediante token si se usa
+        
+    ]
+   
+}
 
 
 # Internationalization

@@ -1,182 +1,163 @@
-import { Helmet } from 'react-helmet';  // Para manejar el contenido del <head> en React
 import 'bootstrap/dist/css/bootstrap.min.css';  // Importación de los estilos de Bootstrap
-import { showToast } from '../hooks/alertas.js';
-import { useState } from 'react';
-import { useEffect } from 'react';
-import usingFetch from '../hooks/usingFetch.js';
-import Cookies from 'js-cookie';
+import { useState } from 'react'; // Importa el hook useState para manejar el estado dentro del componente.
+import { useEffect } from 'react'; // Importa el hook useEffect para manejar efectos secundarios en el componente.
+import usingFetch from '../hooks/usingFetch.js'; // Importa un hook personalizado para realizar peticiones HTTP.
+import Cookies from 'js-cookie'; // Importa la librería js-cookie para manejar cookies en el navegador.
+import '../cards.css'; // Importación de los estilos CSS específicos para las tarjetas.
+import BtnAgregarCarrito from './BtnAgregarCarrito.jsx';
+import AdminBtns from './AdminBtns.jsx';
 
-// Definición del componente principal de la aplicación
-const Cards = ({ endpoint }) => {
-  //  endpoint="/api/productos/celulares"
-  const [listaProductos,setListaProductos]=useState([])
-  const [editando,setEditando]=useState(0)
-  const [nombre,setNombre]=useState('')
-  const [precio,setPrecio]=useState()
-  const [carrito,setCarrito]=useState([])
-  const [reload,setReload] = useState(false)
-  const admin=Cookies.get('superUser')==='true'
-  const LogedIn = Cookies.get('token') != null && Cookies.get('token') !== '';
-
-
+const Cards = ({ endpoint, buscando,  reload, cambiarRecarga,sorteando, sorteado }) => { // Definición del componente principal que recibe un prop "endpoint".
+  const [listaProductos, setListaProductos] = useState([]); // Estado para almacenar la lista de productos.
+  const [editando, setEditando] = useState(0); // Estado para manejar qué producto está siendo editado.
+  const [nombre, setNombre] = useState(''); // Estado para almacenar el nombre del producto que se va a editar.
+  const [precio, setPrecio] = useState(); // Estado para almacenar el precio del producto que se va a editar.
   
-  useEffect(()=>{
-    
-    getProducto()
-    
-    
-  },[reload,endpoint])
-  
-  let cart = Cookies.get('cart');
-  if (!cart) {
-    cart=[]
-  }
-  cart=JSON.stringify(cart)
+  const [estadoDestacado, setEstadoDestacado] = useState({}); // Estado para manejar el estado de "destacado" de los productos.
+  const admin = Cookies.get('superUser') === 'true'; // Verifica si el usuario es un administrador a través de las cookies.
 
 
+  useEffect(() => { // Hook que se ejecuta cuando el componente se monta o cuando se actualiza el estado de "reload" o "endpoint".
+    getProducto(); // Llama a la función que obtiene los productos desde la API.
+  }, [reload, endpoint]); // Dependencias para el useEffect.
 
-  const AddCart = (id) => {
-
-if (LogedIn) {
-  
-    // Recuperar el carrito desde las cookies, si no existe, inicializarlo como un array vacío
-    let cart = Cookies.get('cart') ? JSON.parse(Cookies.get('cart')) : [];
-    const existeProducto = cart.some(producto => producto.id === id);
-    // Verificar si el producto ya está en el carrito
-    if (!existeProducto) {
-      // Agregar el ID del producto al carrito
-      const objeto={id:id,
-        cantidad:0
+  useEffect(() => {
+    if (sorteando && listaProductos.length > 0) {
+      const sortedProductos = [...listaProductos]; // Crear una copia antes de ordenar
+      if (sorteado === 'asc') {
+        sortedProductos.sort((a, b) => a.precio - b.precio);
+      } else if (sorteado === 'desc') {
+        sortedProductos.sort((a, b) => b.precio - a.precio);
       }
-
-      cart = [...cart, objeto];
-  
-      // Actualizar el estado del carrito
-      setCarrito(cart);
-  
-      // Guardar el carrito actualizado en las cookies
-      Cookies.set('cart', JSON.stringify(cart), { expires: 7 }); // Guardar por 7 días 
-  
-      
-    } else {
-      
-      
-      showToast('El producto ya está en el carrito', 'info');
+      setListaProductos(sortedProductos); // Establecer la lista ordenada en el estado
     }
-  
-
-}else{
-  
-  showToast('inicie sesion para agregar al carrito', 'info');
-}
-
-
+  }, [sorteado, listaProductos, sorteando]);
+  let cart = Cookies.get(Cookies.get('userID')); // Intenta recuperar el carrito de compras desde las cookies.
+  if (!cart) { // Si no existe, inicializa el carrito como un array vacío.
+    cart = [];
+  }
+  cart = JSON.stringify(cart); // Convierte el carrito a formato JSON.
 
 
-  };
-  
-
-
-
-
-
-
-  const getProducto = async()=>{
-
-let finalEndpoint = `api/productos`;
-
-
-
-if (endpoint.length>30) {
-  
-  
-  
-  finalEndpoint=endpoint;
-}
-if (!endpoint) {
-  finalEndpoint = `api/productos`;
-
-  
-}
-
-
-    const dataProductos=await usingFetch.get(finalEndpoint)
-    setListaProductos(dataProductos)
+  // Función para obtener la lista de productos desde la API.
+  const getProducto = async () => {
+    let finalEndpoint = `api/productos`; // Define el endpoint por defecto para obtener los productos.
+    console.log("no ha entrado al if ",finalEndpoint,"tamano ",endpoint.length);
     
-   
-}
-
-const pseudoDelete = async (id) => {
-  const endpoint = `http://127.0.0.1:8000/api/productos/${id}/delete/`; 
-    const response = await usingFetch.put(endpoint, {}); 
-  
-    setReload(!reload)
-
-};
-
-const Edit = async (producto) => {
-const endpoint = `http://127.0.0.1:8000/api/productos/${producto.id_producto}/update/`;
-
-const objeto={
- 
-    nombre: nombre,
-    descripcion: producto.descripcion ,
-    precio: precio,
-    stock: producto.stock,
-    imagen: producto.imagen,
-    id_categoria:producto.id_categoria
-
-}
+    // Si el endpoint tiene una longitud mayor a 30, se asigna el valor del prop "endpoint".
+    if (endpoint.length > 30) {
+      finalEndpoint = endpoint;
+      console.log("Entro al IF ",endpoint,"tamano ",endpoint.length);
+    }
+    if (!endpoint) { // Si no hay endpoint, se utiliza el por defecto.
+      finalEndpoint = `api/productos`;
+    }
 
 
-const response=await usingFetch.put(endpoint, objeto); 
+    const dataProductos = await usingFetch.get(finalEndpoint); // Realiza la petición para obtener los productos.
 
-setEditando(0)
-setReload(!reload)
-
-
-}
-
-
-return (<>
-{listaProductos.map((producto,index)=>(
+    if (buscando) {
+       const dataProductos = await usingFetch.getPelon(finalEndpoint); // Realiza la petición para obtener los productos.
+       setListaProductos(dataProductos)
+       console.log('llega a if buscando');
+       console.log(dataProductos)
        
-       <div key={index} className="col mb-5">
-         <div className="card h-100">
-           {/* Imagen del producto */}
-           <img
-             className="card-img-top"
-             src={producto.imagen}
-             alt="..."
-             style={{ maxWidth: '450px', maxHeight: '300px' }}
-           />
-           {/* Detalles del producto */}
-           <div className="card-body p-4">
-             <div className="text-center">
-               {producto.id_producto===editando? <input type="text" defaultValue={producto.nombre} onChange={(e)=>setNombre(e.target.value)} required data-error="Please enter the name" />:<h5 className="fw-bolder">{producto.nombre}</h5>}  {/* Nombre del producto */}
-               {producto.id_producto===editando? <input type="number" defaultValue={producto.precio}  onChange={(e)=>setPrecio(e.target.value)} required data-error="Please enter the price"/>:(<span>${producto.precio}</span>)}  {/* Precio del producto */}
-             </div>
-           </div>
-           {/* Acciones de la tarjeta del producto */}
-           <div className="card-footer p-4 pt-0 border-top-0 bg-transparent">
-             <div className="text-center">
-             {admin ? (
-<>
-{producto.id_producto===editando? <a className="btn btn-outline-dark mt-auto" onClick={()=>Edit(producto)}>Submit</a>: <a className="btn btn-outline-dark mt-auto" onClick={()=>setEditando(producto.id_producto)}>editar</a>}
-{producto.id_producto===editando? <a onClick={()=>setEditando(0)} style={{ marginLeft: '5px' }} className="btn btn-outline-dark mt-auto" href="#">cancel</a>:<a onClick={()=>pseudoDelete(producto.id_producto)} style={{ marginLeft: '5px' }} className="btn btn-outline-dark mt-auto" href="#">eliminar</a>}
-</>
-) : (
-<a className="btn btn-outline-dark mt-auto"onClick={()=>AddCart(producto.id_producto)} >Agregar a Carrito</a>
-)}
-
-             </div>
-           </div>
-         </div>
-       </div>
+      
+    }
 
 
+    // if (sorteando) {
 
-))}
-</>)
+    //   if (sorteado=='Asc') {
+        
+    //     console.log('llego a lista productos array antes de ordenar::::::::::::::::::::::    ',listaProductos );
+        
+        
+    //     setListaProductos(listaProductos.sort((a, b) => a.precio - b.precio))
+        
+    //     console.log('llego a lista productos array DESPUES de ordenar::::::::::::::::::::::    ',listaProductos );
+    //   }
+    //   if (sorteado=='Desc') {
+        
+    //     setListaProductos(listaProductos.sort((a, b) => b.precio - a.precio))
+    //     console.log('llego a lista productos array DESPUES de ordenar:::::::::DESC:::::::::::::    ',listaProductos );
+    //   }
+    // }
+
+   // setListaProductos(dataProductos); // Actualiza la lista de productos con la respuesta de la API.
+    console.log(dataProductos);
+    
+    // Inicializa el estado para los checkboxes de productos destacados.
+    const estadoInicial = {};
+    dataProductos.forEach((producto) => {
+      estadoInicial[producto.id_producto] = producto.destacado || false;
+    });
+    setEstadoDestacado(estadoInicial);
+     // Actualiza el estado de destacados con los datos obtenidos.
+    
+  
+  };
+
+
+
+  // Función para eliminar un producto.
+
+
+ 
+
+
+  // Renderiza los productos en tarjetas.
+  return (
+    <>
+      {listaProductos.map((producto, index) => ( // Mapea la lista de productos para crear una tarjeta por cada uno.
+        <div key={index} className="col mb-5"> 
+          <div className="card h-100"> 
+            {/* Imagen del producto */}
+            <img
+              className="card-img-top"
+              src={producto.imagen}
+              alt="..."
+              style={{ maxWidth: '450px', maxHeight: '300px' }} // Estilos para la imagen del producto.
+            />
+            {/* Detalles del producto */}
+            <div className="card-body p-4">
+              <div className="text-center">
+                {producto.id_producto === editando ? ( // Verifica si el producto se está editando.
+                  <input type="text" defaultValue={producto.nombre} onChange={(e) => setNombre(e.target.value)} 
+                  required data-error="Please enter the name" />
+                ) : (
+                  <h5 className="fw-bolder">{producto.nombre}</h5> // Muestra el nombre del producto.
+                )}
+                {producto.id_producto === editando ? ( // Verifica si el producto se está editando.
+                  <input type="number" defaultValue={producto.precio} onChange={(e) => setPrecio(e.target.value)} 
+                  required data-error="Please enter the price"/>
+                ) : (
+                  <span>${producto.precio}</span> // Muestra el precio del producto.
+                )}
+              </div>
+            </div>
+            {/* Acciones de la tarjeta del producto */}
+            <div className="card-footer p-4 pt-0 border-top-0 bg-transparent">
+              <div className="text-center">
+                {admin ? ( // Verifica si el usuario es un administrador.
+                    <AdminBtns productoCompleto={producto}
+                     recarga={cambiarRecarga}
+                      estadoEditar={setEditando}
+                       nombreInput={nombre} precioInput={precio}
+                        DestacadosVer={estadoDestacado}/>
+                ) : (
+                  
+                  <BtnAgregarCarrito idProducto={producto.id_producto} recarga={cambiarRecarga} />
+                  
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </>
+  );
+  
 }
-export default Cards;
+
+export default Cards; // Exporta el componente Cards para poder usarlo en otras partes de la aplicación.
