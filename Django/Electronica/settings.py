@@ -48,7 +48,8 @@ INSTALLED_APPS = [
     "productos",
     'rest_framework',
     'rest_framework.authtoken',
-    'corsheaders'
+    'corsheaders',
+    
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
@@ -132,7 +133,8 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',  # Autenticación mediante token si se usa
         
-    ],
+    ]
+   
 }
 
 

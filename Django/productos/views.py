@@ -17,21 +17,24 @@ from django.db.models import Q
 from rest_framework.generics import ListAPIView
 from productos.models import Producto
 from productos.serializers import Producto_Serializer
-
+from rest_framework import generics
 from rest_framework.filters import SearchFilter
+
+# Create your views here.
+
 
 
 class ProductListView(generics.ListAPIView):
     queryset = Producto.objects.filter(activo=True)
     serializer_class = Producto_Serializer
     filter_backends = [SearchFilter]
-    search_fields = ['nombre', 'id_categoria','descripcion']  # Add any field you want to search by
+    search_fields = ['nombre']
+    
     def get(self, request, *args, **kwargs):
         print(f"Request URL: {request.path}, Query Params: {request.GET}")
         return super().get(request, *args, **kwargs)
 
 
-# Create your views here.
 
 class FilterProductsView(ListAPIView):
     serializer_class = Producto_Serializer
