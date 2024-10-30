@@ -14,7 +14,6 @@ from rest_framework.authentication import TokenAuthentication
 from  rest_framework import status
 
 from django.db.models import Q
-from rest_framework.generics import ListAPIView
 from productos.models import Producto
 from productos.serializers import Producto_Serializer
 from rest_framework import generics
@@ -28,17 +27,20 @@ class ProductListView(generics.ListAPIView):
     queryset = Producto.objects.filter(activo=True)
     serializer_class = Producto_Serializer
     filter_backends = [SearchFilter]
-<<<<<<< HEAD
     search_fields = ['nombre']  # Add any field you want to search by
-=======
-    search_fields = ['nombre']
     
->>>>>>> 30e18c1c7137f59dc31d02c4235ad6a1604a8143
     def get(self, request, *args, **kwargs):
         print(f"Request URL: {request.path}, Query Params: {request.GET}")
         return super().get(request, *args, **kwargs)
 
+class get_ProductoPorCategoria_View(generics.ListCreateAPIView):
+    serializer_class = Producto_Serializer
 
+    def get_queryset(self):
+        # Obtiene el valor de id_categoria de los parámetros de la solicitud
+        id_categoria = self.kwargs.get('id_categoria')
+        # Filtra los productos según el valor de id_categoria
+        return Producto.objects.filter(activo=True, id_categoria=id_categoria)
 
 class FilterProductsView(ListAPIView):
     serializer_class = Producto_Serializer

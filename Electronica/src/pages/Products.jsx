@@ -19,6 +19,8 @@ const [search, setSearch] = useState('');
 const [buscando,setBuscando]=useState(false)
 const [traerCategorias, setTraerCategorias]=useState([])
 const [reload, setReload] = useState(false); // Estado para manejar el recarga de productos.
+const [sorteando,setSorteando]=useState(false)
+
 const cambiarRecarga=()=>{
   setReload(!reload);
 }
@@ -58,13 +60,16 @@ const  bringCategorias=async()=>{
 
 // Función para aplicar filtros
 const applyFilters = () => {
-  let newEndpoint = `/api/productos/`;
+  console.log('llega a la funcion applyfilter');
   
-  if (categoria && orden) {
-    newEndpoint += `categoria/${categoria}/ordenar/${orden}`;
-  } else if (search) {
-    newEndpoint += `busqueda/${search}`;
-  }
+  let newEndpoint = `/api/productos/categorias/${categoria}/`;
+  
+  if (orden) {
+    setSorteando(true)
+console.log('entra al if');
+
+
+  } 
 
   setEndpoint(newEndpoint);
 };
@@ -153,7 +158,7 @@ const handleFilterChange = (e) => {
 
         {/* Here you can add the section to display the filtered products */}
         <div className="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-        <Cards  reload={reload} endpoint={endpoint} buscando={buscando} cambiarRecarga={cambiarRecarga} />
+        <Cards  reload={reload} endpoint={endpoint} buscando={buscando} cambiarRecarga={cambiarRecarga} sorteando={sorteando} sorteado={orden} />
         </div>
       </div>
       {/*Pie de pagina o  footer*/}
