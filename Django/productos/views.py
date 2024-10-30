@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from rest_framework import generics
 from rest_framework.response import Response
-from productos.models import Producto, Orden
-from productos.serializers import Producto_Serializer, Orden_Serializer
+from productos.models import Categoria, Producto, Orden
+from productos.serializers import Categoria_Serializer, Producto_Serializer, Orden_Serializer
 import stripe
 from django.http import JsonResponse
 from django.conf import settings
@@ -111,6 +111,9 @@ class get_Producto_View(generics.ListCreateAPIView):
     queryset = Producto.objects.filter(activo=True)
     serializer_class=Producto_Serializer
 
+class get_Categoria_View(generics.ListCreateAPIView):
+    queryset = Categoria.objects.all()
+    serializer_class=Categoria_Serializer
 
 class FilterDestacadoView(generics.ListCreateAPIView):
            queryset = Producto.objects.filter(activo=True, destacado=True)
