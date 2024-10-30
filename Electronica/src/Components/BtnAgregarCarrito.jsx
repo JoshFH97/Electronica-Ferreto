@@ -5,7 +5,7 @@ import { useState } from 'react';
 import Cookies from 'js-cookie';
 import '../cards.css';
 
-const BtnAgregarCarrito = ({ idProducto }) => {
+const BtnAgregarCarrito = ({idProducto, recarga }) => {
     const LogedIn = Cookies.get('token') != null && Cookies.get('token') !== ''; // Verifica si el usuario está logueado.
     const [carrito, setCarrito] = useState(() => {
         // Inicializa el carrito a partir de cookies al cargar el componente
@@ -19,9 +19,14 @@ const BtnAgregarCarrito = ({ idProducto }) => {
 
             if (!existeProducto) {
                 const objeto = { id: id, cantidad: 0 };
-                const nuevoCarrito = [...carrito, objeto];
-                setCarrito(nuevoCarrito);
-                Cookies.set(Cookies.get('userID'), JSON.stringify(nuevoCarrito));
+                cart =[...cart,objeto]
+                // const nuevoCarrito = [...carrito, objeto];
+                
+                Cookies.set(Cookies.get('userID'), JSON.stringify(cart));
+                // Cookies.set(Cookies.get('userID'), JSON.stringify(nuevoCarrito));
+                // setCarrito(nuevoCarrito);
+                setCarrito(cart);
+                recarga() // Cambia el estado de reload para refrescar la lista de productos.
                 showToast('The product is added', 'info');
             } else {
                 showToast('The product is already in the cart.', 'info');

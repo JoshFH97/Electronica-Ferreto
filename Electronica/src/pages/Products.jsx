@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from '../Components/Navbar';
 import Cards from '../Components/Cards';
+import usingFetch from '../hooks/usingFetch.js'; // Importa un hook personalizado para realizar peticiones HTTP.
+
 
 const ProductSection = () => {
   const [filter, setFilter] = useState({
@@ -14,7 +16,19 @@ const[orden,setOrden]=useState('')
 const [endpoint, setEndpoint] = useState('')
 const [search, setSearch] = useState('');
 const [buscando,setBuscando]=useState(false)
+const [traerCategorias, setTraerCategorias]=useState([])
+const [reload, setReload] = useState(false); // Estado para manejar el recarga de productos.
+const cambiarRecarga=()=>{
+  setReload(!reload);
+}
 
+useEffect(() => { // Hook que se ejecuta cuando el componente se monta o cuando se actualiza el estado de "reload" o "endpoint".
+  bringCategorias(); // Llama a la función que obtiene los productos desde la API.
+}, [reload]); // Dependencias para el useEffect.
+
+useEffect(()=>{
+    FilterByName()
+},[search])
 // Función para manejar el filtro por nombre
 const FilterByName = (e) => {
   // const newEndpoint = `filtro/nombre?nombre=${name}`;
@@ -27,9 +41,19 @@ const FilterByName = (e) => {
   setBuscando(true)
 };
 
-useEffect(()=>{
-    FilterByName()
-},[search])
+
+const  bringCategorias=async()=>{
+  const categoriasEndpoint= '/api/categorias';
+
+  const dataProductos = await usingFetch.get(categoriasEndpoint); // Realiza la petición para obtener los productos.
+  console.log(dataProductos);
+  
+  setTraerCategorias(dataProductos)
+
+  console.log('traer categorias ',traerCategorias);
+  
+
+}
 
 // Función para aplicar filtros
 const applyFilters = () => {
@@ -83,6 +107,7 @@ const handleFilterChange = (e) => {
                       id="filterPrice"
                       name="Price"
                       value={orden}
+                      
                       onChange={(e) => setOrden(e.target.value)}
                     >
 
@@ -99,13 +124,18 @@ const handleFilterChange = (e) => {
                       id="filterCategory"
                       name="Category"
                       value={categoria}
+                      onClick={() => setReload(!reload)}
                       onChange={(e) => setCategoria(e.target.value)}
                     >
-                      <option value="" >Select a category</option>
-                      <option value="1">Cellphones</option>
-                      <option value="2">Computers</option>
-                      <option value="3" >Accessories</option>
-                      <option value="4" >Software</option>
+                     { traerCategorias.map((categoria)=>(
+
+                        <>
+                        <option value={categoria.id_categoria} >{categoria.nombre_categoria}</option>
+
+                        </>
+
+                        ))}
+
                     </select>
                   </div>
                 </form>
@@ -122,7 +152,7 @@ const handleFilterChange = (e) => {
 
         {/* Here you can add the section to display the filtered products */}
         <div className="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-        <Cards endpoint={endpoint} buscando={buscando} />
+        <Cards  reload={reload} endpoint={endpoint} buscando={buscando} cambiarRecarga={cambiarRecarga} />
         </div>
       </div>
     </section>
