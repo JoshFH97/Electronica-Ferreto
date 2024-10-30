@@ -1,16 +1,17 @@
+import { showToast } from './alertas.js';
+
 function masDeOcho(contra) {
     const regex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z\d!@#$%^&*(),.?":{}|<>]{9,}$/;
   
     if (regex.test(contra)) {
-        console.log(contra.length)
+        
         
         
         return true
     } else {
 
-        console.log(contra.length)
         
-        alert("la contrasena debe tener al menos 8 caracteres un numero, un caracter especial y una mayuscula")
+        showToast('La contrasena debe tener al menos 8 caracteres un numero, un caracter especial y una mayuscula','error')
         return false
     }
     
@@ -21,6 +22,30 @@ function masDeOcho(contra) {
 }
 
 
+function no_empty(box) {
+    console.log('antes de llegar al if ',box);
+    
+    if (box!=null||box!=undefined) {
+        
+        console.log('llego al if 1 ',box);
+        
+        const trimmedBox = box.trim();
+        
+        if (trimmedBox.length > 0) {
+        console.log('llego al if 2 ',box);
+        return true;
+    } else {
+        showToast('no se permiten espacios vacios', 'error');
+        return false;
+    }
+}else{
+    
+    showToast('no se permiten espacios vacios', 'error');
+
+}
+}
+
+
 function coinciden (contra,confirmacion) {
     
     if (contra===confirmacion) {
@@ -28,9 +53,8 @@ function coinciden (contra,confirmacion) {
         
         return true
     } else {
-        console.log('EN FALSE contra dos '+confirmacion);
-        console.log("EN FALSE NO coinciden UNO "+contra);
-        alert("NO COINCIDEN")
+        showToast('Contraseñas no coinciden','error')
+        
         return false
     }
     
@@ -42,10 +66,12 @@ function correo(email) {
       
         return true
     } else {
-        alert('Formato invalido')
+
+        showToast('Formato de correo Invalido','error')
+       
          return false
     }
 
 }
 
-export default{correo, coinciden, masDeOcho}
+export default{correo, coinciden, masDeOcho,no_empty}

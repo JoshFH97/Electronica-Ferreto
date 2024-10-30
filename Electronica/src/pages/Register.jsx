@@ -2,6 +2,7 @@ import { useState } from "react";
 import usingFetch from '../hooks/usingFetch.js';
 import { showToast } from '../hooks/alertas.js'; 
 import verification from '../hooks/verification.js';
+import { useNavigate } from "react-router-dom";
 function Register() {
 const endpoint='api/registro';
 const [nombre,setNombre]=useState('');
@@ -10,16 +11,18 @@ const [contrasena,setContrasena]=useState('');
 const [confirma,setConfirma]=useState('');
 
 
+const navigate = useNavigate()
 const Verificacion=async()=>{
     const coinciden = verification.coinciden(contrasena, confirma);
     const esValidaContrasena = verification.masDeOcho(contrasena);
     const esValidoCorreo = verification.correo(email);
+    const vacios =verification.no_empty(nombre)
 
     // Si alguna de las validaciones falla, mostrar error y salir
-    if (!coinciden || !esValidaContrasena || !esValidoCorreo) {
+    if (!coinciden || !esValidaContrasena || !esValidoCorreo || !vacios) {
         
-        alert('Por favor, revisa los campos ingresados.');
-        showToast("This is a success message!", "success");
+        
+        showToast("Por favor, revisa los campos ingresados.", "error");
         return;
     }else{
        
@@ -29,16 +32,17 @@ const Verificacion=async()=>{
           email:email,
           password: contrasena
         }
-        console.log('esto es lo que llega a user '+JSON.stringify(user));
+        
         
         
         const respuesta=await usingFetch.post(endpoint, user);
        
         
         if (respuesta.success!=201||respuesta.success==null){
-            alert('hubo un error intente mas tarde')
+            showToast("Hubo un error intente mas tarde.", "error");
         }else{
-            alert("usuario creado")
+            showToast("Usuario Creado", "success");
+            navigate('/login')
         }
 
 
@@ -81,7 +85,7 @@ const Verificacion=async()=>{
 
         <div className='inputbox'>
         <button onClick={Verificacion}>Registrar</button>
-        <a>Ya tienes cuenta?</a>
+        <a onClick={()=>navigate('/login')}>Ya tienes cuenta?</a>
         </div>
 
 
