@@ -16,6 +16,6 @@ urlpatterns = [
   path('api/productos/', FilterProductsView.as_view(), name='filter_products'),
   path('filtro/nombre/', ProductListView.as_view(), name='filter_name'),
   path('categorias/',get_Categoria_View.as_view(), name='get categories' ),
-  path('productos/categorias/<int:id_categoria>/', get_ProductoPorCategoria_View.as_view(), name='get_producto_view'),
+  path('productos/traerporcategorias/<int:id_categoria>/', get_ProductoPorCategoria_View.as_view(), name='get_producto_view'),
 
 ]

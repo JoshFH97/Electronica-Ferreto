@@ -66,10 +66,12 @@ const applyFilters = () => {
     
   }else{
     
-    setEndpoint(`/api/productos/categorias/${categoria}/`);
+    setEndpoint(`/api/productos/traerporcategorias/${categoria}`);
     
   }
  
+
+  console.log(`Endpoint generado: ${endpoint}`);
   if (orden) {
     setSorteando(true)
     
