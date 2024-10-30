@@ -1,6 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css"; // Importa el archivo CSS de Bootstrap para aplicar estilos predefinidos.
 import Navbar from "../Components/Navbar"; // Importa un componente personalizado de la barra de navegación (Navbar) desde una ruta relativa.
 import { linearGradient } from "framer-motion/client";
+import Footer from "../Components/footer";
 
 // Definición del componente funcional 'AboutSection'
 const AboutSection = () => {
@@ -167,15 +168,8 @@ const AboutSection = () => {
           </div>
         </div>
 
-        {/* Pie de página */}
-        <footer className="container py-4"> {/* Contenedor de pie de página con padding */}
-          <p className="float-end">
-            <a href="#">Back to top</a> {/* Enlace para volver al inicio */}
-          </p>
-          <p>
-            © 2024 Company, Inc. · <a href="#">Privacy</a> · <a href="#">Terms</a> {/* Derechos de autor y enlaces a privacidad y términos */}
-          </p>
-        </footer>
+        <Footer/>
+
       </main>
     </>
   );

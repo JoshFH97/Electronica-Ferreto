@@ -69,9 +69,7 @@ const Cards = ({ endpoint, buscando,  reload, cambiarRecarga }) => { // Definici
   };
 
 
-  const cambiarRecarga=()=>{
-    setReload(!reload);
-  }
+
 
   // Función para eliminar un producto.
 

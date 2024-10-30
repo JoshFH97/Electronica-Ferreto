@@ -25,7 +25,7 @@ class ProductListView(generics.ListAPIView):
     queryset = Producto.objects.filter(activo=True)
     serializer_class = Producto_Serializer
     filter_backends = [SearchFilter]
-    search_fields = ['nombre', 'id_categoria','descripcion']  # Add any field you want to search by
+    search_fields = ['nombre']  # Add any field you want to search by
     def get(self, request, *args, **kwargs):
         print(f"Request URL: {request.path}, Query Params: {request.GET}")
         return super().get(request, *args, **kwargs)

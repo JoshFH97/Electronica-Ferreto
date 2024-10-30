@@ -22,6 +22,7 @@ const get = async (endpoint, id = "") => {//se utiliza el url ya guardado se lla
      
     } catch (e) {
       console.error(e);
+      return['hay error en el get method(usingFetch.js, linea 25)'];
     
     } 
 };
@@ -44,6 +45,7 @@ const getPelon = async (endpoint) => {//se utiliza el url ya guardado se llama e
    
   } catch (e) {
     console.error(e);
+    return[];
   
   } 
 };

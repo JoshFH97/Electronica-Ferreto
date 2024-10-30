@@ -165,7 +165,9 @@ const ShoppingCart = () => {
             </div>
           </div>
         </div>
+      
       </section>
+    
     </>
   );
   
