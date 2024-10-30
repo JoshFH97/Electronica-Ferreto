@@ -17,7 +17,10 @@ const [endpoint, setEndpoint] = useState('')
 const [search, setSearch] = useState('');
 const [buscando,setBuscando]=useState(false)
 const [traerCategorias, setTraerCategorias]=useState([])
-const [reload,setReload ]=useState(false)
+const [reload, setReload] = useState(false); // Estado para manejar el recarga de productos.
+const cambiarRecarga=()=>{
+  setReload(!reload);
+}
 
 useEffect(() => { // Hook que se ejecuta cuando el componente se monta o cuando se actualiza el estado de "reload" o "endpoint".
   bringCategorias(); // Llama a la función que obtiene los productos desde la API.
@@ -149,7 +152,7 @@ const handleFilterChange = (e) => {
 
         {/* Here you can add the section to display the filtered products */}
         <div className="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-        <Cards endpoint={endpoint} buscando={buscando} />
+        <Cards  reload={reload} endpoint={endpoint} buscando={buscando} cambiarRecarga={cambiarRecarga} />
         </div>
       </div>
     </section>
