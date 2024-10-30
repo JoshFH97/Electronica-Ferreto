@@ -34,7 +34,14 @@ class ProductListView(generics.ListAPIView):
         print(f"Request URL: {request.path}, Query Params: {request.GET}")
         return super().get(request, *args, **kwargs)
 
+class get_ProductoPorCategoria_View(generics.ListCreateAPIView):
+    serializer_class = Producto_Serializer
 
+    def get_queryset(self):
+        # Obtiene el valor de id_categoria de los parámetros de la solicitud
+        id_categoria = self.kwargs.get('id_categoria')
+        # Filtra los productos según el valor de id_categoria
+        return Producto.objects.filter(activo=True, id_categoria=id_categoria)
 
 class FilterProductsView(ListAPIView):
     serializer_class = Producto_Serializer
