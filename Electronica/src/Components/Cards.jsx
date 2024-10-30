@@ -69,7 +69,10 @@ const Cards = ({ endpoint, buscando,  reload, cambiarRecarga }) => { // Definici
   };
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 30e18c1c7137f59dc31d02c4235ad6a1604a8143
 
   // Función para eliminar un producto.
 
