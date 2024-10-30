@@ -61,17 +61,27 @@ const  bringCategorias=async()=>{
 // Función para aplicar filtros
 const applyFilters = () => {
   console.log('llega a la funcion applyfilter');
-  
-  let newEndpoint = `/api/productos/categorias/${categoria}/`;
-  
+  if (categoria=='') {
+    setEndpoint(`/api/productos`);
+    
+    
+  }else{
+    
+    setEndpoint(`/api/productos/traerporcategorias/${categoria}`);
+    
+  }
+ 
+
+  console.log(`Endpoint generado: ${endpoint}`);
   if (orden) {
     setSorteando(true)
+    
 console.log('entra al if');
 
 
   } 
 
-  setEndpoint(newEndpoint);
+  
 };
 // Handle filter field changes
 const handleFilterChange = (e) => {
@@ -133,6 +143,7 @@ const handleFilterChange = (e) => {
                       onClick={() => setReload(!reload)}
                       onChange={(e) => setCategoria(e.target.value)}
                     >
+                       <option selected value='' >Choose Category</option>
                      { traerCategorias.map((categoria)=>(
 
                         <>

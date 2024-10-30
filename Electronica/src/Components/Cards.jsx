@@ -22,6 +22,17 @@ const Cards = ({ endpoint, buscando,  reload, cambiarRecarga,sorteando, sorteado
     getProducto(); // Llama a la función que obtiene los productos desde la API.
   }, [reload, endpoint]); // Dependencias para el useEffect.
 
+  useEffect(() => {
+    if (sorteando && listaProductos.length > 0) {
+      const sortedProductos = [...listaProductos]; // Crear una copia antes de ordenar
+      if (sorteado === 'asc') {
+        sortedProductos.sort((a, b) => a.precio - b.precio);
+      } else if (sorteado === 'desc') {
+        sortedProductos.sort((a, b) => b.precio - a.precio);
+      }
+      setListaProductos(sortedProductos); // Establecer la lista ordenada en el estado
+    }
+  }, [sorteado, listaProductos, sorteando]);
   let cart = Cookies.get(Cookies.get('userID')); // Intenta recuperar el carrito de compras desde las cookies.
   if (!cart) { // Si no existe, inicializa el carrito como un array vacío.
     cart = [];
@@ -56,23 +67,23 @@ const Cards = ({ endpoint, buscando,  reload, cambiarRecarga,sorteando, sorteado
     }
 
 
-    if (sorteando) {
+    // if (sorteando) {
 
-      if (sorteado=='Asc') {
+    //   if (sorteado=='Asc') {
         
-        console.log('llego a lista productos array antes de ordenar::::::::::::::::::::::    ',listaProductos );
+    //     console.log('llego a lista productos array antes de ordenar::::::::::::::::::::::    ',listaProductos );
         
         
-        setListaProductos(listaProductos.sort((a, b) => a.precio - b.precio))
+    //     setListaProductos(listaProductos.sort((a, b) => a.precio - b.precio))
         
-        console.log('llego a lista productos array DESPUES de ordenar::::::::::::::::::::::    ',listaProductos );
-      }
-      if (sorteado=='Desc') {
+    //     console.log('llego a lista productos array DESPUES de ordenar::::::::::::::::::::::    ',listaProductos );
+    //   }
+    //   if (sorteado=='Desc') {
         
-        setListaProductos(listaProductos.sort((a, b) => b.precio - a.precio))
-        console.log('llego a lista productos array DESPUES de ordenar:::::::::DESC:::::::::::::    ',listaProductos );
-      }
-    }
+    //     setListaProductos(listaProductos.sort((a, b) => b.precio - a.precio))
+    //     console.log('llego a lista productos array DESPUES de ordenar:::::::::DESC:::::::::::::    ',listaProductos );
+    //   }
+    // }
 
    // setListaProductos(dataProductos); // Actualiza la lista de productos con la respuesta de la API.
     console.log(dataProductos);

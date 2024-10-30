@@ -16,7 +16,6 @@ from  rest_framework import status
 from django.db.models import Q
 from productos.models import Producto
 from productos.serializers import Producto_Serializer
-from rest_framework import generics
 from rest_framework.filters import SearchFilter
 
 # Create your views here.
