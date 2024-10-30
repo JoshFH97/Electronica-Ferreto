@@ -18,11 +18,13 @@ import {
 import Navbar from "../Components/Navbar"; // Importa el componente Navbar personalizado desde una ruta local.
 import { useEffect, useState } from "react"; // Importa hooks de React: useEffect para efectos secundarios y useState para el estado.
 import usingFetch from '../hooks/usingFetch.js'; // Importa un hook personalizado para realizar fetch de datos desde una API.
+import BtnAgregarCarrito from "../Components/BtnAgregarCarrito.jsx";
 
 // Define el componente Destacados
 const Destacados = () => {
   const [ListaProductos, setListaProductos] = useState([]); // Crea un estado local llamado ListaProductos con un valor inicial de array vacío. setListaProductos se usa para actualizar este estado.
   const [listaDestacados, setListaDestacados]= useState([]);
+  const [recarga, setRecarga]= useState(false)  
   const finalEndpoint = `api/productos`; // Define la URL del endpoint desde donde se obtendrán los productos.
 
   // useEffect para ejecutar código después del renderizado inicial.
@@ -39,13 +41,16 @@ const Destacados = () => {
     };
     getting(); // Llama a la función getting para iniciar la obtención de datos.
 
-  }, [ListaProductos]); // El efecto se ejecuta cuando el estado ListaProductos cambia.
+  }, [ListaProductos,recarga]); // El efecto se ejecuta cuando el estado ListaProductos cambia.
 
   // Función que filtra el arreglo de productos para retornar solo aquellos que tienen la propiedad 'destacado' en true.
   const mapArreglo = (productos) => {
     return productos.filter((categoria) => categoria.destacado === true); 
   };
   
+  const reloading =()=>{
+    setRecarga(!recarga)
+  }
   //console.log(ListaProductos.length); // Muestra la cantidad de productos en la consola para depuración.
 
   // El componente retorna el JSX que se va a renderizar en la interfaz de usuario.
@@ -126,7 +131,7 @@ const Destacados = () => {
                   {/* Cuerpo de la tarjeta que contiene las acciones: Cancelar y Comprar ahora */}
                   <MDBCardBody>
                     <div className="d-flex justify-content-between align-items-center">
-                      <MDBBtn color="primary">Add Cart</MDBBtn> {/* Botón para agregar el producto al carrito */}
+                    <BtnAgregarCarrito idProducto={producto.id_producto} recarga={reloading} /> {/* Botón para agregar el producto al carrito */}
                     </div>
                   </MDBCardBody>
                 </MDBCard>
@@ -137,6 +142,7 @@ const Destacados = () => {
       </section>
     </>
   );
+  
 };
 
 // Exporta el componente para que pueda ser usado en otras partes de la aplicación
