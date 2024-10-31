@@ -19,6 +19,7 @@ import Navbar from "../Components/Navbar"; // Importa el componente Navbar perso
 import { useEffect, useState } from "react"; // Importa hooks de React: useEffect para efectos secundarios y useState para el estado.
 import usingFetch from '../hooks/usingFetch.js'; // Importa un hook personalizado para realizar fetch de datos desde una API.
 import BtnAgregarCarrito from "../Components/BtnAgregarCarrito.jsx";
+import '../Destacados.css'
 
 // Define el componente Destacados
 const Destacados = () => {
