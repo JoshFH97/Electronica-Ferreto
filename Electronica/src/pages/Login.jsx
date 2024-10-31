@@ -82,7 +82,7 @@ showToast('Ingresando!','success')
 
         <div className='inputbox'>
         <label htmlFor="contra">Contraseña</label>
-        <input type="text" id="contra" onChange={(e)=>setclave(e.target.value)}/>
+        <input type="password" id="contra" onChange={(e)=>setclave(e.target.value)}/>
         <a onClick={()=>setOlvido(true)}>has olvidado la Contraseña</a>
         </div>
 
