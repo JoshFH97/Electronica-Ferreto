@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet';
 import { useState } from 'react';
 import Cards from '../Components/Cards';
 import Destacados from './Destacados';
+import Footer from '../Components/footer';
 
 
 const Home = () => {
@@ -130,11 +131,7 @@ const Home = () => {
       </section>
 
       {/* Inicio del pie de página */}
-      <footer className="py-5 bg-dark">
-        <div className="container">
-          <p className="m-0 text-center text-white">Copyright © Electronica Ferreto FWD 2024</p>
-        </div>
-      </footer>
+      <Footer/>
     </>
   );
 };

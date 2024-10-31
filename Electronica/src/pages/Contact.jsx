@@ -13,6 +13,9 @@ import Navbar from '../Components/Navbar';
 // Importa la librería EmailJS para enviar correos electrónicos desde el frontend
 import emailjs from 'emailjs-com';
 
+//Importa pie de pagina
+import Footer from '../Components/footer';
+
 // Define el componente funcional ContactSection
 const ContactSection = () => {
   // Define el estado formData para almacenar los datos del formulario
@@ -219,6 +222,9 @@ We're committed to listening to your needs, guiding you through our products, an
           </div>
         </div>
       </section>
+        {/*Pie de pagina o  footer*/}
+        <Footer/>
+      
     </>
   );
 };

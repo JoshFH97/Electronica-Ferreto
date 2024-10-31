@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import 'bootstrap/dist/css/bootstrap.min.css';  // Importación de los estilos de Bootstrap
 import { useState } from 'react'; // Importa el hook useState para manejar el estado dentro del componente.
 import { useEffect } from 'react'; // Importa el hook useEffect para manejar efectos secundarios en el componente.
@@ -97,6 +98,7 @@ const Cards = ({ endpoint, buscando,  reload, cambiarRecarga,sorteando, sorteado
     
   
   };
+
 
 
 

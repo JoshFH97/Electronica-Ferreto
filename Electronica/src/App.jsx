@@ -17,6 +17,8 @@ import Register from './pages/Register'
 import { ToastContainer } from 'react-toastify';
 import { showToast } from './hooks/alertas.js'; 
 import PrivateRoute from "./Routes/PrivateRoute.jsx";
+import Privacy from "./Components/Privacy.jsx";
+import Terms from "./Components/Terms.jsx";
 
 
 const router = createBrowserRouter([
@@ -51,10 +53,16 @@ const router = createBrowserRouter([
     element: <PrivateRoute Component={Agregar}/>,
   },
   { path: "/Cart",
-     element: <ShoppingCart/>,
+    element: <ShoppingCart/>,
   },
   { path: "/register", 
     element: <Register/>,
+  },
+  { path: "/privacy", 
+    element: <Privacy/>,
+  },
+  { path: "/terms", 
+    element: <Terms/>,
   },
   
 ]);
@@ -64,6 +72,7 @@ function App() {
     <>
     <RouterProvider router={router}/>
     <ToastContainer />
+  
     </>
     
   )

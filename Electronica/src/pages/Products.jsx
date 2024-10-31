@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from '../Components/Navbar';
 import Cards from '../Components/Cards';
 import usingFetch from '../hooks/usingFetch.js'; // Importa un hook personalizado para realizar peticiones HTTP.
+import Footer from '../Components/footer.jsx';
 
 
 const ProductSection = () => {
@@ -171,7 +172,10 @@ const handleFilterChange = (e) => {
         <Cards  reload={reload} endpoint={endpoint} buscando={buscando} cambiarRecarga={cambiarRecarga} sorteando={sorteando} sorteado={orden} />
         </div>
       </div>
+      {/*Pie de pagina o  footer*/}
+      <Footer/>
     </section>
+    
   );
 };
 
