@@ -51,7 +51,7 @@ const router = createBrowserRouter([
     element: <PrivateRoute Component={Agregar}/>,
   },
   { path: "/Cart",
-    // element: <ShoppingCart/>,
+     element: <ShoppingCart/>,
   },
   { path: "/register", 
     element: <Register/>,
