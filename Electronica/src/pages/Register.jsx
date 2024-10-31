@@ -75,12 +75,12 @@ const Verificacion=async()=>{
 
         <div className='inputbox'>
         <label htmlFor="contra">Contraseña</label>
-        <input type="text" id="contra" onChange={(e)=>setContrasena(e.target.value)}/>
+        <input type="password" id="contra" onChange={(e)=>setContrasena(e.target.value)}/>
         </div>
 
         <div className='inputbox'>
         <label htmlFor="contra" >Introduzca nuevamente la contraseña</label>
-        <input type="text" id="contra" onChange={(e)=>setConfirma(e.target.value)}/>
+        <input type="password" id="contra" onChange={(e)=>setConfirma(e.target.value)}/>
         </div>
 
         <div className='inputbox'>
