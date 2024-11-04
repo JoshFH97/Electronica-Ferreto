@@ -31,11 +31,6 @@ const Payments = ({ total }) => {
             
         });
 
-        // if (total= 0) {
-        //     alert("El monto total no puede ser 0");
-            
-        // }
-
         // Obtiene el clientSecret de la respuesta JSON
         const { clientSecret } = await response.json();
 
