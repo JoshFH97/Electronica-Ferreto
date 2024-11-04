@@ -123,7 +123,7 @@ const Cards = ({ endpoint, buscando,  reload, cambiarRecarga,sorteando, sorteado
             />
             {/* Detalles del producto */}
             <div className="card-body p-4">
-              <div className="text-center">
+              <div className="text-center text-black">
                 {producto.id_producto === editando ? ( // Verifica si el producto se está editando.
                   <input type="text" defaultValue={producto.nombre} onChange={(e) => setNombre(e.target.value)} 
                   required data-error="Please enter the name" />

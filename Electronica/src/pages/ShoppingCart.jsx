@@ -51,6 +51,7 @@ const ShoppingCart = () => {
   // Función para manejar el cambio de cantidad de un producto en el carrito
   const handleQuantityChange = (prod, delta) => {
     const id = prod.id_producto; // Obtiene el ID del producto que se está modificando
+    
 
     // Actualiza la cantidad del producto en el carrito
     setObjCarrito(prevCarrito => prevCarrito.map(product =>
@@ -157,7 +158,7 @@ const ShoppingCart = () => {
                         <h5 className="fw-bold mb-0">{finalTotal}$</h5>
                       </div>
                     </div>
-                    <WrappedPayments/>
+                    <WrappedPayments total={finalTotal}/>
                     
                   </div>
                 </div>
