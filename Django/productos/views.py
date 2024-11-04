@@ -73,9 +73,9 @@ class Payments_View(APIView):
 
     def post(self, request, *args, **kwargs):
         try:
-            amount = request.data.get('amount', 1000)  
+            amount = request.data.get('amount', 1000)  # Por defecto 10 USD
             
-            # Create a PaymentIntent with Stripe
+            # Crear un PaymentIntent con Stripe
             intent = stripe.PaymentIntent.create(
                 amount=amount,
                 currency='usd',

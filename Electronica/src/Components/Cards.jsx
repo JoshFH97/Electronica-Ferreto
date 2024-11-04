@@ -13,7 +13,6 @@ const Cards = ({ endpoint, buscando,  reload, cambiarRecarga,sorteando, sorteado
   const [editando, setEditando] = useState(0); // Estado para manejar qué producto está siendo editado.
   const [nombre, setNombre] = useState(''); // Estado para almacenar el nombre del producto que se va a editar.
   const [precio, setPrecio] = useState(); // Estado para almacenar el precio del producto que se va a editar.
-  
   const [estadoDestacado, setEstadoDestacado] = useState({}); // Estado para manejar el estado de "destacado" de los productos.
   const admin = Cookies.get('superUser') === 'true'; // Verifica si el usuario es un administrador a través de las cookies.
 
