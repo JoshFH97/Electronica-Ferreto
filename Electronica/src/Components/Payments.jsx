@@ -19,6 +19,11 @@ const Payments = ({ total }) => {
     const handleCheckout = async (event) => {
         event.preventDefault(); // Previene el comportamiento predeterminado del formulario
         
+        if (total==0) {
+            showToast('the amount charged is 0','warn')
+            return
+        }
+
         if (!stripe || !elements) {
             return; // Verifica si Stripe.js y los elementos han sido cargados antes de continuar
         }
