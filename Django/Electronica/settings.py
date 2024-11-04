@@ -11,23 +11,37 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import os
+from dotenv import load_dotenv
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
+load_dotenv(dotenv_path=BASE_DIR / 'security.env')
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-prxo&ghezw6%eo^&$f%q))5p$p%lua!g^+urnwj$3*&7=i8as!'
+# SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'testserver']
 
+if not DEBUG:
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+else:
+    SESSION_COOKIE_SECURE = False
+    CSRF_COOKIE_SECURE = False
 
+print("Loaded environment variables:")
+print("DJANGO_SECRET_KEY:", os.getenv('DJANGO_SECRET_KEY'))
+print("STRIPE_SECRET_KEY:", os.getenv('STRIPE_SECRET_KEY'))
+print("STRIPE_PUBLISHABLE_KEY:", os.getenv('STRIPE_PUBLISHABLE_KEY'))
 # Application definition
 
 INSTALLED_APPS = [
@@ -41,12 +55,17 @@ INSTALLED_APPS = [
     "productos",
     'rest_framework',
     'rest_framework.authtoken',
-    'corsheaders'
+    'corsheaders',
+    
 ]
-CORS_ALLOWED_ORIGINS = [
-    'http://localhost:5173',  # Agrega el origen de tu frontend (React)
-]
-CORS_ALLOWED_ALL_ORIGINS =True
+
+CORS_ALLOW_ALL_ORIGINS = True
+
+STRIPE_SECRET_KEY = 'sk_test_51QABlPRqzbauyrEOElLdGXQQZwGTs2Fr1zV14BXu9g4F9MzozkiCNZO7wzUa1JkFSi6YTJiEaS1YjpYKcbXF9jOc0005StmWKC'
+STRIPE_PUBLISHABLE_KEY = 'pk_test_51QABlPRqzbauyrEOs9goZGDL5nouE89NviOHIKc3hgjUE6EGy6BseUV6Zo2zpAXFtBALvwpvsacd5umGdfvQSSmW00Mo35Bby0'
+# STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
+# STRIPE_PUBLISHABLE_KEY = os.getenv('STRIPE_PUBLISHABLE_KEY')
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -59,6 +78,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     
 ]
+
 
 ROOT_URLCONF = 'Electronica.urls'
 
@@ -113,6 +133,18 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',  # Permite acceso sin autenticación por defecto
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',  # Autenticación mediante token si se usa
+        
+    ]
+   
+}
 
 
 # Internationalization

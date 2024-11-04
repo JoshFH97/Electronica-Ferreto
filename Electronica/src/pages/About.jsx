@@ -1,154 +1,178 @@
-import "bootstrap/dist/css/bootstrap.min.css";
-import Navbar from "../Components/Navbar";
-//ac
+import "bootstrap/dist/css/bootstrap.min.css"; // Importa el archivo CSS de Bootstrap para aplicar estilos predefinidos.
+import Navbar from "../Components/Navbar"; // Importa un componente personalizado de la barra de navegación (Navbar) desde una ruta relativa.
+import { linearGradient } from "framer-motion/client";
+import Footer from "../Components/footer";
+
+// Definición del componente funcional 'AboutSection'
 const AboutSection = () => {
   return (
     <>
-      <meta charSet="utf-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <title>About Us - Company</title>
+      {/* Metadatos esenciales para el documento */}
+      <meta charSet="utf-8" /> {/* Define el tipo de codificación de caracteres como UTF-8 */}
+      <meta name="viewport" content="width=device-width, initial-scale=1" /> {/* Hace que la página sea responsiva para diferentes dispositivos */}
+      <title>About Us - Company</title> {/* Título de la página web que aparece en la pestaña del navegador */}
+
+      {/* Renderiza el componente Navbar */}
       <Navbar />
 
-
       <main>
-        {/* Carousel Section (Las imagenes se espera que sean 1200x500*/}
-        <div id="aboutCarousel" className="carousel slide" data-bs-ride="carousel">
-          <div className="carousel-inner">
+        {/* Sección de Carrusel (Slider de imágenes). Las imágenes deben tener un tamaño recomendado de 1200x500 */}
+        <div id="aboutCarousel" className="carousel slide" data-bs-ride="carousel"> {/* Sección del carrusel utilizando Bootstrap */}
+          <div className="carousel-inner"> {/* Contenedor de las imágenes del carrusel */}
+            
+            {/* Primera imagen del carrusel: Activa por defecto */}
             <div className="carousel-item active">
-              <img style={{width:800, height:500}}
-                src="src/assets/Mision.JPG"
-                className="d-block w-100"
-                alt="About Us"
-              />
-              <div className="carousel-caption d-none d-md-block">
-                <h1>About Our Company</h1>
-                <p>We are dedicated to delivering top-notch services and building strong relationships.</p>
+               <div
+            style={{
+            width: 1600,
+            height: 600,
+            backgroundImage: `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('src/assets/AOC111.webp')`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}
+      alt="About Us"
+    />
+              <div className="carousel-caption d-none d-md-block"> {/* Texto que aparece sobre la imagen */}
+                <h1 style={{fontSize:100, color:'white'}}>About Our Company</h1> {/* Título del slide */}
+                <p style={{fontSize:50}}>We are dedicated to delivering top-notch services and building strong relationships.</p> {/* Descripción */}
               </div>
             </div>
+
+            {/* Segunda imagen del carrusel */}
             <div className="carousel-item">
-              <img style={{width:800, height:500}}
-                src="src/assets/Vision.JPG"
-                className="d-block w-100"
-                alt="Our Vision"
+              <div
+              style={{
+              width: 1600,
+              height: 600,
+              backgroundImage: `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('src/assets/V222.jpg')`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+            }}
+            alt="Our Vision"
               />
               <div className="carousel-caption d-none d-md-block">
-                <h1>Our Vision</h1>
-                <p>Leading innovation and sustainability in every project we undertake.</p>
+                <h1 style={{fontSize:100, color:'white'}}>Our Vision</h1>
+                <p style={{fontSize:50}}>Be leaders in tech distribution, recognized for excellence and sustainable innovation.</p>
               </div>
             </div>
+
+            {/* Tercera imagen del carrusel */}
             <div className="carousel-item">
-              <img style={{width:800, height:500}}
-                src="src/assets/logo.png"
-                className="d-block w-100"
+            <div
+              style={{
+              width: 1600,
+              height: 600,
+              backgroundImage: `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('src/assets/M333.jpg')`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+            }}
                 alt="Our Values"
               />
               <div className="carousel-caption d-none d-md-block">
-                <h1>Our Values</h1>
-                <p>Integrity, teamwork, and customer satisfaction are at the core of everything we do.</p>
+                <h1 style={{fontSize:100, color:'white'}}>Our Mission</h1>
+                <p style={{fontSize:50}}>Provide innovative and accessible technology with reliable products and quality support.</p>
               </div>
             </div>
           </div>
+
+          {/* Botón para retroceder en el carrusel */}
           <button
             className="carousel-control-prev"
             type="button"
             data-bs-target="#aboutCarousel"
             data-bs-slide="prev"
           >
-            <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span className="visually-hidden">Previous</span>
+            <span className="carousel-control-prev-icon" aria-hidden="true"></span> {/* Icono de retroceso */}
+            <span className="visually-hidden">Previous</span> {/* Texto accesible solo para lectores de pantalla */}
           </button>
+
+          {/* Botón para avanzar en el carrusel */}
           <button
             className="carousel-control-next"
             type="button"
             data-bs-target="#aboutCarousel"
             data-bs-slide="next"
           >
-            <span className="carousel-control-next-icon" aria-hidden="true"></span>
-            <span className="visually-hidden">Next</span>
+            <span className="carousel-control-next-icon" aria-hidden="true"></span> {/* Icono de avance */}
+            <span className="visually-hidden">Next</span> {/* Texto accesible solo para lectores de pantalla */}
           </button>
         </div>
 
-        {/* About Us Section (Las fotos se espera que sean 140)*/}
-        <div className="container my-5">
-          <h2 className="text-center mb-4">Who We Are</h2>
-          <div className="row text-center">
-            <div className="col-lg-4 mb-4">
-              <img style={{width:140, height:140}}
-                src="src/assets/Foto Joshua.jpg"
+        {/* Sección "About Us" (Sobre Nosotros). Las fotos deben tener un tamaño recomendado de 140x140 */}
+        <div className="container my-5"> {/* Contenedor Bootstrap con margen vertical */}
+          <h2 className="text-center mb-4" style={{ color: 'black' }}>Who We Are</h2> {/* Título centrado */}
+          <div className="row text-center"> {/* Fila con contenido centrado */}
+            
+            {/* Primera columna: Información del primer miembro del equipo */}
+            <div className="col-lg-4 mb-4"> {/* Columna para pantallas grandes con margen inferior */}
+              <img style={{}} // Tamaño de la imagen redondeada
+                src="src/assets/ceo.jpg"
                 className="rounded-circle mb-3"
                 alt="CEO"
               />
-              <h4>Isaac Ferreto</h4>
-              <p>CEO & Founder</p>
-              <p>
-                Isaac leads the company with a focus on innovation and customer-driven services.
-              </p>
+              <h4 style={{ color: 'black' }}>Jamal Smith</h4> {/* Nombre del miembro */}
+              <p style={{ color: 'black' }}>CEO & Founder</p> {/* Cargo */}
+              <p style={{ color: 'black' }}>Jamal leads the company with a focus on innovation and customer-driven services.</p> {/* Descripción */}
             </div>
+
+            {/* Segunda columna: Información del segundo miembro del equipo */}
             <div className="col-lg-4 mb-4">
               <img
-                src="src/assets/Foto joshua 2.jpg"
+                src="src/assets/ceo2.jpg"
                 className="rounded-circle mb-3"
                 alt="CTO"
               />
-              <h4>Joshua Ferreto</h4>
-              <p>CEO & Founder</p>
-              <p>
-                Joshua oversees all technical aspects, ensuring cutting-edge solutions for our clients.
-              </p>
+              <h4 style={{ color: 'black' }} >Phineas  Taylor</h4>
+
+              <p style={{ color: 'black' }}>CEO & Founder</p>
+              <p style={{ color: 'black' }}>Phineas oversees all technical aspects, ensuring cutting-edge solutions for our clients.</p>
             </div>
+
+            {/* Tercera columna: Repetición de la información del segundo miembro */}
             <div className="col-lg-4 mb-4">
               <img
-                src="src/assets/Foto joshua 2.jpg"
+                src="src/assets/ceo3.jpg"
                 className="rounded-circle mb-3"
                 alt="CTO"
               />
-              <h4>Joshua Ferreto</h4>
-              <p>CEO & Founder</p>
-              <p>
-                Joshua oversees all technical aspects, ensuring cutting-edge solutions for our clients.
-              </p>
+              <h4 style={{ color: 'black' }}>Vanessa Armstrong</h4>
+              <p style={{ color: 'black' }}>CEO & Founder</p>
+              <p style={{ color: 'black' }}>Vanessa oversees all technical aspects, ensuring cutting-edge solutions for our clients.</p>
             </div>
             
           </div>
         </div>
 
-        {/* Our Values Section */}
-        <div className="container py-5 bg-light">
-          <h2 className="text-center mb-4">Our Core Values</h2>
-          <div className="row text-center">
+        {/* Sección "Our Values" (Nuestros Valores) */}
+        <div className="container py-5 bg-light"> {/* Contenedor con fondo claro y padding vertical */}
+          <h2 className="text-center mb-4" style={{ color: 'black' }}>Our Core Values</h2> {/* Título centrado */}
+          <div className="row text-center"> {/* Fila de valores */}
+            
+            {/* Columna 1: Integridad */}
             <div className="col-lg-4">
               <h3>Integrity</h3>
-              <p>
-                We uphold the highest standards of integrity in all our actions.
-              </p>
+              <p style={{ color: 'black' }}>We uphold the highest standards of integrity in all our actions.</p>
             </div>
+
+            {/* Columna 2: Innovación */}
             <div className="col-lg-4">
               <h3>Innovation</h3>
-              <p>
-                We foster creativity to deliver breakthrough solutions for our clients.
-              </p>
+              <p style={{ color: 'black' }}>We foster creativity to deliver breakthrough solutions for our clients.</p>
             </div>
+
+            {/* Columna 3: Enfoque en el cliente */}
             <div className="col-lg-4">
               <h3>Customer Focus</h3>
-              <p>
-                We place our customers at the heart of everything we do.
-              </p>
+              <p style={{ color: 'black' }}>We place our customers at the heart of everything we do.</p>
             </div>
           </div>
         </div>
 
-        {/* Footer */}
-        <footer className="container py-4">
-          <p className="float-end">
-            <a href="#">Back to top</a>
-          </p>
-          <p>
-            © 2024 Company, Inc. · <a href="#">Privacy</a> · <a href="#">Terms</a>
-          </p>
-        </footer>
+        <Footer/>
+
       </main>
     </>
   );
 };
 
-export default AboutSection;
+export default AboutSection; // Exporta el componente para que pueda ser usado en otras partes de la aplicación.

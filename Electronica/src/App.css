@@ -1,68 +1,129 @@
-.mainframe{
-  
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw; 
-  height: 100vh; 
+/* Estilos generales */
+body {
+  background-color: #e9ecef;
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+}
+
+/* Marco principal */
+.mainframe {
+  display: flex;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #2c3e50, #4ca1af);
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   overflow: hidden;
+}
+
+/* Lado de la imagen */
+.imageside {
+  flex: 1;
   display: flex;
-  background: #1c1f2b;
-}
-/* IMAGESIDE------------------------------------------------- */
-.imageside{
-  display: flex;
-  align-items: start;
-  width: 75vw; 
-}
-.imageside img{
-  margin-top: 25vh;
-  height: 30vh;
-  width: 65%;
-}
-/* -----------------------------------------------------------*/
-
-.boxside{
-  border: solid 1PX #F5F5F5;
-  width: 35%;
-  display: flex;
-  flex-direction: column;
-  align-content: center;
-  color: white
-
-  
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
 }
 
-
-.boxside input{
-  background-color: #1c1f2b;
-  border-color: black;
-  margin-left: 11%;
-  width: 75%;
-  height: 30px;
-}
-.boxside label{
-  margin-top: 10%;
-  margin-left: 11%;
-  text-align: left;
+.imageside img {
+  max-width: 90%;
+  border-radius: 15px;
+  transition: transform 0.4s ease;
 }
 
-.boxside a{
-  margin-left: 11%;
-  text-align: left;
-}
-.boxside button{
-  margin-left: 11%;
-  background-color: black;
-  color: #F5F5F5;
-  height: 50px;
-  width: 75%;
-  margin-top: 10%;
-  margin-bottom: 11%;
-
+.imageside img:hover {
+  transform: scale(1.1) rotate(5deg);
 }
 
-.inputbox{
-  display: flex;
-  flex-direction: column;
+/* Lado del formulario */
+.boxside {
+  flex: 1;
+  background: #ffffff;
+  border-radius: 15px;
+  padding: 2.5rem;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.boxside:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+}
+
+/* Títulos */
+h1 {
+  text-align: center;
+  color: #34495e;
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Estilos de los inputs */
+.inputbox {
+  margin-bottom: 1.5rem;
+}
+
+.inputbox label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #555;
+}
+
+.inputbox input {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  font-size: 16px;
+  transition: border 0.3s, box-shadow 0.3s;
+}
+
+.inputbox input:focus {
+  border-color: #3498db;
+  box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+}
+
+/* Estilos del botón */
+.inputbox button {
+  width: 100%;
+  padding: 12px;
+  background-color: #3498db;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.inputbox button:hover {
+  background-color: #2980b9;
+  transform: translateY(-2px);
+}
+
+/* Estilos de los enlaces */
+.inputbox a {
+  display: block;
+  text-align: center;
+  margin-top: 10px;
+  color: #3498db;
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.3s, text-shadow 0.3s;
+}
+
+.inputbox a:hover {
+  color: #2980b9;
+  text-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+}
+
+/* Estilo para el enlace de contraseña olvidada */
+.inputbox a {
+  font-size: 14px;
 }

@@ -1,0 +1,52 @@
+
+.toggle {
+    font-size: calc(0.5em + 10vw);
+    box-sizing: border-box;
+    position: relative;
+    width: 1em;
+    height: .1em;
+    border-radius: 0.5em;
+    border: 0.015em solid #9f9f9f;
+    background-image: linear-gradient(#f2f2f2, #fff, #f2f2f2);
+    margin: 0.26em 0.15em;
+    cursor: pointer;
+    filter: drop-shadow(0.015em 0.015em 0.01em rgba(0, 0, 0, 0.3));
+    transition: background-image 500ms;
+}
+
+
+.toggle-btn::after {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    width: 50%;
+    font-size: 0.2em;
+    text-align: center;
+    transition: all 1s cubic-bezier(0.25, 0.8, 0.5, 1.4);
+}
+
+.toggle-checkbox {
+    position: absolute;
+    visibility: hidden;
+}
+
+/* Cambia la posición del emoticón al activarse el checkbox */
+.toggle-checkbox:checked + .toggle-btn::after {
+    left: 50%;
+}
+
+/* Happy/Sad Toggle */
+.happy-sad .toggle-btn::after {
+    content: '⚪';
+}
+
+/* Cambia a 😭 cuando está activado el checkbox */
+.happy-sad .toggle-checkbox:checked + .toggle-btn::after {
+    content: '⭐';
+}
+
+/* Cambio de color al activar 😭 */
+.happy-sad .toggle-checkbox:checked ~ .toggle-btn {
+    animation: rainbow 2s infinite linear;
+}
