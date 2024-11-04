@@ -16,6 +16,9 @@ import emailjs from 'emailjs-com';
 //Importa pie de pagina
 import Footer from '../Components/footer';
 
+//alerta personalizada
+import { showToast } from '../hooks/alertas';
+
 // Define el componente funcional ContactSection
 const ContactSection = () => {
   // Define el estado formData para almacenar los datos del formulario
@@ -60,7 +63,7 @@ const ContactSection = () => {
         (response) => {
           // Si el envío es exitoso, muestra un mensaje en la consola y una alerta al usuario
           console.log('Correo enviado exitosamente!', response.status, response.text);
-          alert('¡Correo enviado correctamente!');
+          showToast('¡Correo enviado correctamente!','success');
 
           // Reinicia el formulario estableciendo los valores del estado formData a cadenas vacías
           setFormData({
@@ -73,7 +76,7 @@ const ContactSection = () => {
         (error) => {
           // Si hay un error al enviar el correo, muestra un mensaje en la consola y una alerta al usuario
           console.log('Error al enviar el correo...', error);
-          alert('Error al enviar el correo. Por favor, intenta nuevamente.');
+          showToast('Error al enviar el correo. Por favor, intenta nuevamente.','error');
         }
       );
   };

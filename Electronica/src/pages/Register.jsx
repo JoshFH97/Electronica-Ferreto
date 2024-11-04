@@ -45,9 +45,15 @@ function Register() {
 
       // Se envían los datos del usuario al endpoint mediante una petición POST
       const respuesta = await usingFetch.post(endpoint, user);
+      const existe =respuesta.error=='Usuario ya existia'
+      if (existe) {
+        
+        showToast('Username already exist!','error')
+        return
+      }
 
       // Si la respuesta del servidor indica error, muestra un mensaje de error
-      if (respuesta.success != 201 || respuesta.success == null) {
+      if (respuesta.success != 201&&!existe || respuesta.success == null&&!existe) {
         showToast("Hubo un error intente mas tarde.", "error");
       } else {
         // Si la respuesta es exitosa, muestra un mensaje de éxito y redirige al login

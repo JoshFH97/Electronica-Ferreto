@@ -4,6 +4,8 @@ import { Elements, useStripe, useElements, CardElement } from '@stripe/react-str
 import usingFetch from '../hooks/usingFetch.js'; // Importa un hook personalizado para realizar peticiones HTTP.
 import Cookies from 'js-cookie';
 import '../Payments.css'; // Importa el archivo de estilos CSS para el componente de pagos.
+import { showToast } from '../hooks/alertas.js';//alertas  personalizadas
+
 
 // Carga la clave pública de Stripe para inicializar Stripe.js
 const stripePromise = loadStripe('pk_test_51QABlPRqzbauyrEOs9goZGDL5nouE89NviOHIKc3hgjUE6EGy6BseUV6Zo2zpAXFtBALvwpvsacd5umGdfvQSSmW00Mo35Bby0');
@@ -44,11 +46,11 @@ const Payments = ({ total }) => {
 
         if (error) {
             console.error(error.message); // Muestra un mensaje de error en la consola si el pago falla
-            alert('Payment failed. Please try again.'); // Muestra una alerta al usuario si el pago falla
+            showToast('Payment failed. Please try again.','error');// Muestra una alerta al usuario si el pago falla
         } else if (paymentIntent && paymentIntent.status === 'succeeded') {
             // Si el pago se realiza con éxito, llama a la función para crear la orden y el detalle
             createOrderandDetail();
-            alert('Payment successful!'); // Notifica al usuario que el pago fue exitoso
+            showToast('Payment Successful.','success');// Notifica al usuario que el pago fue exitoso
         }
     };
 
