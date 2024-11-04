@@ -35,10 +35,14 @@ function no_empty(box) {
         console.log('llego al if 2 ',box);
         return true;
     } else {
+        console.log('entra al primer else');
+        
         showToast('no se permiten espacios vacios', 'error');
+        
         return false;
     }
 }else{
+    console.log('entra segundo else');
     
     showToast('no se permiten espacios vacios', 'error');
 

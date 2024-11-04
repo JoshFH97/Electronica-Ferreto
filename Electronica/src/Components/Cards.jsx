@@ -65,25 +65,6 @@ const Cards = ({ endpoint, buscando,  reload, cambiarRecarga,sorteando, sorteado
       
     }
 
-
-    // if (sorteando) {
-
-    //   if (sorteado=='Asc') {
-        
-    //     console.log('llego a lista productos array antes de ordenar::::::::::::::::::::::    ',listaProductos );
-        
-        
-    //     setListaProductos(listaProductos.sort((a, b) => a.precio - b.precio))
-        
-    //     console.log('llego a lista productos array DESPUES de ordenar::::::::::::::::::::::    ',listaProductos );
-    //   }
-    //   if (sorteado=='Desc') {
-        
-    //     setListaProductos(listaProductos.sort((a, b) => b.precio - a.precio))
-    //     console.log('llego a lista productos array DESPUES de ordenar:::::::::DESC:::::::::::::    ',listaProductos );
-    //   }
-    // }
-
    // setListaProductos(dataProductos); // Actualiza la lista de productos con la respuesta de la API.
     console.log(dataProductos);
     
@@ -97,15 +78,6 @@ const Cards = ({ endpoint, buscando,  reload, cambiarRecarga,sorteando, sorteado
     
   
   };
-
-
-
-
-  // Función para eliminar un producto.
-
-
- 
-
 
   // Renderiza los productos en tarjetas.
   return (
@@ -122,7 +94,7 @@ const Cards = ({ endpoint, buscando,  reload, cambiarRecarga,sorteando, sorteado
             />
             {/* Detalles del producto */}
             <div className="card-body p-4">
-              <div className="text-center">
+              <div className="text-center text-black">
                 {producto.id_producto === editando ? ( // Verifica si el producto se está editando.
                   <input type="text" defaultValue={producto.nombre} onChange={(e) => setNombre(e.target.value)} 
                   required data-error="Please enter the name" />

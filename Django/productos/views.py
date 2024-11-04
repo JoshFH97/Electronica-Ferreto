@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from rest_framework import generics
 from rest_framework.response import Response
-from productos.models import Categoria, Producto, Orden
-from productos.serializers import Categoria_Serializer, Producto_Serializer, Orden_Serializer
+from productos.models import Categoria, Detalle, Producto, Orden
+from productos.serializers import Categoria_Serializer, Detalle_Serializer, Producto_Serializer, Orden_Serializer, Detalle_Serializer
 import stripe
 from django.http import JsonResponse
 from django.conf import settings
@@ -19,6 +19,8 @@ from productos.serializers import Producto_Serializer
 from rest_framework.filters import SearchFilter
 
 # Create your views here.
+
+
 
 
 
@@ -68,25 +70,67 @@ class FilterProductsView(ListAPIView):
         return queryset
 
 
-class Payments_View(APIView):
-    stripe.api_key = settings.STRIPE_SECRET_KEY
+import stripe
+from django.conf import settings
+from django.http import JsonResponse
+from django.views import View
 
+stripe.api_key = settings.STRIPE_SECRET_KEY  
+
+class CreateCheckoutSessionView(View):
+    def post(self, request, *args, **kwargs):
+        YOUR_DOMAIN = "http://localhost:5173"
+        try:
+            checkout_session = stripe.checkout.Session.create(
+                payment_method_types=['card'],
+                line_items=[
+                    {
+                        'price_data': {
+                            'currency': 'usd',
+                            'product_data': {
+                                'name': 'Shopping Cart Purchase',
+                            },
+                            'unit_amount': int(request.data.get("amount") * 100),
+                        },
+                        'quantity': 1,
+                    },
+                ],
+                mode='payment',
+                success_url=YOUR_DOMAIN + '/success',
+                cancel_url=YOUR_DOMAIN + '/cancel',
+            )
+            return JsonResponse({
+                'id': checkout_session.id
+            })
+        except Exception as e:
+            return JsonResponse({'error': str(e)})
+
+
+class CreatePaymentIntentView(APIView):
     def post(self, request, *args, **kwargs):
         try:
+<<<<<<< HEAD
             amount = request.data.get('amount', 1000)  # Por defecto 10 USD
             
             # Crear un PaymentIntent con Stripe
             intent = stripe.PaymentIntent.create(
                 amount=amount,
+=======
+            amount = request.data.get('amount')
+            if not amount:
+                return JsonResponse({'error': 'Amount is required.'}, status=400)
+
+            # Create a payment intent with Stripe
+            payment_intent = stripe.PaymentIntent.create(
+                amount=int(amount * 100),  # Convert to cents
+>>>>>>> Josh
                 currency='usd',
-                automatic_payment_methods={'enabled': True},
             )
 
-            return JsonResponse({
-                'clientSecret': intent['client_secret']
-            }, status=200)  # Asegúrate de devolver el status 200 para éxito
+            return JsonResponse({'clientSecret': payment_intent['client_secret']})
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=400)
+
 
 class VerifyPaymentView(APIView):
     stripe.api_key = settings.STRIPE_SECRET_KEY
@@ -113,7 +157,13 @@ class Facturas_View(generics.CreateAPIView):
     
      queryset = Orden.objects.all()
      serializer_class=Orden_Serializer
-          
+
+class Facturas_View_Detalle(generics.CreateAPIView):
+    
+     queryset = Detalle.objects.all()
+     serializer_class=Detalle_Serializer
+
+
 
 class get_Producto_View(generics.ListCreateAPIView):
     queryset = Producto.objects.filter(activo=True)

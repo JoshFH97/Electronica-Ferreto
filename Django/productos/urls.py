@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import SearchNameFilterView, UpdateDestacado, get_Categoria_View, get_Producto_View,ToggleProductoActivoView,EditView, AscPrice,  ProductNombre,Facturas_View,Payments_View, FilterDestacadoView, FilterProductsView, ProductListView,get_ProductoPorCategoria_View;
+from .views import CreateCheckoutSessionView, SearchNameFilterView, UpdateDestacado, get_Categoria_View,Facturas_View_Detalle, get_Producto_View,ToggleProductoActivoView,EditView, AscPrice,  ProductNombre,Facturas_View, FilterDestacadoView, FilterProductsView, ProductListView,get_ProductoPorCategoria_View,CreatePaymentIntentView;
 
 
 urlpatterns = [
@@ -9,7 +9,8 @@ urlpatterns = [
   path('productos/<str:nombre>/', ProductNombre.as_view(), name="producto"),
   path('productos/categoria/<int:id>/ordenar/<str:value>/', AscPrice.as_view(), name='asc_price'),
   path('orden/', Facturas_View.as_view(), name="orden"),
-  path('create-payment-intent/', Payments_View.as_view(), name='payments'),
+  path('orden/detalle', Facturas_View_Detalle.as_view(), name='detalleConexion'),
+  path('create-checkout-session/', CreateCheckoutSessionView.as_view(), name='create-checkout-session'),
   path('productos/destacados/', FilterDestacadoView.as_view(), name='destacado'),
   path('productosUpdateDestacados/<int:id_producto>/', UpdateDestacado.as_view(), name='destacado'),
   path('producto/busqueda/<str:nombre>/', SearchNameFilterView.as_view(), name='nombre'),
@@ -17,5 +18,7 @@ urlpatterns = [
   path('filtro/nombre/', ProductListView.as_view(), name='filter_name'),
   path('categorias/',get_Categoria_View.as_view(), name='get categories' ),
   path('productos/traerporcategorias/<int:id_categoria>/', get_ProductoPorCategoria_View.as_view(), name='get_producto_view'),
+  path('create-payment-intent/', CreatePaymentIntentView.as_view(), name='create-payment-intent'),
+
 
 ]

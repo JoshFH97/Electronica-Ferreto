@@ -1,79 +1,84 @@
 import { useNavigate, useLocation } from "react-router-dom";  
-import 'bootstrap/dist/css/bootstrap.min.css'; // Importación de los estilos de Bootstrap
+import 'bootstrap/dist/css/bootstrap.min.css'; // Importa estilos de Bootstrap
 import { useState, useEffect } from "react";
-import { button } from "framer-motion/client";
 import Cookies from 'js-cookie';
-import { showToast } from '../hooks/alertas.js';
+import { showToast } from '../hooks/alertas.js'; // Importa función para mostrar alertas al usuario
 
 function Navbar() {
-  const navigate = useNavigate();
-  const location = useLocation(); // Para saber la URL actual
-  const [activeLink, setActiveLink] = useState(location.pathname);
-  const [reder,setRender]=useState()
-  const admin=Cookies.get('superUser')==='true'
-  const LogedIn = Cookies.get('token') != null && Cookies.get('token') !== '';
-  const [reloading,setReloading]=useState(Cookies.get('reloadState'))
-  const [objCarrito, setObjCarrito] = useState(JSON.parse(Cookies.get(Cookies.get('userID')) || '[]'));
-  const valor = localStorage.getItem('reloadState');
-  
-  
-  
-  
+  const navigate = useNavigate(); // Hook para redirigir a diferentes rutas
+  const location = useLocation(); // Obtiene la ubicación actual (URL) de la página
 
-  // Actualiza el estado `activeLink` cuando la URL cambia
+  // Estado para almacenar el enlace activo en la barra de navegación
+  const [activeLink, setActiveLink] = useState(location.pathname);
+
+  // Estado para controlar la renderización
+  const [reder, setRender] = useState();
+
+  // Verifica si el usuario es administrador mediante la cookie 'superUser'
+  const admin = Cookies.get('superUser') === 'true';
+
+  // Verifica si el usuario está logueado al comprobar si existe la cookie 'token'
+  const LogedIn = Cookies.get('token') != null && Cookies.get('token') !== '';
+
+  // Estado para forzar la recarga de componentes basándose en 'reloadState' de las cookies
+  const [reloading, setReloading] = useState(Cookies.get('reloadState'));
+
+  // Estado que almacena los productos del carrito, inicializado desde la cookie del usuario
+  const [objCarrito, setObjCarrito] = useState(JSON.parse(Cookies.get(Cookies.get('userID')) || '[]'));
+
+  // Variable que guarda el estado de recarga desde localStorage
+  const valor = localStorage.getItem('reloadState');
+
+  // Actualiza el enlace activo cuando la URL cambia
   useEffect(() => {
     setActiveLink(location.pathname);
   }, [location.pathname]);
-  useEffect(()=>{
-    
-    
-  },[objCarrito])
 
+  // Efecto que depende de `objCarrito` (implementado pero sin lógica añadida)
+  useEffect(() => {}, [objCarrito]);
 
-  useEffect(()=>{
+  // Efecto para gestionar la recarga de la barra de navegación cuando `reloading` o `valor` cambian
+  useEffect(() => {}, [reloading, valor]);
 
-  console.log("Navbar reloaded due to prop change:", reloading);
-  console.log("Navbar reloaded trying to use localstorage:", valor);
-
-  
-  },[reloading,valor])
+  // Función para cambiar el enlace activo y redirigir
   const changeActiveLink = (url) => {
-    navigate(url);
+    navigate(url); // Redirige a la URL proporcionada
   };
 
+  // Efecto para actualizar el carrito de compras periódicamente
   useEffect(() => {
     const actualizarCarrito = () => {
-        const carritoActualizado = JSON.parse(Cookies.get(Cookies.get('userID')) || '[]');
-        setObjCarrito(carritoActualizado);
+      const carritoActualizado = JSON.parse(Cookies.get(Cookies.get('userID')) || '[]');
+      setObjCarrito(carritoActualizado);
     };
-    
-    actualizarCarrito();
-    const interval = setInterval(actualizarCarrito, 1000); // Revisa cada segundo
-    return () => clearInterval(interval);
-}, []);
 
+    actualizarCarrito(); // Llama una vez al cargar el componente
 
+    // Establece un intervalo para actualizar el carrito cada segundo
+    const interval = setInterval(actualizarCarrito, 1000);
+    return () => clearInterval(interval); // Limpia el intervalo al desmontar el componente
+  }, []);
 
-const logout=()=>{
-  Cookies.remove('token'); // Elimina la cookie del token
-  Cookies.remove('superUser'); // Elimina la cookie de superUser
-  showToast('Sesion Terminada', 'info');
-  changeActiveLink('/')
-  window.location.reload()
-}
-
+  // Función para cerrar sesión
+  const logout = () => {
+    Cookies.remove('token'); // Elimina la cookie del token
+    Cookies.remove('superUser'); // Elimina la cookie de permisos de administrador
+    showToast('Sesión Terminada', 'info'); // Muestra notificación de sesión terminada
+    changeActiveLink('/'); // Redirige a la página principal
+    window.location.reload(); // Recarga la página
+  };
 
   return (
     <> 
-      {/* Inicio del Navbar o barra de navegación */}
+      {/* Navbar o barra de navegación principal */}
       <nav className="navbar navbar-expand-md navbar-dark bg-dark fixed-top text-light">
         <div className="container px-4 px-lg-5">
-          {/* Logo o nombre de la marca */}
+          {/* Logo o nombre de la marca con funcionalidad de redirección */}
           <a className="navbar-brand" onClick={() => changeActiveLink('/')}>
             Electronia Ferreto
           </a>
 
-          {/* Botón para alternar el menú en dispositivos móviles */}
+          {/* Botón para desplegar el menú en dispositivos móviles */}
           <button
             className="navbar-toggler"
             type="button"
@@ -83,23 +88,23 @@ const logout=()=>{
             aria-expanded="false"
             aria-label="Toggle navigation"
           >
-            {/* incono del toggle */}
+            {/* Icono del botón de despliegue */}
             <span className="navbar-toggler-icon"></span> 
           </button>
 
-          {/* Contenedor colapsable del menú */}
+          {/* Menú colapsable con enlaces de navegación */}
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-              {/* Enlaces de navegación */}
+              {/* Enlace hacia la página "About" */}
               <li className="nav-item">
                 <a
                   className={`nav-link ${activeLink === '/About' ? 'active' : ''}`}
-                  aria-current="page"
                   onClick={() => changeActiveLink('/About')}
                 >
                   About
                 </a>
               </li>
+              {/* Enlace hacia la página "Contact" */}
               <li className="nav-item">
                 <a
                   className={`nav-link ${activeLink === '/Contact' ? 'active' : ''}`}
@@ -108,6 +113,7 @@ const logout=()=>{
                   Contact
                 </a>
               </li>
+              {/* Enlace "Add" visible solo para administradores */}
               {admin ? (
               <li className="nav-item">
                 <a
@@ -115,16 +121,15 @@ const logout=()=>{
                   onClick={() => changeActiveLink('/agregar')}
                 >
                   Add
-
                 </a>
-              </li>):<></>}
+              </li>
+              ) : null}
 
-              {/* Menú desplegable (dropdown) para la tienda */}
+              {/* Menú desplegable "Shop" con subenlaces */}
               <li className="nav-item dropdown">
                 <a
                   className="nav-link dropdown-toggle"
                   id="navbarDropdown"
-                  href="#"
                   role="button"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
@@ -140,32 +145,31 @@ const logout=()=>{
                       All Products
                     </a>
                   </li>
-
                 </ul>
               </li>
             </ul>
 
-            {/* Formulario del carrito de compras con icono y contador */}
+            {/* Icono de carrito de compras con contador */}
             <form className="d-flex">
-{ LogedIn?<button className = "btn btn-outline-dark text-white" type="submit" onClick={() => changeActiveLink('/Cart')}>
-
-                <i className="fa-solid fa-cart-shopping bg-dark text-white"></i>
-                {/* Icono del carrito */}
-                Cart
-                <span className="badge bg-light text-black ms-1 rounded-pill">{objCarrito.length}</span>  
-                {/* Contador del carrito */}
-              </button>:<></>}
               {LogedIn ? (
-                    <button className="btn btn-outline-dark text-white" onClick={logout}>
-                    <i className="bi bi-box-arrow-in-left"></i>
-                            Logout
-                     </button>
-                    ) : (
-                   <button className="btn btn-outline-dark text-white" onClick={() => changeActiveLink('/LOGIN')}>
-                           Log In
-                   </button>
-                   )}
+                <button className="btn btn-outline-dark text-white" type="submit" onClick={() => changeActiveLink('/Cart')}>
+                  <i className="fa-solid fa-cart-shopping bg-dark text-white"></i>
+                  Cart
+                  <span className="badge bg-light text-black ms-1 rounded-pill">{objCarrito.length}</span>
+                </button>
+              ) : null}
 
+              {/* Botón para login o logout según el estado de sesión */}
+              {LogedIn ? (
+                <button className="btn btn-outline-dark text-white" onClick={logout}>
+                  <i className="bi bi-box-arrow-in-left"></i>
+                  Logout
+                </button>
+              ) : (
+                <button className="btn btn-outline-dark text-white" onClick={() => changeActiveLink('/LOGIN')}>
+                  Log In
+                </button>
+              )}
             </form>
           </div>
         </div>
