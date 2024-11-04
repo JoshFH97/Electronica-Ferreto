@@ -4,6 +4,7 @@ import { showToast } from '../hooks/alertas.js';
 import usingFetch from '../hooks/usingFetch.js'; 
 import { loadStripe } from "@stripe/stripe-js"; 
 import { Elements, CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
+import Factura from "./Factura.jsx";
 
 const stripePromise = loadStripe("pk_test_51QABlPRqzbauyrEOs9goZGDL5nouE89NviOHIKc3hgjUE6EGy6BseUV6Zo2zpAXFtBALvwpvsacd5umGdfvQSSmW00Mo35Bby0");
 
@@ -121,8 +122,11 @@ const WrappedPayments = () => {
   return (
     <Elements stripe={stripePromise}>
       <Payments />
+      <Factura/>
     </Elements>
+    
   );
+  
 };
 
 export default WrappedPayments;
