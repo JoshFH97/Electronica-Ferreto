@@ -109,6 +109,13 @@ class CreateCheckoutSessionView(View):
 class CreatePaymentIntentView(APIView):
     def post(self, request, *args, **kwargs):
         try:
+<<<<<<< HEAD
+            amount = request.data.get('amount', 1000)  # Por defecto 10 USD
+            
+            # Crear un PaymentIntent con Stripe
+            intent = stripe.PaymentIntent.create(
+                amount=amount,
+=======
             amount = request.data.get('amount')
             if not amount:
                 return JsonResponse({'error': 'Amount is required.'}, status=400)
@@ -116,6 +123,7 @@ class CreatePaymentIntentView(APIView):
             # Create a payment intent with Stripe
             payment_intent = stripe.PaymentIntent.create(
                 amount=int(amount * 100),  # Convert to cents
+>>>>>>> Josh
                 currency='usd',
             )
 

@@ -1,3 +1,12 @@
+<<<<<<< HEAD
+import { useState, useEffect } from "react";
+import Cookies from 'js-cookie'; 
+import { showToast } from '../hooks/alertas.js'; 
+import usingFetch from '../hooks/usingFetch.js'; 
+import { loadStripe } from "@stripe/stripe-js"; 
+import { Elements, CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
+import Factura from "./Factura.jsx";
+=======
 import React from 'react';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements, useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
@@ -5,6 +14,7 @@ import usingFetch from '../hooks/usingFetch.js'; // Importa un hook personalizad
 import Cookies from 'js-cookie';
 import '../Payments.css'; // Importa el archivo de estilos CSS para el componente de pagos.
 import { showToast } from '../hooks/alertas.js';//alertas  personalizadas
+>>>>>>> Josh
 
 
 // Carga la clave pública de Stripe para inicializar Stripe.js
@@ -120,8 +130,18 @@ const Payments = ({ total }) => {
 // Componente que envuelve el componente Payments dentro de Elements para manejar el contexto de Stripe
 const WrappedPayments = ({ total }) => (
     <Elements stripe={stripePromise}>
+<<<<<<< HEAD
+      <Payments />
+      <Factura/>
+    </Elements>
+    
+  );
+  
+};
+=======
         <Payments total={total} />
     </Elements>
 );
+>>>>>>> Josh
 
 export default WrappedPayments; // Exporta el componente WrappedPayments para su uso en otras partes de la aplicación

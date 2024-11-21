@@ -47,12 +47,9 @@ const FilterByName = (e) => {
 
 const  bringCategorias=async()=>{
   const categoriasEndpoint= '/api/categorias';
-
   const dataProductos = await usingFetch.get(categoriasEndpoint); // Realiza la petición para obtener los productos.
   console.log(dataProductos);
-  
   setTraerCategorias(dataProductos)
-
   console.log('traer categorias ',traerCategorias);
   
 
@@ -63,22 +60,13 @@ const applyFilters = () => {
   console.log('llega a la funcion applyfilter');
   if (categoria=='') {
     setEndpoint(`/api/productos`);
-    
-    
   }else{
-    
     setEndpoint(`/api/productos/traerporcategorias/${categoria}`);
-    
   }
- 
-
   console.log(`Endpoint generado: ${endpoint}`);
   if (orden) {
-    setSorteando(true)
-    
+    setSorteando(true)  
 console.log('entra al if');
-
-
   } 
 
   
